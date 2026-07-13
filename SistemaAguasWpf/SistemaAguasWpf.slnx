@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="WebApiBackEnd/WebApiBackEnd.csproj" Id="3d4f69fe-d6b8-48c7-ae64-4181b029edb8" />
+  <Project Path="WpfFrontEnd/WpfFrontEnd.csproj" Id="577a8101-07e4-482b-acbb-8551a6e554c8" />
+</Solution>

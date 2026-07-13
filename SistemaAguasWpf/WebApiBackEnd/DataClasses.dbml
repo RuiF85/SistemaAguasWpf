@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="SistemaAguas" Class="DataClassesDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Table Name="dbo.Clientes" Member="Clientes">
+    <Type Name="Cliente">
+      <Column Name="IdCLiente" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Nome" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Apelido" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Morada" Type="System.String" DbType="VarChar(150) NOT NULL" CanBeNull="false" />
+      <Column Name="Nif" Type="System.String" DbType="Char(9) NOT NULL" CanBeNull="false" />
+      <Column Name="Contacto" Type="System.String" DbType="VarChar(9)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="CodigoPostal" Type="System.String" DbType="VarChar(8)" CanBeNull="true" />
+      <Column Name="Localidade" Type="System.String" DbType="VarChar(25)" CanBeNull="true" />
+      <Column Name="Ativo" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="Cliente_Contadore" Member="Contadores" ThisKey="IdCLiente" OtherKey="IdCliente" Type="Contadore" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Consumos" Member="Consumos">
+    <Type Name="Consumo">
+      <Column Name="IdConsumo" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IdContador" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Data" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="LeituraAtual" Type="System.Decimal" DbType="Decimal(10,3) NOT NULL" CanBeNull="false" />
+      <Column Name="ConsumoCalculado" Type="System.Decimal" DbType="Decimal(10,3) NOT NULL" CanBeNull="false" />
+      <Column Name="IdFatura" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Contadore_Consumo" Member="Contadore" ThisKey="IdContador" OtherKey="IdContador" Type="Contadore" IsForeignKey="true" />
+      <Association Name="Fatura_Consumo" Member="Fatura" ThisKey="IdFatura" OtherKey="IdFatura" Type="Fatura" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Contadores" Member="Contadores">
+    <Type Name="Contadore">
+      <Column Name="IdContador" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IdCliente" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="NumeroContador" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="DataInstalacao" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="Ativo" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="Contadore_Consumo" Member="Consumos" ThisKey="IdContador" OtherKey="IdContador" Type="Consumo" />
+      <Association Name="Cliente_Contadore" Member="Cliente" ThisKey="IdCliente" OtherKey="IdCLiente" Type="Cliente" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.EstadoFatura" Member="EstadoFaturas">
+    <Type Name="EstadoFatura">
+      <Column Name="IdEstadoFatura" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Descricao" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Association Name="EstadoFatura_Fatura" Member="Faturas" ThisKey="IdEstadoFatura" OtherKey="IdEstadoFatura" Type="Fatura" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Faturas" Member="Faturas">
+    <Type Name="Fatura">
+      <Column Name="IdFatura" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IdCliente" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IdContador" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="DataFatura" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="Consumo" Type="System.Decimal" DbType="Decimal(10,3) NOT NULL" CanBeNull="false" />
+      <Column Name="ValorTotal" Type="System.Decimal" DbType="Decimal(10,2) NOT NULL" CanBeNull="false" />
+      <Column Name="IdEstadoFatura" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Fatura_Consumo" Member="Consumos" ThisKey="IdFatura" OtherKey="IdFatura" Type="Consumo" />
+      <Association Name="EstadoFatura_Fatura" Member="EstadoFatura" ThisKey="IdEstadoFatura" OtherKey="IdEstadoFatura" Type="EstadoFatura" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>

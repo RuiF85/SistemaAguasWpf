@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="DataClasses">
+  <DataContextMoniker Name="/DataClassesDataContext" />
+  <nestedChildShapes>
+    <classShape Id="fa62362f-642e-4ed4-9fa1-0dd4e7381660" absoluteBounds="0.75, 4.625, 2, 2.8917362467447916">
+      <DataClassMoniker Name="/DataClassesDataContext/Cliente" />
+      <nestedChildShapes>
+        <elementListCompartment Id="772b4cbd-1a8f-454d-ad0a-b628265a7ce7" absoluteBounds="0.765, 5.085, 1.9700000000000002, 2.3317362467447915" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="2a599b2f-a401-4181-9183-c0669d0e17b1" absoluteBounds="6.25, 1, 2, 2.0671105957031246">
+      <DataClassMoniker Name="/DataClassesDataContext/Consumo" />
+      <nestedChildShapes>
+        <elementListCompartment Id="a9956ccf-2477-4010-86fa-18294d6b2752" absoluteBounds="6.265, 1.46, 1.9700000000000002, 1.507110595703125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="6a535932-0841-49a8-b77f-47c7b29c2441" absoluteBounds="3.5, 5.25, 2, 1.8609541829427076">
+      <DataClassMoniker Name="/DataClassesDataContext/Contadore" />
+      <nestedChildShapes>
+        <elementListCompartment Id="ef2434fb-23da-4b73-acf8-3902ba20cd45" absoluteBounds="3.515, 5.71, 1.9700000000000002, 1.3009541829427083" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="a4fd2042-e168-425e-9f19-1a0fdd502cf6" absoluteBounds="0.75, 1.5, 2, 1.2424849446614585">
+      <DataClassMoniker Name="/DataClassesDataContext/EstadoFatura" />
+      <nestedChildShapes>
+        <elementListCompartment Id="762f1f4b-6798-4b16-abf4-e6dd4b5e26c0" absoluteBounds="0.765, 1.96, 1.9700000000000002, 0.68248494466145826" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="1561b79d-37c9-4e06-b6aa-73b743ff6295" absoluteBounds="3.5, 1, 2, 2.2732670084635416">
+      <DataClassMoniker Name="/DataClassesDataContext/Fatura" />
+      <nestedChildShapes>
+        <elementListCompartment Id="2bf6ae5a-7f9c-4b3c-a041-a8be32462c15" absoluteBounds="3.515, 1.46, 1.9700000000000002, 1.7132670084635415" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(5.5 : 6.18047709147135); (7.25 : 6.18047709147135); (7.25 : 3.06711059570312)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/DataClassesDataContext/Contadore/Contadore_Consumo" />
+      <nodes>
+        <classShapeMoniker Id="6a535932-0841-49a8-b77f-47c7b29c2441" />
+        <classShapeMoniker Id="2a599b2f-a401-4181-9183-c0669d0e17b1" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.75 : 6.18047709147135); (3.5 : 6.18047709147135)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/DataClassesDataContext/Cliente/Cliente_Contadore" />
+      <nodes>
+        <classShapeMoniker Id="fa62362f-642e-4ed4-9fa1-0dd4e7381660" />
+        <classShapeMoniker Id="6a535932-0841-49a8-b77f-47c7b29c2441" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(5.5 : 2.03355529785156); (6.25 : 2.03355529785156)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/DataClassesDataContext/Fatura/Fatura_Consumo" />
+      <nodes>
+        <classShapeMoniker Id="1561b79d-37c9-4e06-b6aa-73b743ff6295" />
+        <classShapeMoniker Id="2a599b2f-a401-4181-9183-c0669d0e17b1" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.75 : 2.12124247233073); (3.5 : 2.12124247233073)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/DataClassesDataContext/EstadoFatura/EstadoFatura_Fatura" />
+      <nodes>
+        <classShapeMoniker Id="a4fd2042-e168-425e-9f19-1a0fdd502cf6" />
+        <classShapeMoniker Id="1561b79d-37c9-4e06-b6aa-73b743ff6295" />
+      </nodes>
+    </associationConnector>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>
