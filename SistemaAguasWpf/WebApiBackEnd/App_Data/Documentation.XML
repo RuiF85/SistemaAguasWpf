@@ -483,30 +483,30 @@
         </member>
         <member name="M:WebApiBackEnd.Controllers.ClientesController.Get">
             <summary>
-            
+            Gets all clients.
             </summary>
-            <returns>list names of all Clients</returns>
+            <returns>List  of Clients.</returns>
         </member>
         <member name="M:WebApiBackEnd.Controllers.ClientesController.Get(System.Int32)">
             <summary>
-            
+            Gets a client by Id.
             </summary>
             <param name="id"></param>
-            <returns></returns>
+            <returns>The client if found.</returns>
         </member>
         <member name="M:WebApiBackEnd.Controllers.ClientesController.Post(WebApiBackEnd.Cliente)">
             <summary>
-            
+            Creates a new client.
             </summary>
             <param name="novoCliente"></param>
-            <returns></returns>
+            <returns>The created client.</returns>
         </member>
         <member name="M:WebApiBackEnd.Controllers.ClientesController.Put(WebApiBackEnd.Cliente)">
             <summary>
-            
+            Updates an existing client.
             </summary>
             <param name="clienteAlterado"></param>
-            <returns></returns>
+            <returns>The update result.</returns>
         </member>
         <member name="M:WebApiBackEnd.Controllers.ClientesController.Delete(System.Int32)">
             <summary>
@@ -515,39 +515,71 @@
             <param name="id"></param>
             <returns></returns>
         </member>
+        <member name="M:WebApiBackEnd.Controllers.ConsumosController.Get">
+            <summary>
+            Get all consumos.
+            </summary>
+            <returns>List of consumos</returns>
+        </member>
+        <member name="M:WebApiBackEnd.Controllers.ConsumosController.Get(System.Int32)">
+            <summary>
+            Get a consumo by Id.
+            </summary>
+            <param name="id"></param>
+            <returns>The consumo if found.</returns>
+        </member>
+        <member name="M:WebApiBackEnd.Controllers.ConsumosController.Post(WebApiBackEnd.Consumo)">
+            <summary>
+            Creates a new Consumo.
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:WebApiBackEnd.Controllers.ConsumosController.Put(WebApiBackEnd.Consumo)">
+            <summary>
+            
+            </summary>
+            <param name="id"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:WebApiBackEnd.Controllers.ConsumosController.Delete(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="id"></param>
+        </member>
         <member name="M:WebApiBackEnd.Controllers.ContadoresController.Get">
             <summary>
-            Get Contador
+            Get all Contador
             </summary>
-            <returns></returns>
+            <returns>List of counters.</returns>
         </member>
         <member name="M:WebApiBackEnd.Controllers.ContadoresController.Get(System.Int32)">
             <summary>
-            
+            Gets a counter by Id.
             </summary>
             <param name="id"></param>
-            <returns></returns>
+            <returns>The counter if found..</returns>
         </member>
         <member name="M:WebApiBackEnd.Controllers.ContadoresController.Post(WebApiBackEnd.Contadore)">
             <summary>
-            
+            Creates a new counter.
             </summary>
             <param name="novoContador"></param>
-            <returns></returns>
+            <returns>The created counter.</returns>
         </member>
         <member name="M:WebApiBackEnd.Controllers.ContadoresController.Put(WebApiBackEnd.Contadore)">
             <summary>
-            
+            Updates an existing counter.
             </summary>
             <param name="contadorAlterado"></param>
-            <returns></returns>
+            <returns>The update result.</returns>
         </member>
         <member name="M:WebApiBackEnd.Controllers.ContadoresController.Delete(System.Int32)">
             <summary>
-            
+            Deletes a counter by Id.
             </summary>
             <param name="id"></param>
-            <returns></returns>
+            <returns>The delete result.</returns>
         </member>
     </members>
 </doc>

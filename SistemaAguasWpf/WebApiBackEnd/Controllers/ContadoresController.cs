@@ -27,6 +27,8 @@ namespace WebApiBackEnd.Controllers
             var lista = from Contador in dc.Contadores orderby Contador.IdContador  select Contador;
             return lista.ToList();
         }
+
+
         /// <summary>
         /// Gets a counter by Id.
         /// </summary>
@@ -44,6 +46,8 @@ namespace WebApiBackEnd.Controllers
             return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, "Contador não encontrado")); ;
         }
 
+
+
         /// <summary>
         /// Creates a new counter.
         /// </summary>
@@ -52,13 +56,28 @@ namespace WebApiBackEnd.Controllers
         // POST api/<controller>
         public IHttpActionResult Post([FromBody] Contadore novoContador)
         {
-            Contadore contador = dc.Contadores.SingleOrDefault(c => c.IdContador == novoContador.IdContador);
+            if (novoContador == null)
+            {
+                return ResponseMessage(Request.CreateResponse(HttpStatusCode.BadRequest,
+                    "Tem que introduzir os dados do contador."));
+            }
 
-            if (contador != null)
+            Cliente cliente = dc.Clientes.SingleOrDefault(c => c.IdCLiente == novoContador.IdCliente);
+
+            if (cliente == null)
+            {
+                return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound,
+                    "Não existe nenhum cliente com esse Id."));
+            }
+
+            Contadore contadorMesmoNumero = dc.Contadores.FirstOrDefault(c => c.NumeroContador == novoContador.NumeroContador);
+
+            if ( contadorMesmoNumero != null )
             {
                 return ResponseMessage(Request.CreateResponse(HttpStatusCode.Conflict,
-                    "Já existe um contador resgistado com esse Id"));
+                    "Já existe um contador registado com esse número."));
             }
+
             dc.Contadores.InsertOnSubmit(novoContador);
 
             try
@@ -73,6 +92,7 @@ namespace WebApiBackEnd.Controllers
             return ResponseMessage(Request.CreateResponse(HttpStatusCode.Created, novoContador));
         }
 
+
         /// <summary>
         /// Updates an existing counter.
         /// </summary>
@@ -81,6 +101,13 @@ namespace WebApiBackEnd.Controllers
         // PUT api/<controller>/5
         public IHttpActionResult Put([FromBody] Contadore contadorAlterado)
         {
+            if(contadorAlterado == null)
+            {
+                return ResponseMessage(Request.CreateResponse(HttpStatusCode.BadRequest,
+                    "Os dados do contador são obrigatórios"));
+            }
+
+
             Contadore contador = dc.Contadores.SingleOrDefault(c => c.IdContador == contadorAlterado.IdContador);
 
             if (contador == null)
@@ -95,8 +122,18 @@ namespace WebApiBackEnd.Controllers
             if (cliente == null)
             {
                 return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound,
-                    "Não existe nenhum cliente com esse Id para poder alterar"));
+                    "Não existe nenhum cliente com esse Id "));
             }
+
+            Contadore contadorMesmoNumero = dc.Contadores.FirstOrDefault(
+                c => c.NumeroContador == contadorAlterado.NumeroContador && c.IdContador != contadorAlterado.IdContador);
+
+            if(contadorMesmoNumero != null)
+            {
+                return ResponseMessage(Request.CreateResponse(HttpStatusCode.Conflict,
+                    "Já existe outro contador registado com esse número"));
+            }
+
             contador.IdCliente = contadorAlterado.IdCliente;
             contador.NumeroContador = contadorAlterado.NumeroContador;
             contador.DataInstalacao = contadorAlterado.DataInstalacao;
@@ -112,9 +149,12 @@ namespace WebApiBackEnd.Controllers
                     HttpStatusCode.ServiceUnavailable, e));
             }
 
-            return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK));
+            return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK,
+                "Contador alterado com sucesso"));
 
         }
+
+
         /// <summary>
         /// Deletes a counter by Id.
         /// </summary>
@@ -125,22 +165,40 @@ namespace WebApiBackEnd.Controllers
         {
             Contadore contador = dc.Contadores.SingleOrDefault(c => c.IdContador == id);
 
-            if (contador != null)
+            if (contador == null)
             {
-                dc.Contadores.DeleteOnSubmit(contador);
-                try
-                {
-                    dc.SubmitChanges();
-                }
-                catch (Exception e)
-                {
-                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.ServiceUnavailable, e));
-                }
-
-                return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK));
+                return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound,
+                    "Não existe nenhum contador com esse Id para poder eliminar"));
             }
-            return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound,
-                "Não existe nenhum contador com esse Id para poder eliminar"));
+
+            var temConsumos = dc.Consumos.Any(c => c.IdContador == id);
+
+            if (temConsumos)
+            {
+                return ResponseMessage(Request.CreateResponse(HttpStatusCode.Conflict,
+                    "O contador não pode ser eliminado porque possui consumos associados"));
+            }
+
+            var temFaturas = dc.Faturas.Any( f => f.IdContador == id);
+            if (temFaturas)
+            {
+                return ResponseMessage(Request.CreateResponse(HttpStatusCode.Conflict, "" +
+                    "O contador não pode ser eliminado porque possui Faturas associadas"));
+            }
+
+            dc.Contadores.DeleteOnSubmit(contador);
+            try
+            {
+                dc.SubmitChanges();
+            }
+            catch (Exception e)
+            {
+                return ResponseMessage(Request.CreateResponse(HttpStatusCode.InternalServerError, e.Message));
+            }
+
+
+            return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK,
+                "Contador eliminado com sucesso"));
         }
     }
 }

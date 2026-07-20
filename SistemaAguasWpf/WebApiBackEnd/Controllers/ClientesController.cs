@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Data.Linq;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -21,11 +20,13 @@ namespace WebApiBackEnd.Controllers
         /// </summary>
         /// <returns>List  of Clients.</returns>
         // GET api/<controller>
-        public List<Cliente> Get() 
-        { 
+        public List<Cliente> Get()
+        {
             var lista = from Cliente in dc.Clientes orderby Cliente.IdCLiente select Cliente;
             return lista.ToList();
         }
+
+
         /// <summary>
         /// Gets a client by Id.
         /// </summary>
@@ -44,6 +45,7 @@ namespace WebApiBackEnd.Controllers
 
         }
 
+
         /// <summary>
         /// Creates a new client.
         /// </summary>
@@ -52,12 +54,31 @@ namespace WebApiBackEnd.Controllers
         // POST api/<controller>
         public IHttpActionResult Post([FromBody] Cliente novoCliente)
         {
-            Cliente cliente = dc.Clientes.FirstOrDefault(c => c.IdCLiente == novoCliente.IdCLiente);
 
-            if (cliente != null)
+            if (novoCliente == null)
             {
-                return ResponseMessage(Request.CreateResponse(HttpStatusCode.Conflict, 
-                    "Já existe um Cliente registado com esse Id"));
+                return ResponseMessage(Request.CreateResponse(HttpStatusCode.BadRequest, "Os dados do cliente são obrigatórios-"));
+            }
+
+            Cliente clienteMesmoNif = dc.Clientes.FirstOrDefault(c => c.Nif == novoCliente.Nif);
+
+            if (clienteMesmoNif != null)
+            {
+                return ResponseMessage(Request.CreateResponse(HttpStatusCode.Conflict,
+                    "Já existe um Cliente registado com esse Nif"));
+            }
+
+            if (!string.IsNullOrWhiteSpace(novoCliente.Email))
+            {
+
+                Cliente clienteMesmoEmail = dc.Clientes.FirstOrDefault(c => c.Email == novoCliente.Email);
+
+                if (clienteMesmoEmail != null)
+                {
+                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.Conflict,
+                        "Já existe um Cliente  com esse Email"));
+                }
+
             }
 
             dc.Clientes.InsertOnSubmit(novoCliente);
@@ -74,22 +95,54 @@ namespace WebApiBackEnd.Controllers
 
             return ResponseMessage(Request.CreateResponse(HttpStatusCode.Created, novoCliente));
         }
-       /// <summary>
-       /// Updates an existing client.
-       /// </summary>
-       /// <param name="clienteAlterado"></param>
-       /// <returns>The update result.</returns>
+
+
+        /// <summary>
+        /// Updates an existing client.
+        /// </summary>
+        /// <param name="clienteAlterado"></param>
+        /// <returns>The update result.</returns>
         // PUT api/<controller>/5
         public IHttpActionResult Put([FromBody] Cliente clienteAlterado)
         {
-          Cliente cliente = dc.Clientes.FirstOrDefault(c => c.IdCLiente == clienteAlterado.IdCLiente);
-        
-             if(cliente == null)
-             {
+
+            if (clienteAlterado == null)
+            {
+                return ResponseMessage(Request.CreateResponse(HttpStatusCode.BadRequest,
+                    "Os dados do cliente são obrigatórios"));
+            }
+
+            Cliente cliente = dc.Clientes.FirstOrDefault(c => c.IdCLiente == clienteAlterado.IdCLiente);
+
+            if (cliente == null)
+            {
                 return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound,
                     "Não existe nenhum Cliente com esse Id para poder alterar"));
-             }
-            
+            }
+
+            Cliente clienteMesmoNif = dc.Clientes.FirstOrDefault(
+                c => c.Nif == clienteAlterado.Nif && c.IdCLiente != clienteAlterado.IdCLiente);
+
+            if (clienteMesmoNif != null)
+            {
+                return ResponseMessage(Request.CreateResponse(HttpStatusCode.Conflict,
+                    "Já existe um Cliente registado com esse Nif"));
+            }
+
+            if (!string.IsNullOrWhiteSpace(clienteAlterado.Email))
+            {
+
+                Cliente clienteMesmoEmail = dc.Clientes.FirstOrDefault(
+                    c => c.Email == clienteAlterado.Email && c.IdCLiente != clienteAlterado.IdCLiente);
+
+                if (clienteMesmoEmail != null)
+                {
+                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.Conflict,
+                        "Já existe um Cliente  com esse Email"));
+                }
+
+            }
+
             cliente.Nome = clienteAlterado.Nome;
             cliente.Apelido = clienteAlterado.Apelido;
             cliente.Morada = clienteAlterado.Morada;
@@ -110,36 +163,57 @@ namespace WebApiBackEnd.Controllers
                     HttpStatusCode.ServiceUnavailable, e));
             }
 
-            return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK));
+            return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK,
+                "Cliente alterado com sucesso"));
 
         }
+
+
         /// <summary>
         /// 
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
         // DELETE api/<controller>/5
-      
         public IHttpActionResult Delete(int id)
         {
-            Cliente cliente = dc.Clientes.FirstOrDefault( c => c.IdCLiente == id);
+            Cliente cliente = dc.Clientes.FirstOrDefault(c => c.IdCLiente == id);
 
-            if (cliente != null)
+            if (cliente == null)
             {
-                dc.Clientes.DeleteOnSubmit(cliente);
-                try
-                {
-                    dc.SubmitChanges();
-                }
-                catch(Exception e)
-                {
-                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.ServiceUnavailable, e));
-                }
-                return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK));
+                return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound,
+                    "Não existe nenhum Cliente com esse Id para poder eliminar"));
             }
 
-            return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound,
-                   "Não existe nenhum Cliente com esse Id para poder eliminar"));
+            var temFaturas = dc.Faturas.Any(f => f.IdCliente == id);
+
+            if (temFaturas)
+            {
+                return ResponseMessage(Request.CreateResponse(HttpStatusCode.Conflict,
+                    "O cliente não pode ser eliminado porque possui faturas associadas"));
+            }
+
+            var temConsumos = dc.Consumos.Any(consumo => dc.Contadores.Any
+            (contador => contador.IdContador == consumo.IdContador && contador.IdCliente == id));
+
+            if (temConsumos)
+            {
+                return ResponseMessage(Request.CreateResponse(HttpStatusCode.Conflict,
+                    "O cliente não pode ser eliminado porque possui consumos associados"));
+            }
+
+            dc.Clientes.DeleteOnSubmit(cliente);
+            try
+            {
+                dc.SubmitChanges();
+            }
+            catch (Exception e)
+            {
+                return ResponseMessage(Request.CreateResponse(HttpStatusCode.InternalServerError, e.Message));
+            }
+
+            return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK,
+                   "Cliente eliminado com sucesso"));
         }
     }
 }
