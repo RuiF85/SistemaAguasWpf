@@ -163,12 +163,12 @@ namespace WebApiBackEnd.Controllers
                     "Este consumo já foi faturado. Deve anular a fatura antes de alterar a leitura"));
             }
 
-            Contadore contador = dc.Contadores.SingleOrDefault(c => c.IdContador == consumoAlterado.IdContador);
+            Contadore contador = dc.Contadores.SingleOrDefault(c => c.IdContador == consumo.IdContador);
 
             if( contador == null)
             {
                 return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound,
-                    "Não existe nenhum contador com esse Id."));
+                    "O contador associado ao consumo não existe."));
             }
 
             if(contador.Ativo == false)
@@ -197,9 +197,9 @@ namespace WebApiBackEnd.Controllers
                     "A data da leitura não pode ser futura."));
             }
 
-            Consumo consumoMesmaData = dc.Consumos.FirstOrDefault(c => c.IdContador == consumoAlterado.IdContador
+            Consumo consumoMesmaData = dc.Consumos.FirstOrDefault(c => c.IdContador == consumo.IdContador
             && c.Data == consumoAlterado.Data
-            && c.IdConsumo != consumoAlterado.IdConsumo);
+            && c.IdConsumo != consumo.IdConsumo);
 
             if ( consumoMesmaData !=  null )
             {
@@ -208,30 +208,53 @@ namespace WebApiBackEnd.Controllers
             }
 
 
-            Consumo ultimoConsumo = dc.Consumos.Where(c => c.IdContador == consumoAlterado.IdContador
+            Consumo consumoAnterior = dc.Consumos.Where(c => c.IdContador == consumo.IdContador
             && c.Data < consumoAlterado.Data
-            && c.IdConsumo != consumoAlterado.IdConsumo)
-                .OrderByDescending(c => c.Data) .FirstOrDefault();
+            && c.IdConsumo != consumo.IdConsumo)
+                .OrderByDescending(c => c.Data)
+                .FirstOrDefault();
 
-            if (ultimoConsumo != null)
+            if (consumoAnterior != null)
             {
-                if (consumoAlterado.LeituraAtual < ultimoConsumo.LeituraAtual)
+                if (consumoAlterado.LeituraAtual < consumoAnterior.LeituraAtual)
                 {
                     return ResponseMessage(Request.CreateResponse(HttpStatusCode.Conflict,
                         "A leitura atual não pode ser inferior à leitura anterior."));
                 }
 
-                consumo.ConsumoCalculado = consumoAlterado.LeituraAtual - ultimoConsumo.LeituraAtual;
+                consumo.ConsumoCalculado = consumoAlterado.LeituraAtual - consumoAnterior.LeituraAtual;
             }
             else
             {
                 consumo.ConsumoCalculado = consumoAlterado.LeituraAtual;
             }
+           
+              Consumo proximoConsumo = dc.Consumos.Where(c => c.IdContador == consumo.IdContador
+              && c.Data > consumoAlterado.Data
+              && c.IdConsumo != consumo.IdConsumo)
+                .OrderBy(c => c.Data)
+                .FirstOrDefault();
 
-            consumo.IdContador = consumoAlterado.IdContador;
+            if (proximoConsumo != null)
+            {
+                if (consumoAlterado.LeituraAtual > proximoConsumo.LeituraAtual)
+                {
+                    return ResponseMessage(Request.CreateResponse(
+                        HttpStatusCode.Conflict,
+                        "A leitura atual não pode ser superior à leitura seguinte."));
+                }
+            }
+
+         
             consumo.Data = consumoAlterado.Data;
             consumo.LeituraAtual = consumoAlterado.LeituraAtual;
 
+
+
+            if (proximoConsumo != null)
+            {
+                proximoConsumo.ConsumoCalculado = proximoConsumo.LeituraAtual - consumoAlterado.LeituraAtual;
+            }
             try
             {
                 dc.SubmitChanges();
@@ -260,7 +283,7 @@ namespace WebApiBackEnd.Controllers
 
             if(consumo == null)
             {
-                return ResponseMessage(Request.CreateErrorResponse(HttpStatusCode.NotFound,
+                return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound,
                     "Não existe nenhum consumo com esse Id."));
             }
             if(consumo.IdFatura != null)

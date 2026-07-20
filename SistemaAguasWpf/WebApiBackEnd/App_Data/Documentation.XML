@@ -532,20 +532,22 @@
             <summary>
             Creates a new Consumo.
             </summary>
-            <param name="value"></param>
+            <param name="novoConsumo">The consumo to create.</param>
+            <returns>The created consumo.</returns>
         </member>
         <member name="M:WebApiBackEnd.Controllers.ConsumosController.Put(WebApiBackEnd.Consumo)">
             <summary>
-            
+            Updates as existing consumo
             </summary>
-            <param name="id"></param>
-            <param name="value"></param>
+            <param name="consumoAlterado">The consumo data to update.</param>
+            <returns>The update result.</returns>
         </member>
         <member name="M:WebApiBackEnd.Controllers.ConsumosController.Delete(System.Int32)">
             <summary>
-            
+            Deletes a consumo by Id.
             </summary>
-            <param name="id"></param>
+            <param name="id">The Id of the consumo to delete.</param>
+            <returns>The delete result.</returns>
         </member>
         <member name="M:WebApiBackEnd.Controllers.ContadoresController.Get">
             <summary>
@@ -580,6 +582,19 @@
             </summary>
             <param name="id"></param>
             <returns>The delete result.</returns>
+        </member>
+        <member name="M:WebApiBackEnd.Controllers.FaturasController.Get">
+            <summary>
+            Gets all invoices.
+            </summary>
+            <returns>list of invoices</returns>
+        </member>
+        <member name="M:WebApiBackEnd.Controllers.FaturasController.Get(System.Int32)">
+            <summary>
+            Gets an invoice by Id.
+            </summary>
+            <param name="id">The Id of the invoice.</param>
+            <returns>The invoice if found.</returns>
         </member>
     </members>
 </doc>
