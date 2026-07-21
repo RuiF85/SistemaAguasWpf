@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Web;
+﻿using System.Net;
 
 namespace WebApiBackEnd.Models
 {
@@ -10,7 +6,7 @@ namespace WebApiBackEnd.Models
     {
         public bool Sucesso { get; set; }
 
-        public string Mensagem { get; set; }    
+        public string Mensagem { get; set; }
 
         public HttpStatusCode StatusCode { get; set; }
 

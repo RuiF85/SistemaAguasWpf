@@ -64,18 +64,10 @@ namespace WebApiBackEnd.Controllers
 
             if (!resultado.Sucesso)
             {
-                return ResponseMessage(Request.CreateResponse( resultado.StatusCode, resultado.Mensagem));
+                return ResponseMessage(Request.CreateResponse(resultado.StatusCode, resultado.Mensagem));
             }
 
-            try
-            {
-                dc.SubmitChanges();
-            }
-            catch (Exception e)
-            {
-                return ResponseMessage(Request.CreateResponse(HttpStatusCode.InternalServerError, e.Message));
-            }
-            return ResponseMessage(Request.CreateResponse(HttpStatusCode.Created, novoConsumo));
+            return ResponseMessage(Request.CreateResponse(resultado.StatusCode, novoConsumo));
         }
 
         /// <summary>
@@ -88,31 +80,16 @@ namespace WebApiBackEnd.Controllers
         {
             if (consumoAlterado == null)
             {
-                return ResponseMessage(Request.CreateResponse( HttpStatusCode.BadRequest,
-                    "Os dados do consumo são obrigatórios."));
+                return ResponseMessage(Request.CreateResponse(HttpStatusCode.BadRequest,
+                    "Os dados do consumo são Obrigatórios."));
             }
 
             ConsumoService consumoService = new ConsumoService(dc);
 
             ServiceResult resultado = consumoService.AlterarConsumo(consumoAlterado);
 
-            if (!resultado.Sucesso)
-            {
-                return ResponseMessage(Request.CreateResponse(resultado.StatusCode, resultado.Mensagem));
-            }
-
-            try
-            {
-                dc.SubmitChanges();
-            }
-            catch (Exception e)
-            {
-                return ResponseMessage(Request.CreateResponse( HttpStatusCode.InternalServerError, e.Message));
-            }
-
             return ResponseMessage(Request.CreateResponse(resultado.StatusCode, resultado.Mensagem));
         }
-
 
         /// <summary>
         /// Deletes a consumo by Id.
@@ -122,32 +99,11 @@ namespace WebApiBackEnd.Controllers
         // DELETE api/<controller>/5
         public IHttpActionResult Delete(int id)
         {
-            Consumo consumo = dc.Consumos.SingleOrDefault(c => c.IdConsumo == id);
+            ConsumoService consumoService = new ConsumoService(dc);
 
-            if (consumo == null)
-            {
-                return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound,
-                    "Não existe nenhum consumo com esse Id."));
-            }
-            if (consumo.IdFatura != null)
-            {
-                return ResponseMessage(Request.CreateResponse(HttpStatusCode.Conflict,
-                    "Não é possivel eliminar um consumo que já foi faturado."));
-            }
+            ServiceResult resultado = consumoService.EliminarConsumo(id);
 
-            dc.Consumos.DeleteOnSubmit(consumo);
-
-            try
-            {
-                dc.SubmitChanges();
-            }
-            catch (Exception e)
-            {
-                return ResponseMessage(Request.CreateResponse(HttpStatusCode.InternalServerError, e.Message));
-            }
-
-            return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK,
-                "Consumo eliminado com sucesso."));
+            return ResponseMessage(Request.CreateResponse(resultado.StatusCode, resultado.Mensagem));
         }
     }
 }

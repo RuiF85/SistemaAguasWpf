@@ -15,6 +15,13 @@ namespace WebApiBackEnd.Services
             _dc = dc;
         }
 
+        /// <summary>
+        /// Gets the previous meter reading.
+        /// </summary>
+        /// <param name="idContador"></param>
+        /// <param name="data"></param>
+        /// <param name="idConsumoIgnorar"></param>
+        /// <returns></returns>
         public Consumo ObterLeituraAnterior(int idContador, DateTime data, int? idConsumoIgnorar = null)
         {
             var query = _dc.Consumos.Where(c => c.IdContador == idContador && c.Data < data);
@@ -27,12 +34,26 @@ namespace WebApiBackEnd.Services
             return query.OrderByDescending(c => c.Data).FirstOrDefault();
         }
 
+
+        /// <summary>
+        /// Gets the next meter reading.
+        /// </summary>
+        /// <param name="idContador"></param>
+        /// <param name="data"></param>
+        /// <param name="idConsumoIgnorar"></param>
+        /// <returns></returns>
         public Consumo ObterLeituraSeguinte(int idContador, DateTime data, int idConsumoIgnorar)
         {
             return _dc.Consumos.Where(c => c.IdContador == idContador && c.Data > data && c.IdConsumo != idConsumoIgnorar)
                 .OrderBy(c => c.Data).FirstOrDefault();
         }
 
+        /// <summary>
+        /// Calculates consumption based on the previous reading.
+        /// </summary>
+        /// <param name="leituraAtual"></param>
+        /// <param name="consumoAnterior"></param>
+        /// <returns></returns>
         public decimal CalcularConsumo(decimal leituraAtual, Consumo consumoAnterior)
         {
             if (consumoAnterior == null)
@@ -44,7 +65,11 @@ namespace WebApiBackEnd.Services
         }
 
 
-
+        /// <summary>
+        /// Updates an existing consumption record.
+        /// </summary>
+        /// <param name="consumoAlterado"></param>
+        /// <returns></returns>
         public ServiceResult AlterarConsumo(Consumo consumoAlterado)
         {
             Consumo consumo = _dc.Consumos.SingleOrDefault(c => c.IdConsumo == consumoAlterado.IdConsumo);
@@ -123,7 +148,7 @@ namespace WebApiBackEnd.Services
                 };
             }
 
-            bool existeMesmaData = _    dc.Consumos.Any(c => c.IdContador == consumo.IdContador && c.Data == consumoAlterado.Data &&
+            bool existeMesmaData = _dc.Consumos.Any(c => c.IdContador == consumo.IdContador && c.Data == consumoAlterado.Data &&
                 c.IdConsumo != consumo.IdConsumo);
 
             if (existeMesmaData)
@@ -170,6 +195,20 @@ namespace WebApiBackEnd.Services
                 seguinte.ConsumoCalculado = seguinte.LeituraAtual - consumoAlterado.LeituraAtual;
             }
 
+            try
+            {
+                _dc.SubmitChanges();
+            }
+            catch
+            {
+                return new ServiceResult
+                {
+                    Sucesso = false,
+                    Mensagem = "Ocorreu um erro ao alterar o consumo.",
+                    StatusCode = HttpStatusCode.InternalServerError
+                };
+            }
+
             return new ServiceResult
             {
                 Sucesso = true,
@@ -179,6 +218,11 @@ namespace WebApiBackEnd.Services
         }
 
 
+        /// <summary>
+        /// Creats a new consumption record.
+        /// </summary>
+        /// <param name="novoConsumo"></param>
+        /// <returns></returns>
         public ServiceResult CriarConsumo(Consumo novoConsumo)
         {
             Contadore contador = _dc.Contadores.SingleOrDefault(c => c.IdContador == novoConsumo.IdContador);
@@ -284,11 +328,79 @@ namespace WebApiBackEnd.Services
 
             _dc.Consumos.InsertOnSubmit(novoConsumo);
 
+            try
+            {
+                _dc.SubmitChanges();
+            }
+            catch
+            {
+                return new ServiceResult
+                {
+                    Sucesso = false,
+                    Mensagem = "Ocorreu um erro ao registar o consumo.",
+                    StatusCode = HttpStatusCode.InternalServerError
+                };
+            }
+
             return new ServiceResult
             {
                 Sucesso = true,
                 Mensagem = "Consumo registado com sucesso.",
                 StatusCode = HttpStatusCode.Created
+            };
+        }
+
+
+        /// <summary>
+        /// Deletes a consumption record.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public ServiceResult EliminarConsumo(int id)
+        {
+            Consumo consumo = _dc.Consumos.SingleOrDefault(  c => c.IdConsumo == id);
+
+            if (consumo == null)
+            {
+                return new ServiceResult
+                {
+                    Sucesso = false,
+                    Mensagem = "Não existe nenhum consumo com esse Id.",
+                    StatusCode = HttpStatusCode.NotFound
+                };
+            }
+
+            if (consumo.IdFatura != null)
+            {
+                return new ServiceResult
+                {
+                    Sucesso = false,
+                    Mensagem = "Não é possível eliminar um consumo que já foi faturado.",
+                    StatusCode = HttpStatusCode.Conflict
+                };
+            }
+
+            _dc.Consumos.DeleteOnSubmit(consumo);
+
+            try
+            {
+                _dc.SubmitChanges();
+            }
+            catch
+            {
+                return new ServiceResult
+                {
+                    Sucesso = false,
+                    Mensagem = "Ocorreu um erro ao eliminar o consumo.",
+                    StatusCode = HttpStatusCode.InternalServerError
+                };
+            }
+
+            return new ServiceResult
+            {
+                Sucesso = true,
+                Mensagem = "Consumo eliminado com sucesso.",
+                StatusCode = HttpStatusCode.OK
             };
         }
 
