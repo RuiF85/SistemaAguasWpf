@@ -152,15 +152,11 @@ namespace WebApiBackEnd.Controllers
 
             if (fatura.IdEstadoFatura == 2)
             {
-                return ResponseMessage(Request.CreateResponse(HttpStatusCode.Conflict,
+                return ResponseMessage(Request.CreateResponse(
+                    HttpStatusCode.Conflict,
                     "Não é possível alterar o estado de uma fatura anulada."));
             }
 
-            if (faturaAlterada.IdEstadoFatura == 2)
-            {
-                return ResponseMessage(Request.CreateResponse( HttpStatusCode.BadRequest,
-                    "Para anular uma fatura deve utilizar a operação de anulação."));
-            }
 
             fatura.IdEstadoFatura = faturaAlterada.IdEstadoFatura;
 

@@ -1,10 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using WebApiBackEnd.Models;
+using WebApiBackEnd.Services;
 
 namespace WebApiBackEnd.Controllers
 {
@@ -18,7 +19,7 @@ namespace WebApiBackEnd.Controllers
         /// <summary>
         /// Gets all clients.
         /// </summary>
-        /// <returns>List  of Clients.</returns>
+        /// <returns>List of all Clients.</returns>
         // GET api/<controller>
         public List<Cliente> Get()
         {
@@ -31,7 +32,7 @@ namespace WebApiBackEnd.Controllers
         /// Gets a client by Id.
         /// </summary>
         /// <param name="id"></param>
-        /// <returns>The client if found.</returns>
+        /// <returns>The Id of the client.</returns>
         // GET api/<controller>/5
         public IHttpActionResult Get(int id)
         {
@@ -49,58 +50,35 @@ namespace WebApiBackEnd.Controllers
         /// <summary>
         /// Creates a new client.
         /// </summary>
-        /// <param name="novoCliente"></param>
-        /// <returns>The created client.</returns>
+        /// <param name="novoCliente">The client data to create.</param>
+        /// <returns>The creation result.</returns>
         // POST api/<controller>
         public IHttpActionResult Post([FromBody] Cliente novoCliente)
         {
 
             if (novoCliente == null)
             {
-                return ResponseMessage(Request.CreateResponse(HttpStatusCode.BadRequest, "Os dados do cliente são obrigatórios-"));
+                return ResponseMessage(Request.CreateResponse(HttpStatusCode.BadRequest,
+                    "Os dados do cliente são obrigatórios-"));
             }
+            ClienteService ClienteService = new ClienteService(dc);
 
-            Cliente clienteMesmoNif = dc.Clientes.FirstOrDefault(c => c.Nif == novoCliente.Nif);
+            ServiceResult resultado = ClienteService.CriarCliente(novoCliente);
 
-            if (clienteMesmoNif != null)
+            if (!resultado.Sucesso)
             {
-                return ResponseMessage(Request.CreateResponse(HttpStatusCode.Conflict,
-                    "Já existe um Cliente registado com esse Nif"));
-            }
-
-            if (!string.IsNullOrWhiteSpace(novoCliente.Email))
-            {
-
-                Cliente clienteMesmoEmail = dc.Clientes.FirstOrDefault(c => c.Email == novoCliente.Email);
-
-                if (clienteMesmoEmail != null)
-                {
-                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.Conflict,
-                        "Já existe um Cliente  com esse Email"));
-                }
-
-            }
-
-            dc.Clientes.InsertOnSubmit(novoCliente);
-
-            try
-            {
-                dc.SubmitChanges();
-            }
-            catch (Exception e)
-            {
-                return ResponseMessage(Request.CreateResponse(
-                    HttpStatusCode.InternalServerError, e.Message));
+                return ResponseMessage(Request.CreateResponse(resultado.StatusCode, resultado.Mensagem));
             }
 
             return ResponseMessage(Request.CreateResponse(HttpStatusCode.Created, novoCliente));
+
         }
 
 
         /// <summary>
         /// Updates an existing client.
         /// </summary>
-        /// <param name="clienteAlterado"></param>
+        /// <param name="clienteAlterado">The client data to update.</param>
         /// <returns>The update result.</returns>
         // PUT api/<controller>/5
         public IHttpActionResult Put([FromBody] Cliente clienteAlterado)
@@ -112,108 +90,28 @@ namespace WebApiBackEnd.Controllers
                     "Os dados do cliente são obrigatórios"));
             }
 
-            Cliente cliente = dc.Clientes.FirstOrDefault(c => c.IdCLiente == clienteAlterado.IdCLiente);
+            ClienteService clienteService = new ClienteService(dc);
 
-            if (cliente == null)
-            {
-                return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound,
-                    "Não existe nenhum Cliente com esse Id para poder alterar"));
-            }
+            ServiceResult resultado = clienteService.AlterarCliente(clienteAlterado);
 
-            Cliente clienteMesmoNif = dc.Clientes.FirstOrDefault(
-                c => c.Nif == clienteAlterado.Nif && c.IdCLiente != clienteAlterado.IdCLiente);
-
-            if (clienteMesmoNif != null)
-            {
-                return ResponseMessage(Request.CreateResponse(HttpStatusCode.Conflict,
-                    "Já existe um Cliente registado com esse Nif"));
-            }
-
-            if (!string.IsNullOrWhiteSpace(clienteAlterado.Email))
-            {
-
-                Cliente clienteMesmoEmail = dc.Clientes.FirstOrDefault(
-                    c => c.Email == clienteAlterado.Email && c.IdCLiente != clienteAlterado.IdCLiente);
-
-                if (clienteMesmoEmail != null)
-                {
-                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.Conflict,
-                        "Já existe um Cliente  com esse Email"));
-                }
-
-            }
-
-            cliente.Nome = clienteAlterado.Nome;
-            cliente.Apelido = clienteAlterado.Apelido;
-            cliente.Morada = clienteAlterado.Morada;
-            cliente.Nif = clienteAlterado.Nif;
-            cliente.Contacto = clienteAlterado.Contacto;
-            cliente.Email = clienteAlterado.Email;
-            cliente.CodigoPostal = clienteAlterado.CodigoPostal;
-            cliente.Localidade = clienteAlterado.Localidade;
-            cliente.Ativo = clienteAlterado.Ativo;
-
-            try
-            {
-                dc.SubmitChanges();
-            }
-            catch (Exception e)
-            {
-                return ResponseMessage(Request.CreateResponse(
-                    HttpStatusCode.ServiceUnavailable, e));
-            }
-
-            return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK,
-                "Cliente alterado com sucesso"));
+            return ResponseMessage(Request.CreateResponse(resultado.StatusCode, resultado.Mensagem));
 
         }
 
-
         /// <summary>
-        /// 
+        /// Deletes a client by Id.
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
+        /// <param name="id">The Id of the client to delete.</param>
+        /// <returns>The delete result.</returns>
         // DELETE api/<controller>/5
         public IHttpActionResult Delete(int id)
         {
-            Cliente cliente = dc.Clientes.FirstOrDefault(c => c.IdCLiente == id);
+            ClienteService clienteService = new ClienteService(dc);
 
-            if (cliente == null)
-            {
-                return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound,
-                    "Não existe nenhum Cliente com esse Id para poder eliminar"));
-            }
+            ServiceResult resultado = clienteService.EliminarCliente(id);
 
-            var temFaturas = dc.Faturas.Any(f => f.IdCliente == id);
+            return ResponseMessage(Request.CreateResponse(resultado.StatusCode, resultado.Mensagem));
 
-            if (temFaturas)
-            {
-                return ResponseMessage(Request.CreateResponse(HttpStatusCode.Conflict,
-                    "O cliente não pode ser eliminado porque possui faturas associadas"));
-            }
-
-            var temConsumos = dc.Consumos.Any(consumo => dc.Contadores.Any
-            (contador => contador.IdContador == consumo.IdContador && contador.IdCliente == id));
-
-            if (temConsumos)
-            {
-                return ResponseMessage(Request.CreateResponse(HttpStatusCode.Conflict,
-                    "O cliente não pode ser eliminado porque possui consumos associados"));
-            }
-
-            dc.Clientes.DeleteOnSubmit(cliente);
-            try
-            {
-                dc.SubmitChanges();
-            }
-            catch (Exception e)
-            {
-                return ResponseMessage(Request.CreateResponse(HttpStatusCode.InternalServerError, e.Message));
-            }
-
-            return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK,
-                   "Cliente eliminado com sucesso"));
         }
     }
 }

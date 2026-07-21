@@ -5,7 +5,8 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-
+using WebApiBackEnd.Models;
+using WebApiBackEnd.Services;
 
 namespace WebApiBackEnd.Controllers
 {
@@ -57,70 +58,14 @@ namespace WebApiBackEnd.Controllers
                 return ResponseMessage(Request.CreateResponse(HttpStatusCode.BadRequest,
                     "Os dados do consumo são Obrigatórios."));
             }
+            ConsumoService consumoService = new ConsumoService(dc);
 
-            Contadore contador = dc.Contadores.SingleOrDefault(c => c.IdContador == novoConsumo.IdContador);
+            ServiceResult resultado = consumoService.CriarConsumo(novoConsumo);
 
-            if (contador == null)
+            if (!resultado.Sucesso)
             {
-                return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound,
-                    "Não existe nenhum contador com esse Id."));
+                return ResponseMessage(Request.CreateResponse( resultado.StatusCode, resultado.Mensagem));
             }
-
-            if(contador.Ativo == false)
-            {
-                return ResponseMessage(Request.CreateResponse(HttpStatusCode.Conflict,
-                    "Não é possivel registar consumos num contador inativo."));
-            }
-
-            Cliente cliente = dc.Clientes.SingleOrDefault(c => c.IdCLiente == contador.IdCliente);
-
-            if(cliente == null)
-            {
-                return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound,
-                    "O cliente associado ao contador não existe."));
-            }
-
-            if (cliente.Ativo == false)
-            {
-                return ResponseMessage(Request.CreateResponse(HttpStatusCode.Conflict,
-                    "Não é possivel registar consumos para um cliente inativo."));
-            }
-
-            Consumo consumoMesmaData = dc.Consumos.FirstOrDefault(
-                c => c.IdContador == novoConsumo.IdContador && c.Data == novoConsumo.Data);
-
-            if(consumoMesmaData != null)
-            {
-                return ResponseMessage(Request.CreateResponse(HttpStatusCode.Conflict,
-                    "Já existe uma leitura registada para esse contador nessa data."));
-            }
-
-            if (novoConsumo.Data > DateTime.Today)
-            {
-                return ResponseMessage(Request.CreateResponse(HttpStatusCode.BadRequest,
-                    "A data da leitura não pode ser futura."));
-            }
-
-            Consumo ultimoConsumo = dc.Consumos.Where(c => c.IdContador == novoConsumo.IdContador
-            && c.Data < novoConsumo.Data).OrderByDescending(c=>c.Data).FirstOrDefault();
-
-            if(ultimoConsumo != null)
-            {
-                if(novoConsumo.LeituraAtual < ultimoConsumo.LeituraAtual)
-                {
-                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.Conflict,
-                     "A leitura atual não pode ser inferior à leitura anterior."));
-                }
-                novoConsumo.ConsumoCalculado = novoConsumo.LeituraAtual - ultimoConsumo.LeituraAtual;
-            }
-            else
-            {
-                novoConsumo.ConsumoCalculado = novoConsumo.LeituraAtual;
-            }
-
-
-            novoConsumo.IdFatura = null;
-            dc.Consumos.InsertOnSubmit(novoConsumo);
 
             try
             {
@@ -128,10 +73,8 @@ namespace WebApiBackEnd.Controllers
             }
             catch (Exception e)
             {
-                return ResponseMessage(Request.CreateResponse(
-                    HttpStatusCode.InternalServerError, e.Message));
+                return ResponseMessage(Request.CreateResponse(HttpStatusCode.InternalServerError, e.Message));
             }
-
             return ResponseMessage(Request.CreateResponse(HttpStatusCode.Created, novoConsumo));
         }
 
@@ -143,131 +86,31 @@ namespace WebApiBackEnd.Controllers
         // PUT api/<controller>/5
         public IHttpActionResult Put([FromBody] Consumo consumoAlterado)
         {
-            if(consumoAlterado == null)
+            if (consumoAlterado == null)
             {
-                return ResponseMessage(Request.CreateResponse(HttpStatusCode.BadRequest,
+                return ResponseMessage(Request.CreateResponse( HttpStatusCode.BadRequest,
                     "Os dados do consumo são obrigatórios."));
             }
 
-            Consumo consumo = dc.Consumos.SingleOrDefault(c => c.IdConsumo == consumoAlterado.IdConsumo);
+            ConsumoService consumoService = new ConsumoService(dc);
 
-            if(consumo == null)
+            ServiceResult resultado = consumoService.AlterarConsumo(consumoAlterado);
+
+            if (!resultado.Sucesso)
             {
-                return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound,
-                    "Não existe nenhum consumo com esse Id para poder alterar."));
+                return ResponseMessage(Request.CreateResponse(resultado.StatusCode, resultado.Mensagem));
             }
 
-            if(consumo.IdFatura != null)
-            {
-                return ResponseMessage(Request.CreateResponse(HttpStatusCode.Conflict,
-                    "Este consumo já foi faturado. Deve anular a fatura antes de alterar a leitura"));
-            }
-
-            Contadore contador = dc.Contadores.SingleOrDefault(c => c.IdContador == consumo.IdContador);
-
-            if( contador == null)
-            {
-                return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound,
-                    "O contador associado ao consumo não existe."));
-            }
-
-            if(contador.Ativo == false)
-            {
-                return ResponseMessage(Request.CreateResponse(HttpStatusCode.Conflict,
-                    "Não é possivel alterar consumos para um contador inativo."));
-            }
-
-            Cliente cliente = dc.Clientes.SingleOrDefault(c => c.IdCLiente == contador.IdCliente);
-
-            if(cliente == null)
-            {
-                return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound,
-                "O cliente associado ao contador não existe."));
-            }
-
-            if ( cliente.Ativo == false)
-            {
-                return ResponseMessage(Request.CreateResponse(HttpStatusCode.Conflict,
-                    "Não é possivel alterar consumos para um cliente inativo."));
-            }
-
-            if(consumoAlterado.Data > DateTime.Today)
-            {
-                return ResponseMessage(Request.CreateResponse(HttpStatusCode.BadRequest,
-                    "A data da leitura não pode ser futura."));
-            }
-
-            Consumo consumoMesmaData = dc.Consumos.FirstOrDefault(c => c.IdContador == consumo.IdContador
-            && c.Data == consumoAlterado.Data
-            && c.IdConsumo != consumo.IdConsumo);
-
-            if ( consumoMesmaData !=  null )
-            {
-                return ResponseMessage(Request.CreateResponse(HttpStatusCode.Conflict,
-                    "Já existe uma leitura registada para esse contador nessa data."));
-            }
-
-
-            Consumo consumoAnterior = dc.Consumos.Where(c => c.IdContador == consumo.IdContador
-            && c.Data < consumoAlterado.Data
-            && c.IdConsumo != consumo.IdConsumo)
-                .OrderByDescending(c => c.Data)
-                .FirstOrDefault();
-
-            if (consumoAnterior != null)
-            {
-                if (consumoAlterado.LeituraAtual < consumoAnterior.LeituraAtual)
-                {
-                    return ResponseMessage(Request.CreateResponse(HttpStatusCode.Conflict,
-                        "A leitura atual não pode ser inferior à leitura anterior."));
-                }
-
-                consumo.ConsumoCalculado = consumoAlterado.LeituraAtual - consumoAnterior.LeituraAtual;
-            }
-            else
-            {
-                consumo.ConsumoCalculado = consumoAlterado.LeituraAtual;
-            }
-           
-              Consumo proximoConsumo = dc.Consumos.Where(c => c.IdContador == consumo.IdContador
-              && c.Data > consumoAlterado.Data
-              && c.IdConsumo != consumo.IdConsumo)
-                .OrderBy(c => c.Data)
-                .FirstOrDefault();
-
-            if (proximoConsumo != null)
-            {
-                if (consumoAlterado.LeituraAtual > proximoConsumo.LeituraAtual)
-                {
-                    return ResponseMessage(Request.CreateResponse(
-                        HttpStatusCode.Conflict,
-                        "A leitura atual não pode ser superior à leitura seguinte."));
-                }
-            }
-
-         
-            consumo.Data = consumoAlterado.Data;
-            consumo.LeituraAtual = consumoAlterado.LeituraAtual;
-
-
-
-            if (proximoConsumo != null)
-            {
-                proximoConsumo.ConsumoCalculado = proximoConsumo.LeituraAtual - consumoAlterado.LeituraAtual;
-            }
             try
             {
                 dc.SubmitChanges();
             }
             catch (Exception e)
             {
-                return ResponseMessage(Request.CreateResponse( HttpStatusCode.InternalServerError,
-                    e.Message));
+                return ResponseMessage(Request.CreateResponse( HttpStatusCode.InternalServerError, e.Message));
             }
 
-            return ResponseMessage(Request.CreateResponse( HttpStatusCode.OK,
-                    "Consumo alterado com sucesso."));
-
+            return ResponseMessage(Request.CreateResponse(resultado.StatusCode, resultado.Mensagem));
         }
 
 
@@ -281,12 +124,12 @@ namespace WebApiBackEnd.Controllers
         {
             Consumo consumo = dc.Consumos.SingleOrDefault(c => c.IdConsumo == id);
 
-            if(consumo == null)
+            if (consumo == null)
             {
                 return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound,
                     "Não existe nenhum consumo com esse Id."));
             }
-            if(consumo.IdFatura != null)
+            if (consumo.IdFatura != null)
             {
                 return ResponseMessage(Request.CreateResponse(HttpStatusCode.Conflict,
                     "Não é possivel eliminar um consumo que já foi faturado."));
@@ -298,9 +141,9 @@ namespace WebApiBackEnd.Controllers
             {
                 dc.SubmitChanges();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
-                return ResponseMessage(Request.CreateResponse(HttpStatusCode.InternalServerError,e.Message));
+                return ResponseMessage(Request.CreateResponse(HttpStatusCode.InternalServerError, e.Message));
             }
 
             return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK,
