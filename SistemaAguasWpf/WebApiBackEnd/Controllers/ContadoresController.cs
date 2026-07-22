@@ -23,7 +23,6 @@ namespace WebApiBackEnd.Controllers
         /// </summary>
         /// <returns>List of counters.</returns>
         // GET api/<controller>
-
         public List<Contadore> Get()
         {
             var lista = from Contador in dc.Contadores orderby Contador.IdContador  select Contador;

@@ -17,7 +17,6 @@ namespace WebApiBackEnd.Services
         }
 
 
-
         /// <summary>
         /// 
         /// </summary>
@@ -74,7 +73,6 @@ namespace WebApiBackEnd.Services
         }
 
 
-
         /// <summary>
         /// 
         /// </summary>
@@ -123,8 +121,6 @@ namespace WebApiBackEnd.Services
             contador.NumeroContador = contadorAlterado.NumeroContador;
             contador.DataInstalacao = contadorAlterado.DataInstalacao;
             contador.Ativo = contadorAlterado.Ativo;
-
-
 
             try
             {

@@ -16,6 +16,12 @@ namespace WebApiBackEnd.Services
             _tarifaService = tarifaService;
         }
 
+
+        /// <summary>
+        /// Generates an invoice.
+        /// </summary>
+        /// <param name="idConsumo">Consumption Id.</param>
+        /// <returns>The result.</returns>
         public ServiceResult GerarFatura(int idConsumo)
         {
             Consumo consumo = _dc.Consumos.SingleOrDefault(c => c.IdConsumo == idConsumo);
@@ -90,6 +96,21 @@ namespace WebApiBackEnd.Services
 
             _dc.Faturas.InsertOnSubmit(novaFatura);
 
+            try
+            {
+                _dc.SubmitChanges();
+                consumo.IdFatura = novaFatura.IdFatura;
+                _dc.SubmitChanges();
+            }
+            catch
+            {
+                return new ServiceResult
+                {
+                    Sucesso = false,
+                    Mensagem = "Ocorreu um erro ao criar fatura",
+                    StatusCode = HttpStatusCode.InternalServerError
+                };
+            }
             return new ServiceResult
             {
                 Sucesso = true,
@@ -98,6 +119,12 @@ namespace WebApiBackEnd.Services
             };
         }
 
+
+        /// <summary>
+        /// Updates an invoice status.
+        /// </summary>
+        /// <param name="faturaAlterada">Consumption Id.</param>
+        /// <returns>The result.</returns>
         public ServiceResult AlterarEstado(Fatura faturaAlterada)
         {
             Fatura fatura = _dc.Faturas.SingleOrDefault(f => f.IdFatura == faturaAlterada.IdFatura);
@@ -146,6 +173,20 @@ namespace WebApiBackEnd.Services
 
             fatura.IdEstadoFatura = faturaAlterada.IdEstadoFatura;
 
+            try
+            {
+                _dc.SubmitChanges();
+            }
+            catch
+            {
+                return new ServiceResult
+                {
+                    Sucesso = false,
+                    Mensagem = "Ocorreu um erro ao alterar a fatura.",
+                    StatusCode = HttpStatusCode.InternalServerError
+                };
+            }
+
             return new ServiceResult
             {
                 Sucesso = true,
@@ -154,6 +195,13 @@ namespace WebApiBackEnd.Services
             };
         }
 
+
+
+        /// <summary>
+        /// Cancels an invoice.
+        /// </summary>
+        /// <param name="id">Invoice Id.</param>
+        /// <returns>The result.</returns>
         public ServiceResult AnularFatura(int id)
         {
             Fatura fatura = _dc.Faturas.SingleOrDefault(f => f.IdFatura == id);
@@ -199,6 +247,19 @@ namespace WebApiBackEnd.Services
 
             fatura.IdEstadoFatura = 2;
 
+            try
+            {
+                _dc.SubmitChanges();
+            }
+            catch
+            {
+                return new ServiceResult 
+                {
+                    Sucesso= false,
+                    Mensagem = "Ocorreu um erro ao anular a fatura.",
+                    StatusCode = HttpStatusCode.InternalServerError 
+                };
+            }
             return new ServiceResult
             {
                 Sucesso = true,

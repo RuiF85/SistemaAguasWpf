@@ -485,35 +485,35 @@
             <summary>
             Gets all clients.
             </summary>
-            <returns>List  of Clients.</returns>
+            <returns>List of all Clients.</returns>
         </member>
         <member name="M:WebApiBackEnd.Controllers.ClientesController.Get(System.Int32)">
             <summary>
             Gets a client by Id.
             </summary>
             <param name="id"></param>
-            <returns>The client if found.</returns>
+            <returns>The Id of the client.</returns>
         </member>
         <member name="M:WebApiBackEnd.Controllers.ClientesController.Post(WebApiBackEnd.Cliente)">
             <summary>
             Creates a new client.
             </summary>
-            <param name="novoCliente"></param>
-            <returns>The created client.</returns>
+            <param name="novoCliente">The client data to create.</param>
+            <returns>The creation result.</returns>
         </member>
         <member name="M:WebApiBackEnd.Controllers.ClientesController.Put(WebApiBackEnd.Cliente)">
             <summary>
             Updates an existing client.
             </summary>
-            <param name="clienteAlterado"></param>
+            <param name="clienteAlterado">The client data to update.</param>
             <returns>The update result.</returns>
         </member>
         <member name="M:WebApiBackEnd.Controllers.ClientesController.Delete(System.Int32)">
             <summary>
-            
+            Deletes a client by Id.
             </summary>
-            <param name="id"></param>
-            <returns></returns>
+            <param name="id">The Id of the client to delete.</param>
+            <returns>The delete result.</returns>
         </member>
         <member name="M:WebApiBackEnd.Controllers.ConsumosController.Get">
             <summary>
@@ -595,6 +595,130 @@
             </summary>
             <param name="id">The Id of the invoice.</param>
             <returns>The invoice if found.</returns>
+        </member>
+        <member name="M:WebApiBackEnd.Controllers.FaturasController.Post(System.Int32)">
+            <summary>
+            Generates an invoice.
+            </summary>
+            <param name="idConsumos">Consumption Id.</param>
+            <returns>The result.</returns>
+        </member>
+        <member name="M:WebApiBackEnd.Controllers.FaturasController.Put(WebApiBackEnd.Fatura)">
+            <summary>
+            Updates an invoice status
+            </summary>
+            <param name="faturaAlterada">Invoice to update</param>
+            <returns>The resolt.</returns>
+        </member>
+        <member name="M:WebApiBackEnd.Controllers.FaturasController.Delete(System.Int32)">
+            <summary>
+            Cancels an invoice.
+            </summary>
+            <param name="id">Invoice Id.</param>
+            <returns>The result.</returns>
+        </member>
+        <member name="M:WebApiBackEnd.Services.ClienteService.CriarCliente(WebApiBackEnd.Cliente)">
+            <summary>
+            Creates a new client after validationg the Nif and email.
+            </summary>
+            <param name="novoCliente">The client to crate.</param>
+            <returns>The result of the create operation.</returns>
+        </member>
+        <member name="M:WebApiBackEnd.Services.ClienteService.AlterarCliente(WebApiBackEnd.Cliente)">
+            <summary>
+            Updates an existing client after validating the client data.
+            </summary>
+            <param name="clienteAlterado">The client data to update.</param>
+            <returns>The result of the update operation.</returns>
+        </member>
+        <member name="M:WebApiBackEnd.Services.ClienteService.EliminarCliente(System.Int32)">
+            <summary>
+            Deletes a client if there are no associated invoices, consumptions or meters.
+            </summary>
+            <param name="id">The Id of the client to delete.</param>
+            <returns>The result of the delete operation.</returns>
+        </member>
+        <member name="M:WebApiBackEnd.Services.ConsumoService.ObterLeituraAnterior(System.Int32,System.DateTime,System.Nullable{System.Int32})">
+            <summary>
+            Gets the previous meter reading.
+            </summary>
+            <param name="idContador"></param>
+            <param name="data"></param>
+            <param name="idConsumoIgnorar"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WebApiBackEnd.Services.ConsumoService.ObterLeituraSeguinte(System.Int32,System.DateTime,System.Int32)">
+            <summary>
+            Gets the next meter reading.
+            </summary>
+            <param name="idContador"></param>
+            <param name="data"></param>
+            <param name="idConsumoIgnorar"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WebApiBackEnd.Services.ConsumoService.CalcularConsumo(System.Decimal,WebApiBackEnd.Consumo)">
+            <summary>
+            Calculates consumption based on the previous reading.
+            </summary>
+            <param name="leituraAtual"></param>
+            <param name="consumoAnterior"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WebApiBackEnd.Services.ConsumoService.CriarConsumo(WebApiBackEnd.Consumo)">
+            <summary>
+            Creats a new consumption record.
+            </summary>
+            <param name="novoConsumo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WebApiBackEnd.Services.ConsumoService.AlterarConsumo(WebApiBackEnd.Consumo)">
+            <summary>
+            Updates an existing consumption record.
+            </summary>
+            <param name="consumoAlterado"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WebApiBackEnd.Services.ConsumoService.EliminarConsumo(System.Int32)">
+            <summary>
+            Deletes a consumption record.
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WebApiBackEnd.Services.ContadorService.CriarContador(WebApiBackEnd.Contadore)">
+            <summary>
+            
+            </summary>
+            <param name="novoContador"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WebApiBackEnd.Services.ContadorService.AlterarContador(WebApiBackEnd.Contadore)">
+            <summary>
+            
+            </summary>
+            <param name="contadorAlterado"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WebApiBackEnd.Services.FaturaService.GerarFatura(System.Int32)">
+            <summary>
+            Generates an invoice.
+            </summary>
+            <param name="idConsumo">Consumption Id.</param>
+            <returns>The result.</returns>
+        </member>
+        <member name="M:WebApiBackEnd.Services.FaturaService.AlterarEstado(WebApiBackEnd.Fatura)">
+            <summary>
+            Updates an invoice status.
+            </summary>
+            <param name="faturaAlterada">Consumption Id.</param>
+            <returns>The result.</returns>
+        </member>
+        <member name="M:WebApiBackEnd.Services.FaturaService.AnularFatura(System.Int32)">
+            <summary>
+            Cancels an invoice.
+            </summary>
+            <param name="id">Invoice Id.</param>
+            <returns>The result.</returns>
         </member>
     </members>
 </doc>
