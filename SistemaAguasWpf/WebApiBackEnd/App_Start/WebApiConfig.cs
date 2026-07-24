@@ -12,8 +12,9 @@ namespace WebApiBackEnd
             // Web API routes
             config.MapHttpAttributeRoutes();
 
-            config.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling =
-                ReferenceLoopHandling.Ignore;
+            config.Formatters.Remove(config.Formatters.XmlFormatter);
+
+            config.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling =ReferenceLoopHandling.Ignore;
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",

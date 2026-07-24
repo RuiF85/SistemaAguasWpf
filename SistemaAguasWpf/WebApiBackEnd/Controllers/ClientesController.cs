@@ -42,7 +42,7 @@ namespace WebApiBackEnd.Controllers
             {
                 return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, cliente));
             }
-            return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, "Cliente não encontrado"));
+            return ResponseMessage(Request.CreateResponse(HttpStatusCode.NotFound, "Cliente não encontrado."));
 
         }
 
@@ -59,7 +59,7 @@ namespace WebApiBackEnd.Controllers
             if (novoCliente == null)
             {
                 return ResponseMessage(Request.CreateResponse(HttpStatusCode.BadRequest,
-                    "Os dados do cliente são obrigatórios-"));
+                    "Os dados do cliente são obrigatórios."));
             }
             ClienteService ClienteService = new ClienteService(dc);
 
@@ -87,7 +87,7 @@ namespace WebApiBackEnd.Controllers
             if (clienteAlterado == null)
             {
                 return ResponseMessage(Request.CreateResponse(HttpStatusCode.BadRequest,
-                    "Os dados do cliente são obrigatórios"));
+                    "Os dados do cliente são obrigatórios."));
             }
 
             ClienteService clienteService = new ClienteService(dc);
