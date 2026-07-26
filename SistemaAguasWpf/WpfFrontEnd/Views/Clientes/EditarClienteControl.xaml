@@ -1,0 +1,356 @@
+﻿<UserControl x:Class="WpfFrontEnd.Views.Clientes.EditarClienteControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Background="#EEF4F7" Width="831">
+
+    <UserControl.Resources>
+
+        <Style x:Key="CampoTextoStyle"
+               TargetType="TextBox">
+
+            <Setter Property="Height"
+                    Value="34"/>
+
+            <Setter Property="Padding"
+                    Value="8,4"/>
+
+            <Setter Property="VerticalContentAlignment"
+                    Value="Center"/>
+
+            <Setter Property="BorderBrush"
+                    Value="#C7D4DC"/>
+
+            <Setter Property="BorderThickness"
+                    Value="1"/>
+
+            <Setter Property="Background"
+                    Value="White"/>
+
+        </Style>
+
+        <Style x:Key="BotaoSecundarioStyle"
+               TargetType="Button">
+
+            <Setter Property="Width"
+                    Value="120"/>
+
+            <Setter Property="Height"
+                    Value="40"/>
+
+            <Setter Property="Margin"
+                    Value="0,0,10,0"/>
+
+            <Setter Property="Cursor"
+                    Value="Hand"/>
+
+            <Setter Property="FontWeight"
+                    Value="SemiBold"/>
+
+            <Setter Property="Background"
+                    Value="#E5EDF2"/>
+
+            <Setter Property="Foreground"
+                    Value="#083B5C"/>
+
+            <Setter Property="BorderThickness"
+                    Value="0"/>
+
+        </Style>
+
+        <Style x:Key="BotaoPrincipalStyle"
+               TargetType="Button">
+
+            <Setter Property="Width"
+                    Value="160"/>
+
+            <Setter Property="Height"
+                    Value="40"/>
+
+            <Setter Property="Cursor"
+                    Value="Hand"/>
+
+            <Setter Property="FontWeight"
+                    Value="SemiBold"/>
+
+            <Setter Property="Background"
+                    Value="#20A9D2"/>
+
+            <Setter Property="Foreground"
+                    Value="White"/>
+
+            <Setter Property="BorderThickness"
+                    Value="0"/>
+
+        </Style>
+
+    </UserControl.Resources>
+
+    <Grid Margin="30">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="240"/>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Cabeçalho -->
+        <StackPanel Grid.Row="0">
+
+            <TextBlock Text="Editar Cliente"
+                       FontSize="28"
+                       FontWeight="Bold"
+                       Foreground="#083B5C"/>
+
+            <TextBlock Text="Selecione um cliente e altere os dados pretendidos."
+                       FontSize="15"
+                       Foreground="Gray"
+                       Margin="0,5,0,0"/>
+
+        </StackPanel>
+
+        <!-- Lista de clientes -->
+        <Border Grid.Row="2"
+                Background="White"
+                BorderBrush="#D7E2E8"
+                BorderThickness="1"
+                CornerRadius="12"
+                Padding="15">
+
+            <Grid>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="12"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Text="Clientes registados"
+                           FontSize="18"
+                           FontWeight="SemiBold"
+                           Foreground="#083B5C"/>
+
+                <DataGrid x:Name="dgClientes"
+                          Grid.Row="2"
+                          AutoGenerateColumns="False"
+                          CanUserAddRows="False"
+                          CanUserDeleteRows="False"
+                          IsReadOnly="True"
+                          SelectionMode="Single"
+                          SelectionUnit="FullRow"
+                          HeadersVisibility="Column"
+                          GridLinesVisibility="Horizontal"
+                          RowHeaderWidth="0"
+                          AlternatingRowBackground="#F4F8FA"
+                          SelectionChanged="DgClientes_SelectionChanged">
+
+                    <DataGrid.Columns>
+
+                        <DataGridTextColumn Header="ID"
+                                            Binding="{Binding IdCliente}"
+                                            Width="70"/>
+
+                        <DataGridTextColumn Header="Nome"
+                                            Binding="{Binding Nome}"
+                                            Width="*"/>
+
+                        <DataGridTextColumn Header="Apelido"
+                                            Binding="{Binding Apelido}"
+                                            Width="*"/>
+
+                        <DataGridTextColumn Header="NIF"
+                                            Binding="{Binding Nif}"
+                                            Width="120"/>
+
+                        <DataGridTextColumn Header="Contacto"
+                                            Binding="{Binding Contacto}"
+                                            Width="130"/>
+
+                        <DataGridTextColumn Header="Email"
+                                            Binding="{Binding Email}"
+                                            Width="2*"/>
+
+                        <DataGridCheckBoxColumn Header="Ativo"
+                                                Binding="{Binding Ativo}"
+                                                Width="80"/>
+
+                    </DataGrid.Columns>
+
+                </DataGrid>
+
+            </Grid>
+
+        </Border>
+
+        <!-- Formulário -->
+        <Border Grid.Row="4"
+                Background="White"
+                BorderBrush="#D7E2E8"
+                BorderThickness="1"
+                CornerRadius="12"
+                Padding="25">
+
+            <Grid>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="145"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="35"/>
+                    <ColumnDefinition Width="145"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="65"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0"
+                           Grid.Column="0"
+                           Grid.ColumnSpan="5"
+                           Text="Dados do cliente selecionado"
+                           FontSize="18"
+                           FontWeight="SemiBold"
+                           Foreground="#083B5C"
+                           Margin="0,0,0,10"/>
+
+                <!-- Nome -->
+                <TextBlock Grid.Row="1"
+                           Grid.Column="0"
+                           Text="Nome:"
+                           FontWeight="SemiBold"
+                           VerticalAlignment="Center"/>
+
+                <TextBox x:Name="txtNome"
+                         Grid.Row="1"
+                         Grid.Column="1"
+                         Style="{StaticResource CampoTextoStyle}"/>
+
+                <!-- Apelido -->
+                <TextBlock Grid.Row="1"
+                           Grid.Column="3"
+                           Text="Apelido:"
+                           FontWeight="SemiBold"
+                           VerticalAlignment="Center"/>
+
+                <TextBox x:Name="txtApelido"
+                         Grid.Row="1"
+                         Grid.Column="4"
+                         Style="{StaticResource CampoTextoStyle}"/>
+
+                <!-- NIF -->
+                <TextBlock Grid.Row="2"
+                           Grid.Column="0"
+                           Text="NIF:"
+                           FontWeight="SemiBold"
+                           VerticalAlignment="Center"/>
+
+                <TextBox x:Name="txtNif"
+                         Grid.Row="2"
+                         Grid.Column="1"
+                         Style="{StaticResource CampoTextoStyle}"/>
+
+                <!-- Contacto -->
+                <TextBlock Grid.Row="2"
+                           Grid.Column="3"
+                           Text="Contacto:"
+                           FontWeight="SemiBold"
+                           VerticalAlignment="Center"/>
+
+                <TextBox x:Name="txtContacto"
+                         Grid.Row="2"
+                         Grid.Column="4"
+                         Style="{StaticResource CampoTextoStyle}"/>
+
+                <!-- Email -->
+                <TextBlock Grid.Row="3"
+                           Grid.Column="0"
+                           Text="Email:"
+                           FontWeight="SemiBold"
+                           VerticalAlignment="Center"/>
+
+                <TextBox x:Name="txtEmail"
+                         Grid.Row="3"
+                         Grid.Column="1"
+                         Style="{StaticResource CampoTextoStyle}"/>
+
+                <!-- Morada -->
+                <TextBlock Grid.Row="3"
+                           Grid.Column="3"
+                           Text="Morada:"
+                           FontWeight="SemiBold"
+                           VerticalAlignment="Center"/>
+
+                <TextBox x:Name="txtMorada"
+                         Grid.Row="3"
+                         Grid.Column="4"
+                         Style="{StaticResource CampoTextoStyle}"/>
+
+                <!-- Código Postal -->
+                <TextBlock Grid.Row="4"
+                           Grid.Column="0"
+                           Text="Código Postal:"
+                           FontWeight="SemiBold"
+                           VerticalAlignment="Center"/>
+
+                <TextBox x:Name="txtCodigoPostal"
+                         Grid.Row="4"
+                         Grid.Column="1"
+                         Style="{StaticResource CampoTextoStyle}"/>
+
+                <!-- Localidade -->
+                <TextBlock Grid.Row="4"
+                           Grid.Column="3"
+                           Text="Localidade:"
+                           FontWeight="SemiBold"
+                           VerticalAlignment="Center"/>
+
+                <TextBox x:Name="txtLocalidade"
+                         Grid.Row="4"
+                         Grid.Column="4"
+                         Style="{StaticResource CampoTextoStyle}"/>
+
+                <!-- Estado -->
+                <TextBlock Grid.Row="5"
+                           Grid.Column="0"
+                           Text="Estado:"
+                           FontWeight="SemiBold"
+                           VerticalAlignment="Center"/>
+
+                <CheckBox x:Name="chkAtivo"
+                          Grid.Row="5"
+                          Grid.Column="1"
+                          Content="Cliente ativo"
+                          VerticalAlignment="Center"/>
+
+                <!-- Botões -->
+                <StackPanel Grid.Row="6"
+                            Grid.Column="0"
+                            Grid.ColumnSpan="5"
+                            Orientation="Horizontal"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Bottom">
+
+                    <Button Content="Cancelar"
+                            Style="{StaticResource BotaoSecundarioStyle}"
+                            Click="BtnCancelar_Click"/>
+
+                    <Button Content="Guardar Alterações"
+                            Style="{StaticResource BotaoPrincipalStyle}"
+                            Click="BtnGuardarAlteracoes_Click"/>
+
+                </StackPanel>
+
+            </Grid>
+
+        </Border>
+
+    </Grid>
+
+</UserControl>

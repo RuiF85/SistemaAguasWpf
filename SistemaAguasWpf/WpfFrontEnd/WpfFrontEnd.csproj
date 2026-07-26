@@ -61,6 +61,15 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Services\ClienteApiService.cs" />
+    <Compile Include="Views\Clientes\ApagarClienteControl.xaml.cs">
+      <DependentUpon>ApagarClienteControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Clientes\EditarClienteControl.xaml.cs">
+      <DependentUpon>EditarClienteControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Clientes\NovoClienteControl.cs">
+      <DependentUpon>NovoClienteControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Dashboard\DashboardControl.xaml.cs">
       <DependentUpon>DashboardControl.xaml</DependentUpon>
     </Compile>
@@ -76,6 +85,18 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\Clientes\ApagarClienteControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Clientes\EditarClienteControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Clientes\NovoClienteControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Dashboard\DashboardControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

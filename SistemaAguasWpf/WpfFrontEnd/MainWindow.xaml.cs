@@ -1,7 +1,5 @@
-﻿using System;
-using System.Threading.Tasks;
-using System.Windows;
-using WpfFrontEnd.Services;
+﻿using System.Windows;
+using WpfFrontEnd.Views.Clientes;
 using WpfFrontEnd.Views.Dashboard;
 
 namespace WpfFrontEnd
@@ -12,7 +10,6 @@ namespace WpfFrontEnd
     public partial class MainWindow : Window
     {
 
-
         public MainWindow()
         {
             InitializeComponent();
@@ -22,8 +19,34 @@ namespace WpfFrontEnd
 
         private void BtnClientes_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Clientes");
+            if(SubMenuClientes.Visibility == Visibility.Collapsed)
+            {
+                SubMenuClientes.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                SubMenuClientes.Visibility = Visibility.Collapsed;
+            }
         }
+
+        private void BtnNovoCliente_Click(object sender, RoutedEventArgs e)
+        {
+            conteudoPrincipal.Content = new NovoClienteControl();
+        }
+        
+        private void BtnEditarCliente_Click(object sender, RoutedEventArgs e)
+        {
+            conteudoPrincipal.Content = new EditarClienteControl();
+        }
+        private void BtnApagarCliente_Click(object sender, RoutedEventArgs e)
+        {
+            conteudoPrincipal.Content = new ApagarClienteControl();
+        }
+
+
+
+
+
 
         private void BtnContadores_Click(object sender, RoutedEventArgs e)
         {
@@ -42,7 +65,7 @@ namespace WpfFrontEnd
             MessageBox.Show("Faturas");
 
         }
-        
+
         private void BtnSobre_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Sobre");
@@ -50,8 +73,8 @@ namespace WpfFrontEnd
         }
         private void BtnSair_Click(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult resposta = MessageBox.Show("deseja sair da aplicação?","Sair",
-                MessageBoxButton.YesNo,MessageBoxImage.Question);
+            MessageBoxResult resposta = MessageBox.Show("deseja sair da aplicação?", "Sair",
+                MessageBoxButton.YesNo, MessageBoxImage.Question);
 
             if (resposta == MessageBoxResult.Yes)
             {
