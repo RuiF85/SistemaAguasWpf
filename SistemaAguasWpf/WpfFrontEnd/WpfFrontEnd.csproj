@@ -60,7 +60,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Models\Contador.cs" />
     <Compile Include="Services\ClienteApiService.cs" />
+    <Compile Include="Services\ContadorApiService.cs" />
     <Compile Include="Views\Clientes\ApagarClienteControl.xaml.cs">
       <DependentUpon>ApagarClienteControl.xaml</DependentUpon>
     </Compile>
@@ -69,6 +71,15 @@
     </Compile>
     <Compile Include="Views\Clientes\NovoClienteControl.cs">
       <DependentUpon>NovoClienteControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Contadores\ApagarContadorControl.xaml.cs">
+      <DependentUpon>ApagarContadorControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Contadores\EditarContadorControl.xaml.cs">
+      <DependentUpon>EditarContadorControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Contadores\NovoContadorControl.xaml.cs">
+      <DependentUpon>NovoContadorControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Dashboard\DashboardControl.xaml.cs">
       <DependentUpon>DashboardControl.xaml</DependentUpon>
@@ -94,6 +105,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Clientes\NovoClienteControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Contadores\ApagarContadorControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Contadores\EditarContadorControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Contadores\NovoContadorControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

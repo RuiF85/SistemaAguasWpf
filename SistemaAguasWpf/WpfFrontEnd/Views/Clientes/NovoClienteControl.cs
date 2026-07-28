@@ -56,8 +56,7 @@ namespace WpfFrontEnd.Views.Clientes
                 return;
             }
 
-            if (txtContacto.Text.Length != 9 ||
-                !txtContacto.Text.All(char.IsDigit))
+            if (txtContacto.Text.Length != 9 || !txtContacto.Text.All(char.IsDigit))
             {
                 MessageBox.Show("O contacto deve ter exatamente 9 dígitos.", "Contacto inválido",
                     MessageBoxButton.OK, MessageBoxImage.Warning);
@@ -66,8 +65,7 @@ namespace WpfFrontEnd.Views.Clientes
                 return;
             }
 
-            if (!txtEmail.Text.Contains("@") ||
-                !txtEmail.Text.Contains("."))
+            if (!txtEmail.Text.Contains("@") || !txtEmail.Text.Contains("."))
             {
                 MessageBox.Show("Introduza um email válido.", "Email inválido",
                     MessageBoxButton.OK, MessageBoxImage.Warning);
@@ -76,11 +74,10 @@ namespace WpfFrontEnd.Views.Clientes
                 return;
             }
 
-            if (txtCodigoPostal.Text.Length != 8 ||  txtCodigoPostal.Text[4] != '-' ||
+            if (txtCodigoPostal.Text.Length != 8 || txtCodigoPostal.Text[4] != '-' ||
                 !codigoPostal.Substring(0, 4).All(char.IsDigit) || !codigoPostal.Substring(5, 3).All(char.IsDigit)) 
             {
-                MessageBox.Show("O código postal deve ter o formato 1234-567.",
-                    "Código postal inválido",
+                MessageBox.Show("O código postal deve ter o formato 1234-567.", "Código postal inválido",
                     MessageBoxButton.OK,MessageBoxImage.Warning);
 
                 txtCodigoPostal.Focus();

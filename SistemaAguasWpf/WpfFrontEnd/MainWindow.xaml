@@ -302,7 +302,7 @@
                                    Height="25"
                                    Margin="0,0,14,0"/>
 
-                                <TextBlock Text="Clientes"
+                                <TextBlock Text="    Clientes"
                        VerticalAlignment="Center"/>
 
                             </StackPanel>
@@ -331,24 +331,46 @@
                     </StackPanel>
 
                     <!-- CONTADORES -->
-                    <Button Style="{StaticResource MenuButtonStyle}"
-                            Click="BtnContadores_Click">
+                    <StackPanel>
 
-                        <StackPanel Orientation="Horizontal">
+                        <Button Style="{StaticResource MenuButtonStyle}"
+                        Click="BtnContadores_Click">
 
-                            <Image Source="Images/Contador.png"
-                                   Width="40"
-                                   Height="50"
-                                   Margin="0,0,12,0"
-                                   Stretch="Uniform"/>
+                            <StackPanel Orientation="Horizontal">
 
-                            <TextBlock Text=" Contadores"
-                                       VerticalAlignment="Center"/>
+                                <Image Source="Images/Contador.png"
+                                       Width="40"
+                                       Height="50"
+                                       Margin="0,0,12,0"
+                                       Stretch="Uniform"/>
+
+                                <TextBlock Text=" Contadores"
+                                   VerticalAlignment="Center"/>
+
+                            </StackPanel>
+
+                        </Button>
+
+                        <!-- SUBMENU CONTADORES -->
+                        <StackPanel x:Name="SubMenuContadores"
+                                Visibility="Collapsed"
+                                Margin="25,-5,0,10">
+
+                                            <Button Style="{StaticResource SubMenuButtonStyle}"
+                                Content="Novo Contador"
+                                Click="NovoContadorControl_Click"/>
+
+                                            <Button Style="{StaticResource SubMenuButtonStyle}"
+                                Content="Editar Contador"
+                                Click="BtnEditarContador_Click"/>
+
+                                            <Button Style="{StaticResource SubMenuButtonStyle}"
+                                Content="Apagar Contador"
+                                Click="BtnApagarContador_Click"/>
 
                         </StackPanel>
 
-                    </Button>
-
+                    </StackPanel>
                     <!-- CONSUMOS -->
                     <Button Style="{StaticResource MenuButtonStyle}"
                             Click="BtnConsumos_Click">

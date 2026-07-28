@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using WpfFrontEnd.Views.Clientes;
+using WpfFrontEnd.Views.Contadores;
 using WpfFrontEnd.Views.Dashboard;
 
 namespace WpfFrontEnd
@@ -45,19 +46,43 @@ namespace WpfFrontEnd
 
 
 
-
-
-
         private void BtnContadores_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Contadores");
-
+            if (SubMenuContadores.Visibility == Visibility.Collapsed)
+            { 
+                SubMenuContadores.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                SubMenuContadores.Visibility = Visibility.Collapsed;
+            }
+            
+           
         }
+
+        private void NovoContadorControl_Click(object sender, RoutedEventArgs e)
+        {
+            conteudoPrincipal.Content = new NovoContadorControl();
+        }
+
+        private void BtnEditarContador_Click(object sender, RoutedEventArgs e)
+        {
+            conteudoPrincipal.Content = new EditarContadorControl();
+        }
+
+        private void BtnApagarContador_Click(object sender, RoutedEventArgs e)
+        {
+            conteudoPrincipal.Content = new ApagarContadorControl();
+        }
+
+
+
+
+
 
         private void BtnConsumos_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Consumos");
-
         }
 
         private void BtnFaturas_Click(object sender, RoutedEventArgs e)

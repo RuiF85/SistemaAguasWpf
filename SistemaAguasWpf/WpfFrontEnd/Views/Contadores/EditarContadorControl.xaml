@@ -1,0 +1,205 @@
+﻿<UserControl x:Class="WpfFrontEnd.Views.Contadores.EditarContadorControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Background="#EEF4F7"
+             HorizontalAlignment="Stretch"
+             VerticalAlignment="Stretch" Width="640">
+
+    <Grid Margin="30">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="260"/>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Cabeçalho -->
+        <StackPanel Grid.Row="0">
+            <TextBlock Text="Editar Contador"
+                       FontSize="28"
+                       FontWeight="Bold"
+                       Foreground="#083B5C"/>
+
+            <TextBlock Text="Selecione um contador e altere os respetivos dados."
+                       FontSize="15"
+                       Foreground="Gray"
+                       Margin="0,5,0,0"/>
+        </StackPanel>
+
+        <!-- Lista de contadores -->
+        <Border Grid.Row="2"
+                Background="White"
+                BorderBrush="#D7E2E8"
+                BorderThickness="1"
+                CornerRadius="12"
+                Padding="15">
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="12"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Text="Contadores registados"
+                           FontSize="18"
+                           FontWeight="SemiBold"
+                           Foreground="#083B5C"/>
+
+                <DataGrid x:Name="dgContadores"
+                          Grid.Row="2"
+                          AutoGenerateColumns="False"
+                          CanUserAddRows="False"
+                          CanUserDeleteRows="False"
+                          IsReadOnly="True"
+                          SelectionMode="Single"
+                          SelectionUnit="FullRow"
+                          RowHeaderWidth="0"
+                          AlternatingRowBackground="#F4F8FA"
+                          SelectionChanged="DgContadores_SelectionChanged">
+
+                    <DataGrid.Columns>
+
+                        <DataGridTextColumn Header="ID"
+                                            Binding="{Binding IdContador}"
+                                            Width="70"/>
+
+                        <DataGridTextColumn Header="ID Cliente"
+                                            Binding="{Binding IdCliente}"
+                                            Width="100"/>
+
+                        <DataGridTextColumn Header="Número"
+                                            Binding="{Binding NumeroContador}"
+                                            Width="*"/>
+
+                        <DataGridTextColumn Header="Data de instalação"
+                                            Binding="{Binding DataInstalacao, StringFormat={}{0:dd/MM/yyyy}}"
+                                            Width="160"/>
+
+                        <DataGridCheckBoxColumn Header="Ativo"
+                                                Binding="{Binding Ativo}"
+                                                Width="80"/>
+
+                    </DataGrid.Columns>
+
+                </DataGrid>
+            </Grid>
+        </Border>
+
+        <!-- Formulário -->
+        <Border Grid.Row="4"
+                Background="White"
+                BorderBrush="#D7E2E8"
+                BorderThickness="1"
+                CornerRadius="12"
+                Padding="25">
+
+            <Grid>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="170"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="55"/>
+                    <RowDefinition Height="55"/>
+                    <RowDefinition Height="55"/>
+                    <RowDefinition Height="55"/>
+                    <RowDefinition Height="80"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0"
+                           Grid.Column="0"
+                           Grid.ColumnSpan="2"
+                           Text="Dados do contador"
+                           FontSize="18"
+                           FontWeight="SemiBold"
+                           Foreground="#083B5C"
+                           Margin="0,0,0,10"/>
+
+                <!-- Cliente -->
+                <TextBlock Grid.Row="1"
+                           Grid.Column="0"
+                           Text="Cliente:"
+                           FontWeight="SemiBold"
+                           VerticalAlignment="Center"/>
+
+                <ComboBox x:Name="cmbClientes"
+                          Grid.Row="1"
+                          Grid.Column="1"
+                          Height="36"
+                          VerticalContentAlignment="Center"
+                          DisplayMemberPath="NomeCompleto"
+                          SelectedValuePath="IdCliente"/>
+
+                <!-- Número -->
+                <TextBlock Grid.Row="2"
+                           Grid.Column="0"
+                           Text="Número do contador:"
+                           FontWeight="SemiBold"
+                           VerticalAlignment="Center"/>
+
+                <TextBox x:Name="txtNumeroContador"
+                         Grid.Row="2"
+                         Grid.Column="1"
+                         Height="36"
+                         VerticalContentAlignment="Center"/>
+
+                <!-- Data -->
+                <TextBlock Grid.Row="3"
+                           Grid.Column="0"
+                           Text="Data de instalação:"
+                           FontWeight="SemiBold"
+                           VerticalAlignment="Center"/>
+
+                <DatePicker x:Name="dpDataInstalacao"
+                            Grid.Row="3"
+                            Grid.Column="1"
+                            Height="36"
+                            VerticalContentAlignment="Center"/>
+
+                <!-- Ativo -->
+                <TextBlock Grid.Row="4"
+                           Grid.Column="0"
+                           Text="Ativo:"
+                           FontWeight="SemiBold"
+                           VerticalAlignment="Center"/>
+
+                <CheckBox x:Name="chkAtivo"
+                          Grid.Row="4"
+                          Grid.Column="1"
+                          VerticalAlignment="Center"/>
+
+                <!-- Botões -->
+                <StackPanel Grid.Row="5"
+                            Grid.Column="0"
+                            Grid.ColumnSpan="2"
+                            Orientation="Horizontal"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Bottom">
+
+                    <Button Content="Cancelar"
+                            Width="120"
+                            Height="40"
+                            Margin="0,0,10,0"
+                            Click="BtnCancelar_Click"/>
+
+                    <Button Content="Guardar Alterações"
+                            Width="170"
+                            Height="40"
+                            Background="#087EA4"
+                            Foreground="White"
+                            FontWeight="SemiBold"
+                            Click="BtnGuardarAlteracoes_Click"/>
+
+                </StackPanel>
+
+            </Grid>
+        </Border>
+
+    </Grid>
+</UserControl>

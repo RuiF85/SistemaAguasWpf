@@ -8,20 +8,18 @@ using WpfFrontEnd.Models;
 
 namespace WpfFrontEnd.Services
 {
-    public class ClienteApiService
+    public class ContadorApiService
     {
         private readonly HttpClient _httpClient;
-
         private readonly string BaseUrl;
 
-        public ClienteApiService()
+        public ContadorApiService()
         {
-            _httpClient = new HttpClient(); 
-
-            BaseUrl = ConfigurationManager.AppSettings["ApiBaseUrl"] + "clientes";
+            _httpClient = new HttpClient();
+            BaseUrl = ConfigurationManager.AppSettings["ApiBaseUrl"] + "contadores";
         }
 
-        public async Task<List<Cliente>> ObterClientes()
+        public async Task<List<Contador>> ObterContadores()
         {
             HttpResponseMessage response = await _httpClient.GetAsync(BaseUrl);
 
@@ -29,15 +27,14 @@ namespace WpfFrontEnd.Services
             {
                 string json = await response.Content.ReadAsStringAsync();
 
-                return JsonConvert.DeserializeObject<List<Cliente>>(json);
+                return JsonConvert.DeserializeObject<List<Contador>>(json);
             }
-            return new List<Cliente>();
-
+            return new List<Contador>();
         }
 
-        public async Task<bool> CriarCliente(Cliente cliente)
+        public async Task<bool> CriarContador (Contador contador)
         {
-            string json = JsonConvert.SerializeObject(cliente);
+            string json = JsonConvert.SerializeObject(contador);
 
             StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
 
@@ -46,9 +43,9 @@ namespace WpfFrontEnd.Services
             return response.IsSuccessStatusCode;
         }
 
-        public async Task<bool> AlterarCliente(Cliente cliente)
+        public async Task<bool> AlterarContador(Contador contador)
         {
-            string json = JsonConvert.SerializeObject(cliente);
+            string json = JsonConvert.SerializeObject(contador);
 
             StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
 
@@ -57,8 +54,7 @@ namespace WpfFrontEnd.Services
             return response.IsSuccessStatusCode;
 
         }
-
-        public async Task<bool> EliminarCliente(int id)
+        public async Task<bool> EliminarContador(int id)
         {
             HttpResponseMessage response = await _httpClient.DeleteAsync($"{BaseUrl}/{id}");
 
@@ -66,4 +62,3 @@ namespace WpfFrontEnd.Services
         }
     }
 }
-

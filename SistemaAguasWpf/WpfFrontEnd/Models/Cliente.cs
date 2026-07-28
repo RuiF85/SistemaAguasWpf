@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace WpfFrontEnd.Models
 {
     public class Cliente
     {
-        public int  IdCliente   { get; set; }
+        public int IdCliente { get; set; }
         [Required]
         public string Nome { get; set; }
         [Required]
@@ -17,7 +12,7 @@ namespace WpfFrontEnd.Models
         [Required]
         public string Morada { get; set; }
         [Required]
-        public string Nif {  get; set; }
+        public string Nif { get; set; }
         [Required]
         public string Contacto { get; set; }
         [Required]
@@ -27,7 +22,12 @@ namespace WpfFrontEnd.Models
         [Required]
         public string Localidade { get; set; }
         [Required]
-        public bool Ativo {  get; set; }
+        public bool Ativo { get; set; }
+
+        public string NomeCompleto
+        {
+            get { return Nome + " " + Apelido; }
+        }
 
     }
 }

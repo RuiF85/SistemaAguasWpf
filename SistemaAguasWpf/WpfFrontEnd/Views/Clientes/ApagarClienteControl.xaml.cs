@@ -63,7 +63,7 @@ namespace WpfFrontEnd.Views.Clientes
         {
             if (clienteSelecionado == null)
             {
-                MessageBox.Show( "Selecione um cliente.",   "Aviso",
+                MessageBox.Show( "Selecione um cliente.","Aviso",
                     MessageBoxButton.OK,  MessageBoxImage.Warning);
 
                 return;
