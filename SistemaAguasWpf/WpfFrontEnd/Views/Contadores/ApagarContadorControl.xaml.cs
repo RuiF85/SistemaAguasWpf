@@ -37,7 +37,8 @@ namespace WpfFrontEnd.Views.Contadores
             }
 
             txtCliente.Text = contadorSelecionado.IdCliente.ToString();
-            txtNumeroContador.Text = contadorSelecionado.DataInstalacao.ToString("dd/MM/yyyy");
+            txtNumeroContador.Text = contadorSelecionado.NumeroContador;
+            txtDataInstalacao.Text = contadorSelecionado.DataInstalacao.ToString("dd/MM/yyyy");
             txtEstado.Text = contadorSelecionado.Ativo ? "Ativo" : "Inativo";
         }
 
@@ -49,8 +50,9 @@ namespace WpfFrontEnd.Views.Contadores
                     MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
+
             MessageBoxResult resposta = MessageBox.Show(
-             $"Tem a certeza de que pretende apagar o contador{contadorSelecionado.NumeroContador}?",
+             $"Tem a certeza de que pretende apagar o contador {contadorSelecionado.NumeroContador}?",
              "Confirmar eliminação",
              MessageBoxButton.YesNo, MessageBoxImage.Question);
 

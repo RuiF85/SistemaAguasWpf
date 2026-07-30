@@ -54,14 +54,19 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="WpfAnimatedGif, Version=2.0.0.0, Culture=neutral, PublicKeyToken=9e7cd3b544a090dc, processorArchitecture=MSIL">
+      <HintPath>..\packages\WpfAnimatedGif.2.0.2\lib\net40\WpfAnimatedGif.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Models\Consumo.cs" />
     <Compile Include="Models\Contador.cs" />
     <Compile Include="Services\ClienteApiService.cs" />
+    <Compile Include="Services\ConsumoApiService.cs" />
     <Compile Include="Services\ContadorApiService.cs" />
     <Compile Include="Views\Clientes\ApagarClienteControl.xaml.cs">
       <DependentUpon>ApagarClienteControl.xaml</DependentUpon>
@@ -71,6 +76,15 @@
     </Compile>
     <Compile Include="Views\Clientes\NovoClienteControl.cs">
       <DependentUpon>NovoClienteControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Consumos\ApagarConsumoControl.xaml.cs">
+      <DependentUpon>ApagarConsumoControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Consumos\EditarConsumoControl.xaml.cs">
+      <DependentUpon>EditarConsumoControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Consumos\NovoConsumoControl.xaml.cs">
+      <DependentUpon>NovoConsumoControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Contadores\ApagarContadorControl.xaml.cs">
       <DependentUpon>ApagarContadorControl.xaml</DependentUpon>
@@ -105,6 +119,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Clientes\NovoClienteControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Consumos\ApagarConsumoControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Consumos\EditarConsumoControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Consumos\NovoConsumoControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -153,7 +179,9 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Images\giphy.gif" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Agua clin.png" />
     <Resource Include="Images\Agua.png" />
@@ -203,5 +231,6 @@
   <ItemGroup>
     <Resource Include="Images\circle-info-branco.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

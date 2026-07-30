@@ -9,18 +9,339 @@
 
     <Window.Resources>
 
-        <!-- Estilo dos botões do menu lateral -->
+        <!-- ===================================================== -->
+        <!-- CORES                                                 -->
+        <!-- ===================================================== -->
+
+        <SolidColorBrush x:Key="CorMenu"
+                         Color="#0A2E4E"/>
+
+        <SolidColorBrush x:Key="CorBotao"
+                         Color="#147FA3"/>
+
+        <SolidColorBrush x:Key="CorBotaoHover"
+                         Color="#1998C2"/>
+
+        <SolidColorBrush x:Key="CorBotaoPressionado"
+                         Color="#075C7A"/>
+
+        <SolidColorBrush x:Key="CorAzulClaro"
+                         Color="#5EC4E3"/>
+
+        <SolidColorBrush x:Key="CorCirculoAtivo"
+                         Color="#5EC4E3"/>
+
+        <SolidColorBrush x:Key="CorCirculoInativo"
+                         Color="Transparent"/>
+
+
+        <!-- ===================================================== -->
+        <!-- ÍCONES VETORIAIS                                      -->
+        <!-- ===================================================== -->
+
+        <!-- CLIENTES: cabeça e ombros -->
+
+        <GeometryGroup x:Key="IconeClientes">
+
+            <EllipseGeometry Center="12,7"
+                             RadiusX="4"
+                             RadiusY="4"/>
+
+            <PathGeometry>
+
+                <PathFigure StartPoint="4,22"
+                            IsClosed="False">
+
+                    <BezierSegment Point1="4.3,16.5"
+                                   Point2="7.4,13"
+                                   Point3="12,13"/>
+
+                    <BezierSegment Point1="16.6,13"
+                                   Point2="19.7,16.5"
+                                   Point3="20,22"/>
+
+                </PathFigure>
+
+            </PathGeometry>
+
+        </GeometryGroup>
+
+
+        <!-- CONTADORES: contador circular -->
+
+        <GeometryGroup x:Key="IconeContadores">
+
+            <EllipseGeometry Center="12,12"
+                             RadiusX="7"
+                             RadiusY="7"/>
+
+            <LineGeometry StartPoint="5,12"
+                          EndPoint="1,12"/>
+
+            <LineGeometry StartPoint="19,12"
+                          EndPoint="23,12"/>
+
+            <LineGeometry StartPoint="12,12"
+                          EndPoint="15,8"/>
+
+            <LineGeometry StartPoint="8,16"
+                          EndPoint="16,16"/>
+
+            <EllipseGeometry Center="12,12"
+                             RadiusX="1"
+                             RadiusY="1"/>
+
+        </GeometryGroup>
+
+
+        <!-- CONSUMOS: gota e níveis -->
+
+        <GeometryGroup x:Key="IconeConsumos">
+
+            <PathGeometry>
+
+                <PathFigure StartPoint="12,2"
+                            IsClosed="True">
+
+                    <BezierSegment Point1="12,2"
+                                   Point2="5,10"
+                                   Point3="5,15"/>
+
+                    <BezierSegment Point1="5,19"
+                                   Point2="8.1,22"
+                                   Point3="12,22"/>
+
+                    <BezierSegment Point1="15.9,22"
+                                   Point2="19,19"
+                                   Point3="19,15"/>
+
+                    <BezierSegment Point1="19,10"
+                                   Point2="12,2"
+                                   Point3="12,2"/>
+
+                </PathFigure>
+
+            </PathGeometry>
+
+            <LineGeometry StartPoint="8,13"
+                          EndPoint="16,13"/>
+
+            <LineGeometry StartPoint="8,16"
+                          EndPoint="16,16"/>
+
+            <LineGeometry StartPoint="9.5,19"
+                          EndPoint="14.5,19"/>
+
+        </GeometryGroup>
+
+
+        <!-- FATURAS: documento, dobra e gota -->
+
+        <GeometryGroup x:Key="IconeFaturas">
+
+            <PathGeometry>
+
+                <PathFigure StartPoint="5,2"
+                            IsClosed="True">
+
+                    <LineSegment Point="15,2"/>
+
+                    <LineSegment Point="20,7"/>
+
+                    <LineSegment Point="20,22"/>
+
+                    <LineSegment Point="5,22"/>
+
+                </PathFigure>
+
+            </PathGeometry>
+
+            <PathGeometry>
+
+                <PathFigure StartPoint="15,2"
+                            IsClosed="False">
+
+                    <LineSegment Point="15,7"/>
+
+                    <LineSegment Point="20,7"/>
+
+                </PathFigure>
+
+            </PathGeometry>
+
+            <PathGeometry>
+
+                <PathFigure StartPoint="12,10"
+                            IsClosed="True">
+
+                    <BezierSegment Point1="12,10"
+                                   Point2="8.5,14"
+                                   Point3="8.5,16.5"/>
+
+                    <BezierSegment Point1="8.5,18.5"
+                                   Point2="10,20"
+                                   Point3="12,20"/>
+
+                    <BezierSegment Point1="14,20"
+                                   Point2="15.5,18.5"
+                                   Point3="15.5,16.5"/>
+
+                    <BezierSegment Point1="15.5,14"
+                                   Point2="12,10"
+                                   Point3="12,10"/>
+
+                </PathFigure>
+
+            </PathGeometry>
+
+        </GeometryGroup>
+
+
+        <!-- SOBRE -->
+
+        <GeometryGroup x:Key="IconeSobre">
+
+            <EllipseGeometry Center="12,12"
+                             RadiusX="9"
+                             RadiusY="9"/>
+
+            <EllipseGeometry Center="12,7.5"
+                             RadiusX="0.7"
+                             RadiusY="0.7"/>
+
+            <LineGeometry StartPoint="12,11"
+                          EndPoint="12,17"/>
+
+        </GeometryGroup>
+
+
+        <!-- SAIR -->
+
+        <GeometryGroup x:Key="IconeSair">
+
+            <PathGeometry>
+
+                <PathFigure StartPoint="9,5"
+                            IsClosed="False">
+
+                    <LineSegment Point="5,5"/>
+
+                    <LineSegment Point="5,21"/>
+
+                    <LineSegment Point="9,21"/>
+
+                </PathFigure>
+
+            </PathGeometry>
+
+            <LineGeometry StartPoint="11,13"
+                          EndPoint="23,13"/>
+
+            <PathGeometry>
+
+                <PathFigure StartPoint="18,8"
+                            IsClosed="False">
+
+                    <LineSegment Point="23,13"/>
+
+                    <LineSegment Point="18,18"/>
+
+                </PathFigure>
+
+            </PathGeometry>
+
+        </GeometryGroup>
+
+
+        <!-- ===================================================== -->
+        <!-- ESTILO DO CÍRCULO DOS ÍCONES                           -->
+        <!-- ===================================================== -->
+
+        <Style x:Key="IconCircleStyle"
+               TargetType="Border">
+
+            <Setter Property="Width"
+                    Value="38"/>
+
+            <Setter Property="Height"
+                    Value="38"/>
+
+            <Setter Property="CornerRadius"
+                    Value="19"/>
+
+            <Setter Property="Background"
+                    Value="Transparent"/>
+
+            <Setter Property="Margin"
+                    Value="0,0,12,0"/>
+
+            <Setter Property="VerticalAlignment"
+                    Value="Center"/>
+
+            <Setter Property="HorizontalAlignment"
+                    Value="Center"/>
+
+        </Style>
+
+
+        <!-- ===================================================== -->
+        <!-- ÍCONE PRINCIPAL                                       -->
+        <!-- ===================================================== -->
+
+        <Style x:Key="MenuIconStyle"
+               TargetType="Path">
+
+            <Setter Property="Width"
+                    Value="24"/>
+
+            <Setter Property="Height"
+                    Value="24"/>
+
+            <Setter Property="Stretch"
+                    Value="Uniform"/>
+
+            <Setter Property="Stroke"
+                    Value="White"/>
+
+            <Setter Property="StrokeThickness"
+                    Value="1.8"/>
+
+            <Setter Property="StrokeStartLineCap"
+                    Value="Round"/>
+
+            <Setter Property="StrokeEndLineCap"
+                    Value="Round"/>
+
+            <Setter Property="StrokeLineJoin"
+                    Value="Round"/>
+
+            <Setter Property="Fill"
+                    Value="Transparent"/>
+
+            <Setter Property="HorizontalAlignment"
+                    Value="Center"/>
+
+            <Setter Property="VerticalAlignment"
+                    Value="Center"/>
+
+        </Style>
+
+
+        <!-- ===================================================== -->
+        <!-- BOTÕES PRINCIPAIS DO MENU                              -->
+        <!-- ===================================================== -->
+
         <Style x:Key="MenuButtonStyle"
                TargetType="Button">
 
             <Setter Property="Height"
-                    Value="50"/>
+                    Value="54"/>
 
             <Setter Property="Margin"
                     Value="0,0,0,12"/>
 
             <Setter Property="Padding"
-                    Value="18,0"/>
+                    Value="12,0"/>
 
             <Setter Property="FontSize"
                     Value="16"/>
@@ -32,10 +353,10 @@
                     Value="White"/>
 
             <Setter Property="Background"
-                    Value="#20A9D2"/>
+                    Value="#147FA3"/>
 
             <Setter Property="BorderBrush"
-                    Value="#72D8F3"/>
+                    Value="#5EC4E3"/>
 
             <Setter Property="BorderThickness"
                     Value="1"/>
@@ -56,7 +377,17 @@
                                 Background="{TemplateBinding Background}"
                                 BorderBrush="{TemplateBinding BorderBrush}"
                                 BorderThickness="{TemplateBinding BorderThickness}"
-                                CornerRadius="12">
+                                CornerRadius="11">
+
+                            <Border.Effect>
+
+                                <DropShadowEffect Color="#000000"
+                                                  BlurRadius="8"
+                                                  ShadowDepth="2"
+                                                  Direction="270"
+                                                  Opacity="0.28"/>
+
+                            </Border.Effect>
 
                             <ContentPresenter
                                 Margin="{TemplateBinding Padding}"
@@ -67,13 +398,25 @@
 
                         <ControlTemplate.Triggers>
 
-                            <!-- Quando o rato passa pelo botão -->
                             <Trigger Property="IsMouseOver"
                                      Value="True">
 
                                 <Setter TargetName="ButtonBorder"
                                         Property="Background"
-                                        Value="#056C8F"/>
+                                        Value="#1998C2"/>
+
+                                <Setter TargetName="ButtonBorder"
+                                        Property="BorderBrush"
+                                        Value="#C5F1FC"/>
+
+                            </Trigger>
+
+                            <Trigger Property="IsPressed"
+                                     Value="True">
+
+                                <Setter TargetName="ButtonBorder"
+                                        Property="Background"
+                                        Value="#075C7A"/>
 
                                 <Setter TargetName="ButtonBorder"
                                         Property="BorderBrush"
@@ -81,13 +424,12 @@
 
                             </Trigger>
 
-                            <!-- Quando o botão é pressionado -->
-                            <Trigger Property="IsPressed"
-                                     Value="True">
+                            <Trigger Property="IsEnabled"
+                                     Value="False">
 
                                 <Setter TargetName="ButtonBorder"
-                                        Property="Background"
-                                        Value="#034E69"/>
+                                        Property="Opacity"
+                                        Value="0.55"/>
 
                             </Trigger>
 
@@ -101,72 +443,94 @@
 
         </Style>
 
-        <!-- Estilo do botão Sobre -->
-        <Style x:Key="AboutButtonStyle"
-               TargetType="Button"
-               BasedOn="{StaticResource MenuButtonStyle}">
+
+        <!-- ===================================================== -->
+        <!-- SUBMENUS                                              -->
+        <!-- ===================================================== -->
+
+        <Style x:Key="SubMenuButtonStyle"
+               TargetType="Button">
 
             <Setter Property="Height"
-                    Value="46"/>
+                    Value="36"/>
 
             <Setter Property="Margin"
-                    Value="12"/>
+                    Value="10,2,0,5"/>
+
+            <Setter Property="Padding"
+                    Value="15,0"/>
+
+            <Setter Property="FontSize"
+                    Value="14"/>
+
+            <Setter Property="Foreground"
+                    Value="White"/>
 
             <Setter Property="Background"
-                    Value="#0B91BA"/>
+                    Value="#105F7D"/>
 
-        </Style>
+            <Setter Property="BorderBrush"
+                    Value="#367F99"/>
 
-        <!-- Estilo do botão Sair -->
-        <!-- Estilo dos botões do submenu -->
-        <Style x:Key="SubMenuButtonStyle"
-       TargetType="Button">
+            <Setter Property="BorderThickness"
+                    Value="1"/>
 
-            <Setter Property="Height" Value="36"/>
-            <Setter Property="Margin" Value="10,2,0,5"/>
-            <Setter Property="Padding" Value="15,0"/>
-            <Setter Property="Background" Value="#0F95BE"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="BorderBrush" Value="#72D8F3"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="Cursor" Value="Hand"/>
-            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="Cursor"
+                    Value="Hand"/>
+
+            <Setter Property="HorizontalContentAlignment"
+                    Value="Left"/>
 
             <Setter Property="Template">
+
                 <Setter.Value>
 
                     <ControlTemplate TargetType="Button">
 
                         <Border x:Name="SubMenuBorder"
-                        Background="{TemplateBinding Background}"
-                        BorderBrush="{TemplateBinding BorderBrush}"
-                        BorderThickness="{TemplateBinding BorderThickness}"
-                        CornerRadius="8">
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="8">
+
+                            <Border.Effect>
+
+                                <DropShadowEffect Color="#000000"
+                                                  BlurRadius="5"
+                                                  ShadowDepth="1"
+                                                  Direction="270"
+                                                  Opacity="0.20"/>
+
+                            </Border.Effect>
 
                             <ContentPresenter
-                        Margin="{TemplateBinding Padding}"
-                        HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                        VerticalAlignment="Center"/>
+                                Margin="{TemplateBinding Padding}"
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalAlignment="Center"/>
 
                         </Border>
 
                         <ControlTemplate.Triggers>
 
                             <Trigger Property="IsMouseOver"
-                             Value="True">
+                                     Value="True">
 
                                 <Setter TargetName="SubMenuBorder"
-                                Property="Background"
-                                Value="#056C8F"/>
+                                        Property="Background"
+                                        Value="#147FA3"/>
+
+                                <Setter TargetName="SubMenuBorder"
+                                        Property="BorderBrush"
+                                        Value="#72D8F3"/>
 
                             </Trigger>
 
                             <Trigger Property="IsPressed"
-                             Value="True">
+                                     Value="True">
 
                                 <Setter TargetName="SubMenuBorder"
-                                Property="Background"
-                                Value="#034E69"/>
+                                        Property="Background"
+                                        Value="#064D68"/>
 
                             </Trigger>
 
@@ -175,55 +539,106 @@
                     </ControlTemplate>
 
                 </Setter.Value>
+
             </Setter>
 
         </Style>
 
-        <!-- Estilo do botão Sair -->
-        <Style x:Key="ExitButtonStyle"
-       TargetType="Button">
 
-            <Setter Property="Width" Value="50"/>
-            <Setter Property="Height" Value="50"/>
-            <Setter Property="Background" Value="#E9F5F9"/>
-            <Setter Property="BorderBrush" Value="Transparent"/>
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="Cursor" Value="Hand"/>
+        <!-- ===================================================== -->
+        <!-- BOTÃO SOBRE                                           -->
+        <!-- ===================================================== -->
+
+        <Style x:Key="AboutButtonStyle"
+               TargetType="Button"
+               BasedOn="{StaticResource MenuButtonStyle}">
+
+            <Setter Property="Height"
+                    Value="48"/>
+
+            <Setter Property="Margin"
+                    Value="12"/>
+
+            <Setter Property="Background"
+                    Value="#126F91"/>
+
+        </Style>
+
+
+        <!-- ===================================================== -->
+        <!-- BOTÃO SAIR                                            -->
+        <!-- ===================================================== -->
+
+        <Style x:Key="ExitButtonStyle"
+               TargetType="Button">
+
+            <Setter Property="Width"
+                    Value="50"/>
+
+            <Setter Property="Height"
+                    Value="50"/>
+
+            <Setter Property="Background"
+                    Value="#E9F5F9"/>
+
+            <Setter Property="BorderBrush"
+                    Value="#B7D9E3"/>
+
+            <Setter Property="BorderThickness"
+                    Value="1"/>
+
+            <Setter Property="Cursor"
+                    Value="Hand"/>
 
             <Setter Property="Template">
+
                 <Setter.Value>
 
                     <ControlTemplate TargetType="Button">
 
                         <Border x:Name="ExitBorder"
-                        Background="{TemplateBinding Background}"
-                        BorderBrush="{TemplateBinding BorderBrush}"
-                        BorderThickness="{TemplateBinding BorderThickness}"
-                        CornerRadius="12">
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="12">
+
+                            <Border.Effect>
+
+                                <DropShadowEffect Color="#000000"
+                                                  BlurRadius="7"
+                                                  ShadowDepth="2"
+                                                  Direction="270"
+                                                  Opacity="0.20"/>
+
+                            </Border.Effect>
 
                             <ContentPresenter
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"/>
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"/>
 
                         </Border>
 
                         <ControlTemplate.Triggers>
 
                             <Trigger Property="IsMouseOver"
-                             Value="True">
+                                     Value="True">
 
                                 <Setter TargetName="ExitBorder"
-                                Property="Background"
-                                Value="#C9EAF3"/>
+                                        Property="Background"
+                                        Value="#C9EAF3"/>
+
+                                <Setter TargetName="ExitBorder"
+                                        Property="BorderBrush"
+                                        Value="#6FB8CC"/>
 
                             </Trigger>
 
                             <Trigger Property="IsPressed"
-                             Value="True">
+                                     Value="True">
 
                                 <Setter TargetName="ExitBorder"
-                                Property="Background"
-                                Value="#A8D9E7"/>
+                                        Property="Background"
+                                        Value="#A8D9E7"/>
 
                             </Trigger>
 
@@ -232,177 +647,272 @@
                     </ControlTemplate>
 
                 </Setter.Value>
+
             </Setter>
 
         </Style>
 
     </Window.Resources>
 
+
+    <!-- ========================================================= -->
+    <!-- ESTRUTURA PRINCIPAL                                       -->
+    <!-- ========================================================= -->
+
     <Grid>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0"/>
+
             <ColumnDefinition Width="233"/>
-            <ColumnDefinition Width="20*"/>
-            <ColumnDefinition Width="1147*"/>
+
+            <ColumnDefinition Width="*"/>
+
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
+
             <RowDefinition Height="80"/>
+
             <RowDefinition Height="*"/>
+
         </Grid.RowDefinitions>
 
-        <!-- MENU LATERAL -->
+
+        <!-- ===================================================== -->
+        <!-- MENU LATERAL                                          -->
+        <!-- ===================================================== -->
+
         <Border Grid.RowSpan="2"
                 Grid.Column="0"
-                Background="#087EA4"
-                Grid.ColumnSpan="2">
+                Background="{StaticResource CorMenu}">
 
             <Grid>
 
                 <Grid.RowDefinitions>
+
                     <RowDefinition Height="160"/>
+
                     <RowDefinition Height="*"/>
+
                     <RowDefinition Height="75"/>
+
                 </Grid.RowDefinitions>
 
-                <!-- LOGÓTIPO -->
-                <StackPanel Grid.Row="0"
-                            VerticalAlignment="Center">
-                    <Image Source="Images/Logo.png"
-                           Width="251"
-                           Height="133"
-                           Stretch="Uniform" RenderTransformOrigin="0.3,0.02">
-                        <Image.RenderTransform>
-                            <TransformGroup>
-                                <ScaleTransform/>
-                                <SkewTransform/>
-                                <RotateTransform Angle="0.114"/>
-                                <TranslateTransform/>
-                            </TransformGroup>
-                        </Image.RenderTransform>
-                    </Image>
 
-                </StackPanel>
+                <!-- LOGÓTIPO -->
+
+                <Grid Grid.Row="0">
+
+                    <Image Source="Images/Logo.png"
+                           Width="190"
+                           Height="125"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           Stretch="Uniform"/>
+
+                </Grid>
+
 
                 <!-- BOTÕES PRINCIPAIS -->
+
                 <StackPanel Grid.Row="1"
-                            Margin="12,10">
+                            Margin="12,10,12,0">
+
 
                     <!-- CLIENTES -->
+
                     <StackPanel>
 
-                        <Button Style="{StaticResource MenuButtonStyle}"
-                            Click="BtnClientes_Click">
+                        <Button x:Name="BtnClientes"
+                                Style="{StaticResource MenuButtonStyle}"
+                                Click="BtnClientes_Click">
 
                             <StackPanel Orientation="Horizontal">
 
-                                <Image Source="Images/user-solid.png"
-                                   Width="25"
-                                   Height="25"
-                                   Margin="0,0,14,0"/>
+                                <Border x:Name="IconBackgroundClientes"
+                                        Style="{StaticResource IconCircleStyle}">
 
-                                <TextBlock Text="    Clientes"
-                       VerticalAlignment="Center"/>
+                                    <Border.Effect>
+
+                                        <DropShadowEffect Color="#A8E9FA"
+                                                          BlurRadius="0"
+                                                          ShadowDepth="0"
+                                                          Opacity="0"/>
+
+                                    </Border.Effect>
+
+                                    <Path Data="{StaticResource IconeClientes}"
+                                          Style="{StaticResource MenuIconStyle}"/>
+
+                                </Border>
+
+                                <TextBlock Text="Clientes"
+                                           VerticalAlignment="Center"/>
 
                             </StackPanel>
 
                         </Button>
 
-                        <!-- SUBMENU CLIENTES -->
+
                         <StackPanel x:Name="SubMenuClientes"
-                        Visibility="Collapsed"
-                        Margin="25,-5,0,10">
+                                    Visibility="Collapsed"
+                                    Margin="25,-5,0,10">
 
                             <Button Style="{StaticResource SubMenuButtonStyle}"
-                        Content="Novo Cliente"
-                        Click="BtnNovoCliente_Click"/>
+                                    Content="Novo Cliente"
+                                    Click="BtnNovoCliente_Click"/>
 
                             <Button Style="{StaticResource SubMenuButtonStyle}"
-                        Content="Editar Cliente"
-                        Click="BtnEditarCliente_Click"/>
+                                    Content="Editar Cliente"
+                                    Click="BtnEditarCliente_Click"/>
 
                             <Button Style="{StaticResource SubMenuButtonStyle}"
-                        Content="Apagar Cliente"
-                        Click="BtnApagarCliente_Click"/>
+                                    Content="Apagar Cliente"
+                                    Click="BtnApagarCliente_Click"/>
 
                         </StackPanel>
 
                     </StackPanel>
+
 
                     <!-- CONTADORES -->
+
                     <StackPanel>
 
-                        <Button Style="{StaticResource MenuButtonStyle}"
-                        Click="BtnContadores_Click">
+                        <Button x:Name="BtnContadores"
+                                Style="{StaticResource MenuButtonStyle}"
+                                Click="BtnContadores_Click">
 
                             <StackPanel Orientation="Horizontal">
 
-                                <Image Source="Images/Contador.png"
-                                       Width="40"
-                                       Height="50"
-                                       Margin="0,0,12,0"
-                                       Stretch="Uniform"/>
+                                <Border x:Name="IconBackgroundContadores"
+                                        Style="{StaticResource IconCircleStyle}">
 
-                                <TextBlock Text=" Contadores"
-                                   VerticalAlignment="Center"/>
+                                    <Border.Effect>
+
+                                        <DropShadowEffect Color="#A8E9FA"
+                                                          BlurRadius="0"
+                                                          ShadowDepth="0"
+                                                          Opacity="0"/>
+
+                                    </Border.Effect>
+
+                                    <Path Data="{StaticResource IconeContadores}"
+                                          Style="{StaticResource MenuIconStyle}"/>
+
+                                </Border>
+
+                                <TextBlock Text="Contadores"
+                                           VerticalAlignment="Center"/>
 
                             </StackPanel>
 
                         </Button>
 
-                        <!-- SUBMENU CONTADORES -->
+
                         <StackPanel x:Name="SubMenuContadores"
-                                Visibility="Collapsed"
-                                Margin="25,-5,0,10">
+                                    Visibility="Collapsed"
+                                    Margin="25,-5,0,10">
 
-                                            <Button Style="{StaticResource SubMenuButtonStyle}"
-                                Content="Novo Contador"
-                                Click="NovoContadorControl_Click"/>
+                            <Button Style="{StaticResource SubMenuButtonStyle}"
+                                    Content="Novo Contador"
+                                    Click="BtnNovoContador_Click"/>
 
-                                            <Button Style="{StaticResource SubMenuButtonStyle}"
-                                Content="Editar Contador"
-                                Click="BtnEditarContador_Click"/>
+                            <Button Style="{StaticResource SubMenuButtonStyle}"
+                                    Content="Editar Contador"
+                                    Click="BtnEditarContador_Click"/>
 
-                                            <Button Style="{StaticResource SubMenuButtonStyle}"
-                                Content="Apagar Contador"
-                                Click="BtnApagarContador_Click"/>
+                            <Button Style="{StaticResource SubMenuButtonStyle}"
+                                    Content="Apagar Contador"
+                                    Click="BtnApagarContador_Click"/>
 
                         </StackPanel>
 
                     </StackPanel>
+
+
                     <!-- CONSUMOS -->
-                    <Button Style="{StaticResource MenuButtonStyle}"
-                            Click="BtnConsumos_Click">
 
-                        <StackPanel Orientation="Horizontal">
+                    <StackPanel>
 
-                            <Image Source="Images/ContaInserir.png"
-                                   Width="45"
-                                   Height="45"
-                                   Margin="0,0,12,0"
-                                   Stretch="Uniform"/>
+                        <Button x:Name="BtnConsumos"
+                                Style="{StaticResource MenuButtonStyle}"
+                                Click="BtnConsumos_Click">
 
-                            <TextBlock Text="Consumos"
-                                       VerticalAlignment="Center"/>
+                            <StackPanel Orientation="Horizontal">
+
+                                <Border x:Name="IconBackgroundConsumos"
+                                        Style="{StaticResource IconCircleStyle}">
+
+                                    <Border.Effect>
+
+                                        <DropShadowEffect Color="#A8E9FA"
+                                                          BlurRadius="0"
+                                                          ShadowDepth="0"
+                                                          Opacity="0"/>
+
+                                    </Border.Effect>
+
+                                    <Path Data="{StaticResource IconeConsumos}"
+                                          Style="{StaticResource MenuIconStyle}"/>
+
+                                </Border>
+
+                                <TextBlock Text="Consumos"
+                                           VerticalAlignment="Center"/>
+
+                            </StackPanel>
+
+                        </Button>
+
+
+                        <StackPanel x:Name="SubMenuConsumos"
+                                    Visibility="Collapsed"
+                                    Margin="25,-5,0,10">
+
+                            <Button Style="{StaticResource SubMenuButtonStyle}"
+                                    Content="Novo Consumo"
+                                    Click="BtnNovoConsumo_Click"/>
+
+                            <Button Style="{StaticResource SubMenuButtonStyle}"
+                                    Content="Editar Consumo"
+                                    Click="BtnEditarConsumo_Click"/>
+
+                            <Button Style="{StaticResource SubMenuButtonStyle}"
+                                    Content="Apagar Consumo"
+                                    Click="BtnApagarConsumo_Click"/>
 
                         </StackPanel>
 
-                    </Button>
+                    </StackPanel>
+
 
                     <!-- FATURAS -->
-                    <Button Style="{StaticResource MenuButtonStyle}"
+
+                    <Button x:Name="BtnFaturas"
+                            Style="{StaticResource MenuButtonStyle}"
                             Click="BtnFaturas_Click">
 
                         <StackPanel Orientation="Horizontal">
 
-                            <Image Source="Images/Fatura.png"
-                                   Width="40"
-                                   Height="30"
-                                   Margin="0,0,12,0"
-                                   Stretch="Uniform"/>
+                            <Border x:Name="IconBackgroundFaturas"
+                                    Style="{StaticResource IconCircleStyle}">
 
-                            <TextBlock Text=" Faturas"
+                                <Border.Effect>
+
+                                    <DropShadowEffect Color="#A8E9FA"
+                                                      BlurRadius="0"
+                                                      ShadowDepth="0"
+                                                      Opacity="0"/>
+
+                                </Border.Effect>
+
+                                <Path Data="{StaticResource IconeFaturas}"
+                                      Style="{StaticResource MenuIconStyle}"/>
+
+                            </Border>
+
+                            <TextBlock Text="Faturas"
                                        VerticalAlignment="Center"/>
 
                         </StackPanel>
@@ -411,21 +921,35 @@
 
                 </StackPanel>
 
-                <!-- BOTÃO SOBRE -->
-                <Button Grid.Row="2"
+
+                <!-- SOBRE -->
+
+                <Button x:Name="BtnSobre"
+                        Grid.Row="2"
                         Style="{StaticResource AboutButtonStyle}"
                         Click="BtnSobre_Click">
 
-                    <StackPanel Orientation="Horizontal"
-                                HorizontalAlignment="Center">
+                    <StackPanel Orientation="Horizontal">
 
-                        <Image Source="Images/circle-info-branco.png"
-                               Width="24"
-                               Height="24"
-                               Margin="0,0,10,0"
-                               Stretch="Uniform"/>
-                        <TextBlock Text="Sobre" Width="78"
-                                   />
+                        <Border x:Name="IconBackgroundSobre"
+                                Style="{StaticResource IconCircleStyle}">
+
+                            <Border.Effect>
+
+                                <DropShadowEffect Color="#A8E9FA"
+                                                  BlurRadius="0"
+                                                  ShadowDepth="0"
+                                                  Opacity="0"/>
+
+                            </Border.Effect>
+
+                            <Path Data="{StaticResource IconeSobre}"
+                                  Style="{StaticResource MenuIconStyle}"/>
+
+                        </Border>
+
+                        <TextBlock Text="Sobre"
+                                   VerticalAlignment="Center"/>
 
                     </StackPanel>
 
@@ -435,19 +959,27 @@
 
         </Border>
 
-        <!-- BARRA SUPERIOR -->
-        <Border Grid.Row="0"
-                Grid.Column="2"
-                Background="#087EA4"
-                BorderBrush="#DCE5EA"
-                BorderThickness="0,0,0,1" Grid.ColumnSpan="2">
 
-            <Grid Margin="25,0">
+        <!-- ===================================================== -->
+        <!-- BARRA SUPERIOR                                        -->
+        <!-- ===================================================== -->
+
+        <Border Grid.Row="0"
+                Grid.Column="1"
+                Background="#0A2E4E"
+                BorderBrush="#31536E"
+                BorderThickness="0,0,0,1">
+
+            <Grid Margin="25,0,15,0">
 
                 <Grid.ColumnDefinitions>
+
                     <ColumnDefinition Width="*"/>
+
                     <ColumnDefinition Width="Auto"/>
+
                 </Grid.ColumnDefinitions>
+
 
                 <StackPanel VerticalAlignment="Center">
 
@@ -462,17 +994,26 @@
 
                 </StackPanel>
 
-                <!-- BOTÃO SAIR -->
+
+                <!-- BOTÃO SAIR COM ÍCONE VETORIAL -->
+
                 <Button Grid.Column="1"
                         Style="{StaticResource ExitButtonStyle}"
                         Margin="10,0,0,0"
                         VerticalAlignment="Center"
+                        ToolTip="Sair"
                         Click="BtnSair_Click">
 
-                    <Image Source="Images/shutdown_50px.png"
-                           Width="30"
-                           Height="30"
-                           Stretch="Uniform"/>
+                    <Path Data="{StaticResource IconeSair}"
+                          Width="27"
+                          Height="27"
+                          Stretch="Uniform"
+                          Stroke="#0A5C7A"
+                          StrokeThickness="2"
+                          StrokeStartLineCap="Round"
+                          StrokeEndLineCap="Round"
+                          StrokeLineJoin="Round"
+                          Fill="Transparent"/>
 
                 </Button>
 
@@ -480,24 +1021,37 @@
 
         </Border>
 
-        <!-- CONTEÚDO PRINCIPAL -->
-        <Grid Grid.Row="1"
-              Grid.Column="3"
-              Margin="7,20,20,20">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="17*"/>
-                <ColumnDefinition Width="138*"/>
-            </Grid.ColumnDefinitions>
 
-            <Border Background="LightGray"
-                    CornerRadius="12"
-                    Padding="20" Grid.ColumnSpan="2" Margin="-38,-30,-23,-20">
+        <!-- ===================================================== -->
+        <!-- CONTEÚDO PRINCIPAL                                    -->
+        <!-- ===================================================== -->
 
-                <ContentControl x:Name="conteudoPrincipal" Margin="-20,-20,0,0"/>
+        <Border Grid.Row="1"
+                Grid.Column="1"
+                Padding="12"
+                Background="#D5D5D5">
+
+            <Border Background="#F4F7F9"
+                    BorderBrush="#D7E1E6"
+                    BorderThickness="1"
+                    CornerRadius="12">
+
+                <Border.Effect>
+
+                    <DropShadowEffect Color="#000000"
+                                      BlurRadius="8"
+                                      ShadowDepth="1"
+                                      Direction="270"
+                                      Opacity="0.12"/>
+
+                </Border.Effect>
+
+                <ContentControl x:Name="conteudoPrincipal"
+                                Margin="0"/>
 
             </Border>
 
-        </Grid>
+        </Border>
 
     </Grid>
 

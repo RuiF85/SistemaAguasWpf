@@ -85,6 +85,8 @@ namespace WpfFrontEnd.Views.Contadores
                 DataInstalacao = dpDataInstalacao.SelectedDate.Value,
                 Ativo = chkAtivo.IsChecked == true
             };
+
+
             try
             {
                 bool sucesso = await contadorService.CriarContador(contador);

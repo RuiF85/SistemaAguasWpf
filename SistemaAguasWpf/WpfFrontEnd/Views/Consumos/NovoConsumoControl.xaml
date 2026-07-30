@@ -1,9 +1,8 @@
-﻿<UserControl x:Class="WpfFrontEnd.Views.Contadores.EditarContadorControl"
+﻿<UserControl x:Class="WpfFrontEnd.Views.Consumos.NovoConsumoControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
              Background="#EEF4F7"
-             HorizontalAlignment="Stretch"
-             VerticalAlignment="Stretch"
              MinWidth="850">
 
     <UserControl.Resources>
@@ -23,25 +22,22 @@
                          Color="#083B5C"/>
 
         <SolidColorBrush x:Key="InputBorderBrush"
-                         Color="#C9D8E0"/>
-
-        <SolidColorBrush x:Key="InputBackgroundBrush"
-                         Color="#F9FBFC"/>
+                         Color="#BFD0D9"/>
 
 
-        <!-- RÓTULOS DOS CAMPOS -->
+        <!-- ETIQUETAS -->
 
         <Style x:Key="FormLabelStyle"
                TargetType="TextBlock">
 
             <Setter Property="FontSize"
-                    Value="14"/>
+                    Value="13"/>
 
             <Setter Property="FontWeight"
                     Value="SemiBold"/>
 
             <Setter Property="Foreground"
-                    Value="#284A5E"/>
+                    Value="#36586A"/>
 
         </Style>
 
@@ -52,10 +48,10 @@
                TargetType="TextBox">
 
             <Setter Property="Height"
-                    Value="42"/>
+                    Value="44"/>
 
             <Setter Property="Padding"
-                    Value="12,0"/>
+                    Value="14,0"/>
 
             <Setter Property="FontSize"
                     Value="14"/>
@@ -64,7 +60,7 @@
                     Value="#243B4A"/>
 
             <Setter Property="Background"
-                    Value="{StaticResource InputBackgroundBrush}"/>
+                    Value="White"/>
 
             <Setter Property="BorderBrush"
                     Value="{StaticResource InputBorderBrush}"/>
@@ -87,17 +83,38 @@
 
                     <ControlTemplate TargetType="TextBox">
 
-                        <Border x:Name="InputBorder"
-                                Background="{TemplateBinding Background}"
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}"
-                                CornerRadius="8">
+                        <Grid>
 
-                            <ScrollViewer x:Name="PART_ContentHost"
-                                          Margin="{TemplateBinding Padding}"
-                                          VerticalAlignment="Center"/>
+                            <Border x:Name="ShadowBorder"
+                                    Margin="0,2,0,0"
+                                    Background="White"
+                                    CornerRadius="10">
 
-                        </Border>
+                                <Border.Effect>
+
+                                    <DropShadowEffect Color="#517180"
+                                                      BlurRadius="5"
+                                                      ShadowDepth="1"
+                                                      Direction="270"
+                                                      Opacity="0.10"/>
+
+                                </Border.Effect>
+
+                            </Border>
+
+                            <Border x:Name="InputBorder"
+                                    Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    CornerRadius="10">
+
+                                <ScrollViewer x:Name="PART_ContentHost"
+                                              Margin="{TemplateBinding Padding}"
+                                              VerticalAlignment="Center"/>
+
+                            </Border>
+
+                        </Grid>
 
                         <ControlTemplate.Triggers>
 
@@ -105,21 +122,13 @@
                                      Value="True">
 
                                 <Setter TargetName="InputBorder"
-                                        Property="Background"
-                                        Value="White"/>
-
-                                <Setter TargetName="InputBorder"
                                         Property="BorderBrush"
-                                        Value="#81BED1"/>
+                                        Value="#75B5C9"/>
 
                             </Trigger>
 
                             <Trigger Property="IsKeyboardFocused"
                                      Value="True">
-
-                                <Setter TargetName="InputBorder"
-                                        Property="Background"
-                                        Value="White"/>
 
                                 <Setter TargetName="InputBorder"
                                         Property="BorderBrush"
@@ -129,17 +138,19 @@
                                         Property="BorderThickness"
                                         Value="2"/>
 
-                            </Trigger>
+                                <Setter TargetName="ShadowBorder"
+                                        Property="Effect">
 
-                            <Trigger Property="IsEnabled"
-                                     Value="False">
+                                    <Setter.Value>
 
-                                <Setter TargetName="InputBorder"
-                                        Property="Background"
-                                        Value="#EDF2F4"/>
+                                        <DropShadowEffect Color="#147FA3"
+                                                          BlurRadius="8"
+                                                          ShadowDepth="0"
+                                                          Opacity="0.22"/>
 
-                                <Setter Property="Opacity"
-                                        Value="0.7"/>
+                                    </Setter.Value>
+
+                                </Setter>
 
                             </Trigger>
 
@@ -160,7 +171,7 @@
                TargetType="ComboBox">
 
             <Setter Property="Height"
-                    Value="42"/>
+                    Value="44"/>
 
             <Setter Property="Padding"
                     Value="12,0"/>
@@ -172,7 +183,7 @@
                     Value="#243B4A"/>
 
             <Setter Property="Background"
-                    Value="{StaticResource InputBackgroundBrush}"/>
+                    Value="White"/>
 
             <Setter Property="BorderBrush"
                     Value="{StaticResource InputBorderBrush}"/>
@@ -191,36 +202,19 @@
                 <Trigger Property="IsMouseOver"
                          Value="True">
 
-                    <Setter Property="Background"
-                            Value="White"/>
-
                     <Setter Property="BorderBrush"
-                            Value="#81BED1"/>
+                            Value="#75B5C9"/>
 
                 </Trigger>
 
                 <Trigger Property="IsKeyboardFocusWithin"
                          Value="True">
 
-                    <Setter Property="Background"
-                            Value="White"/>
-
                     <Setter Property="BorderBrush"
                             Value="{StaticResource PrimaryBrush}"/>
 
                     <Setter Property="BorderThickness"
                             Value="2"/>
-
-                </Trigger>
-
-                <Trigger Property="IsEnabled"
-                         Value="False">
-
-                    <Setter Property="Background"
-                            Value="#EDF2F4"/>
-
-                    <Setter Property="Opacity"
-                            Value="0.7"/>
 
                 </Trigger>
 
@@ -235,7 +229,7 @@
                TargetType="DatePicker">
 
             <Setter Property="Height"
-                    Value="42"/>
+                    Value="44"/>
 
             <Setter Property="FontSize"
                     Value="14"/>
@@ -244,7 +238,7 @@
                     Value="#243B4A"/>
 
             <Setter Property="Background"
-                    Value="{StaticResource InputBackgroundBrush}"/>
+                    Value="White"/>
 
             <Setter Property="BorderBrush"
                     Value="{StaticResource InputBorderBrush}"/>
@@ -280,19 +274,13 @@
                 <Trigger Property="IsMouseOver"
                          Value="True">
 
-                    <Setter Property="Background"
-                            Value="White"/>
-
                     <Setter Property="BorderBrush"
-                            Value="#81BED1"/>
+                            Value="#75B5C9"/>
 
                 </Trigger>
 
                 <Trigger Property="IsKeyboardFocusWithin"
                          Value="True">
-
-                    <Setter Property="Background"
-                            Value="White"/>
 
                     <Setter Property="BorderBrush"
                             Value="{StaticResource PrimaryBrush}"/>
@@ -303,107 +291,6 @@
                 </Trigger>
 
             </Style.Triggers>
-
-        </Style>
-
-
-        <!-- CHECKBOX -->
-
-        <Style x:Key="ModernCheckBoxStyle"
-               TargetType="CheckBox">
-
-            <Setter Property="FontSize"
-                    Value="14"/>
-
-            <Setter Property="Foreground"
-                    Value="#284A5E"/>
-
-            <Setter Property="Cursor"
-                    Value="Hand"/>
-
-            <Setter Property="VerticalContentAlignment"
-                    Value="Center"/>
-
-            <Setter Property="Template">
-
-                <Setter.Value>
-
-                    <ControlTemplate TargetType="CheckBox">
-
-                        <StackPanel Orientation="Horizontal">
-
-                            <Border x:Name="CheckBorder"
-                                    Width="22"
-                                    Height="22"
-                                    Background="White"
-                                    BorderBrush="#B8CBD4"
-                                    BorderThickness="1.5"
-                                    CornerRadius="5">
-
-                                <Path x:Name="CheckMark"
-                                      Data="M4,10 L8,14 L17,5"
-                                      Width="13"
-                                      Height="10"
-                                      Stretch="Fill"
-                                      Stroke="White"
-                                      StrokeThickness="2.2"
-                                      StrokeStartLineCap="Round"
-                                      StrokeEndLineCap="Round"
-                                      StrokeLineJoin="Round"
-                                      Visibility="Collapsed"
-                                      HorizontalAlignment="Center"
-                                      VerticalAlignment="Center"/>
-
-                            </Border>
-
-                            <ContentPresenter Margin="9,0,0,0"
-                                              VerticalAlignment="Center"/>
-
-                        </StackPanel>
-
-                        <ControlTemplate.Triggers>
-
-                            <Trigger Property="IsMouseOver"
-                                     Value="True">
-
-                                <Setter TargetName="CheckBorder"
-                                        Property="BorderBrush"
-                                        Value="#147FA3"/>
-
-                            </Trigger>
-
-                            <Trigger Property="IsChecked"
-                                     Value="True">
-
-                                <Setter TargetName="CheckBorder"
-                                        Property="Background"
-                                        Value="#147FA3"/>
-
-                                <Setter TargetName="CheckBorder"
-                                        Property="BorderBrush"
-                                        Value="#147FA3"/>
-
-                                <Setter TargetName="CheckMark"
-                                        Property="Visibility"
-                                        Value="Visible"/>
-
-                            </Trigger>
-
-                            <Trigger Property="IsEnabled"
-                                     Value="False">
-
-                                <Setter Property="Opacity"
-                                        Value="0.55"/>
-
-                            </Trigger>
-
-                        </ControlTemplate.Triggers>
-
-                    </ControlTemplate>
-
-                </Setter.Value>
-
-            </Setter>
 
         </Style>
 
@@ -481,15 +368,6 @@
 
                             </Trigger>
 
-                            <Trigger Property="IsEnabled"
-                                     Value="False">
-
-                                <Setter TargetName="ButtonBorder"
-                                        Property="Opacity"
-                                        Value="0.55"/>
-
-                            </Trigger>
-
                         </ControlTemplate.Triggers>
 
                     </ControlTemplate>
@@ -507,7 +385,7 @@
                TargetType="Button">
 
             <Setter Property="Width"
-                    Value="180"/>
+                    Value="140"/>
 
             <Setter Property="Height"
                     Value="42"/>
@@ -589,10 +467,6 @@
                                         Property="Background"
                                         Value="{StaticResource PrimaryHoverBrush}"/>
 
-                                <Setter TargetName="ButtonBorder"
-                                        Property="BorderBrush"
-                                        Value="#B9EFFB"/>
-
                             </Trigger>
 
                             <Trigger Property="IsPressed"
@@ -601,15 +475,6 @@
                                 <Setter TargetName="ButtonBorder"
                                         Property="Background"
                                         Value="{StaticResource PrimaryPressedBrush}"/>
-
-                            </Trigger>
-
-                            <Trigger Property="IsEnabled"
-                                     Value="False">
-
-                                <Setter TargetName="ButtonBorder"
-                                        Property="Opacity"
-                                        Value="0.55"/>
 
                             </Trigger>
 
@@ -656,12 +521,6 @@
             <Setter Property="RowHeaderWidth"
                     Value="0"/>
 
-            <Setter Property="SelectionMode"
-                    Value="Single"/>
-
-            <Setter Property="SelectionUnit"
-                    Value="FullRow"/>
-
             <Setter Property="CanUserAddRows"
                     Value="False"/>
 
@@ -677,6 +536,12 @@
             <Setter Property="IsReadOnly"
                     Value="True"/>
 
+            <Setter Property="SelectionMode"
+                    Value="Single"/>
+
+            <Setter Property="SelectionUnit"
+                    Value="FullRow"/>
+
             <Setter Property="FontSize"
                     Value="13"/>
 
@@ -691,8 +556,6 @@
 
         </Style>
 
-
-        <!-- CABEÇALHO DA TABELA -->
 
         <Style TargetType="DataGridColumnHeader">
 
@@ -726,18 +589,10 @@
         </Style>
 
 
-        <!-- LINHAS DA TABELA -->
-
         <Style TargetType="DataGridRow">
-
-            <Setter Property="Cursor"
-                    Value="Hand"/>
 
             <Setter Property="BorderThickness"
                     Value="0"/>
-
-            <Setter Property="VerticalContentAlignment"
-                    Value="Center"/>
 
             <Style.Triggers>
 
@@ -767,8 +622,6 @@
 
         </Style>
 
-
-        <!-- CÉLULAS DA TABELA -->
 
         <Style TargetType="DataGridCell">
 
@@ -815,11 +668,11 @@
 
                 <RowDefinition Height="25"/>
 
-                <RowDefinition Height="300"/>
+                <RowDefinition Height="Auto"/>
 
                 <RowDefinition Height="25"/>
 
-                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="300"/>
 
             </Grid.RowDefinitions>
 
@@ -835,8 +688,13 @@
                         CornerRadius="24"
                         Margin="0,0,14,0">
 
-                    <Path Data="M6,18 L6,22 L10,22 L21,11 L17,7 Z
-                               M15.5,8.5 L19.5,12.5"
+                    <Path Data="M12,3
+                               C8,8 5,11 5,15
+                               C5,19 8,22 12,22
+                               C16,22 19,19 19,15
+                               C19,11 16,8 12,3 Z
+                               M12,10 L12,18
+                               M8,14 L16,14"
                           Width="25"
                           Height="25"
                           Stretch="Uniform"
@@ -853,12 +711,12 @@
 
                 <StackPanel VerticalAlignment="Center">
 
-                    <TextBlock Text="Editar Contador"
+                    <TextBlock Text="Novo Consumo"
                                FontSize="28"
                                FontWeight="Bold"
                                Foreground="{StaticResource DarkBlueBrush}"/>
 
-                    <TextBlock Text="Selecione um contador e altere os respetivos dados."
+                    <TextBlock Text="Registe uma nova leitura e consulte o histórico do contador."
                                FontSize="14"
                                Foreground="#6D818D"
                                Margin="0,4,0,0"/>
@@ -868,147 +726,14 @@
             </StackPanel>
 
 
-            <!-- LISTA DE CONTADORES -->
+            <!-- FORMULÁRIO -->
 
             <Border Grid.Row="2"
                     Background="White"
                     BorderBrush="#D7E2E8"
                     BorderThickness="1"
                     CornerRadius="14"
-                    Padding="22">
-
-                <Border.Effect>
-
-                    <DropShadowEffect Color="#000000"
-                                      BlurRadius="10"
-                                      ShadowDepth="2"
-                                      Direction="270"
-                                      Opacity="0.10"/>
-
-                </Border.Effect>
-
-                <Grid>
-
-                    <Grid.RowDefinitions>
-
-                        <RowDefinition Height="Auto"/>
-
-                        <RowDefinition Height="16"/>
-
-                        <RowDefinition Height="*"/>
-
-                    </Grid.RowDefinitions>
-
-
-                    <!-- CABEÇALHO DA LISTA -->
-
-                    <Grid Grid.Row="0">
-
-                        <Grid.ColumnDefinitions>
-
-                            <ColumnDefinition Width="*"/>
-
-                            <ColumnDefinition Width="Auto"/>
-
-                        </Grid.ColumnDefinitions>
-
-                        <StackPanel>
-
-                            <TextBlock Text="Contadores registados"
-                                       FontSize="18"
-                                       FontWeight="SemiBold"
-                                       Foreground="#153F57"/>
-
-                            <TextBlock Text="Clique numa linha para carregar os dados do contador."
-                                       FontSize="12"
-                                       Foreground="#82939D"
-                                       Margin="0,4,0,0"/>
-
-                        </StackPanel>
-
-                        <Border Grid.Column="1"
-                                Background="#EDF7FA"
-                                BorderBrush="#D1E6ED"
-                                BorderThickness="1"
-                                CornerRadius="8"
-                                Padding="12,7"
-                                VerticalAlignment="Center">
-
-                            <StackPanel Orientation="Horizontal">
-
-                                <Ellipse Width="8"
-                                         Height="8"
-                                         Fill="#20A9D2"
-                                         Margin="0,0,7,0"
-                                         VerticalAlignment="Center"/>
-
-                                <TextBlock Text="Selecione um contador"
-                                           FontSize="12"
-                                           Foreground="#31566B"
-                                           VerticalAlignment="Center"/>
-
-                            </StackPanel>
-
-                        </Border>
-
-                    </Grid>
-
-
-                    <!-- TABELA -->
-
-                    <Border Grid.Row="2"
-                            BorderBrush="#D8E4E9"
-                            BorderThickness="1"
-                            CornerRadius="9"
-                            ClipToBounds="True">
-
-                        <DataGrid x:Name="dgContadores"
-                                  Style="{StaticResource ModernDataGridStyle}"
-                                  SelectionChanged="DgContadores_SelectionChanged">
-
-                            <DataGrid.Columns>
-
-                                <DataGridTextColumn Header="ID"
-                                                    Binding="{Binding IdContador}"
-                                                    Width="70"/>
-
-                                <DataGridTextColumn Header="ID Cliente"
-                                                    Binding="{Binding IdCliente}"
-                                                    Width="105"/>
-
-                                <DataGridTextColumn Header="Número"
-                                                    Binding="{Binding NumeroContador}"
-                                                    Width="*"/>
-
-                                <DataGridTextColumn Header="Data de instalação"
-                                                    Binding="{Binding DataInstalacao,
-                                                    StringFormat={}{0:dd/MM/yyyy}}"
-                                                    Width="160"/>
-
-                                <DataGridCheckBoxColumn Header="Ativo"
-                                                        Binding="{Binding Ativo}"
-                                                        Width="80"/>
-
-                            </DataGrid.Columns>
-
-                        </DataGrid>
-
-                    </Border>
-
-                </Grid>
-
-            </Border>
-
-
-            <!-- FORMULÁRIO -->
-
-            <Border Grid.Row="4"
-                    Background="White"
-                    BorderBrush="#D7E2E8"
-                    BorderThickness="1"
-                    CornerRadius="14"
-                    Padding="30"
-                    Margin="0,0,0,20">
+                    Padding="30">
 
                 <Border.Effect>
 
@@ -1037,24 +762,20 @@
                     </Grid.RowDefinitions>
 
 
-                    <!-- TÍTULO DO FORMULÁRIO -->
-
                     <StackPanel Grid.Row="0">
 
-                        <TextBlock Text="Dados do contador"
+                        <TextBlock Text="Dados da nova leitura"
                                    FontSize="18"
                                    FontWeight="SemiBold"
                                    Foreground="#153F57"/>
 
-                        <TextBlock Text="Altere os dados pretendidos e guarde as alterações."
+                        <TextBlock Text="Selecione um contador para consultar as leituras anteriores."
                                    Margin="0,4,0,0"
                                    FontSize="12"
                                    Foreground="#82939D"/>
 
                     </StackPanel>
 
-
-                    <!-- CAMPOS -->
 
                     <Grid Grid.Row="2">
 
@@ -1079,75 +800,52 @@
                         </Grid.RowDefinitions>
 
 
-                        <!-- CLIENTE -->
+                        <!-- CONTADOR -->
 
                         <StackPanel Grid.Row="0"
                                     Grid.Column="0">
 
-                            <TextBlock Text="Cliente"
+                            <TextBlock Text="Contador *"
                                        Style="{StaticResource FormLabelStyle}"/>
 
-                            <ComboBox x:Name="cmbClientes"
-                                      Margin="0,7,0,0"
+                            <ComboBox x:Name="cmbContadores"
+                                      Margin="0,8,0,0"
                                       Style="{StaticResource ModernComboBoxStyle}"
-                                      DisplayMemberPath="NomeCompleto"
-                                      SelectedValuePath="IdCliente"/>
-
-                        </StackPanel>
-
-
-                        <!-- NÚMERO -->
-
-                        <StackPanel Grid.Row="0"
-                                    Grid.Column="2">
-
-                            <TextBlock Text="Número do contador"
-                                       Style="{StaticResource FormLabelStyle}"/>
-
-                            <TextBox x:Name="txtNumeroContador"
-                                     Margin="0,7,0,0"
-                                     Style="{StaticResource ModernTextBoxStyle}"/>
+                                      DisplayMemberPath="NumeroContador"
+                                      SelectedValuePath="IdContador"
+                                      SelectionChanged="CmbContadores_SelectionChanged"/>
 
                         </StackPanel>
 
 
                         <!-- DATA -->
 
-                        <StackPanel Grid.Row="2"
-                                    Grid.Column="0">
+                        <StackPanel Grid.Row="0"
+                                    Grid.Column="2">
 
-                            <TextBlock Text="Data de instalação"
+                            <TextBlock Text="Data da leitura *"
                                        Style="{StaticResource FormLabelStyle}"/>
 
-                            <DatePicker x:Name="dpDataInstalacao"
-                                        Margin="0,7,0,0"
-                                        Style="{StaticResource ModernDatePickerStyle}"/>
+                            <DatePicker x:Name="dpData"
+                                        Margin="0,8,0,0"
+                                        Style="{StaticResource ModernDatePickerStyle}"
+                                        DisplayDateEnd="{x:Static sys:DateTime.Today}"/>
 
                         </StackPanel>
 
 
-                        <!-- ESTADO -->
+                        <!-- LEITURA -->
 
                         <StackPanel Grid.Row="2"
-                                    Grid.Column="2">
+                                    Grid.Column="0"
+                                    Grid.ColumnSpan="3">
 
-                            <TextBlock Text="Estado"
+                            <TextBlock Text="Leitura atual *"
                                        Style="{StaticResource FormLabelStyle}"/>
 
-                            <Border Height="42"
-                                    Margin="0,7,0,0"
-                                    Background="#F9FBFC"
-                                    BorderBrush="#C9D8E0"
-                                    BorderThickness="1"
-                                    CornerRadius="8"
-                                    Padding="12,0">
-
-                                <CheckBox x:Name="chkAtivo"
-                                          Content="Contador ativo"
-                                          Style="{StaticResource ModernCheckBoxStyle}"
-                                          VerticalAlignment="Center"/>
-
-                            </Border>
+                            <TextBox x:Name="txtLeituraAtual"
+                                     Margin="0,8,0,0"
+                                     Style="{StaticResource ModernTextBoxStyle}"/>
 
                         </StackPanel>
 
@@ -1166,27 +864,159 @@
 
                         </Grid.ColumnDefinitions>
 
-                        <TextBlock Text="Confirme os dados antes de guardar."
-                                   FontSize="12"
-                                   Foreground="#82939D"
-                                   VerticalAlignment="Center"/>
+                        <Border Background="#EDF7FA"
+                                BorderBrush="#D1E6ED"
+                                BorderThickness="1"
+                                CornerRadius="8"
+                                Padding="12,8"
+                                Margin="0,0,25,0">
+
+                            <TextBlock x:Name="txtInformacaoLeitura"
+                                       Text="Selecione um contador para consultar a última leitura."
+                                       FontSize="12"
+                                       Foreground="#31566B"
+                                       VerticalAlignment="Center"/>
+
+                        </Border>
 
                         <StackPanel Grid.Column="1"
-                                    Orientation="Horizontal"
-                                    HorizontalAlignment="Right">
+                                    Orientation="Horizontal">
 
-                            <Button Content="Cancelar"
+                            <Button Content="Limpar"
                                     Style="{StaticResource SecondaryButtonStyle}"
                                     Margin="0,0,12,0"
-                                    Click="BtnCancelar_Click"/>
+                                    Click="BtnLimpar_Click"/>
 
-                            <Button Content="Guardar alterações"
+                            <Button Content="Guardar"
                                     Style="{StaticResource PrimaryButtonStyle}"
-                                    Click="BtnGuardarAlteracoes_Click"/>
+                                    Click="BtnGuardar_Click"/>
 
                         </StackPanel>
 
                     </Grid>
+
+                </Grid>
+
+            </Border>
+
+
+            <!-- HISTÓRICO -->
+
+            <Border Grid.Row="4"
+                    Background="White"
+                    BorderBrush="#D7E2E8"
+                    BorderThickness="1"
+                    CornerRadius="14"
+                    Padding="22"
+                    Margin="0,0,0,20">
+
+                <Border.Effect>
+
+                    <DropShadowEffect Color="#000000"
+                                      BlurRadius="10"
+                                      ShadowDepth="2"
+                                      Direction="270"
+                                      Opacity="0.10"/>
+
+                </Border.Effect>
+
+                <Grid>
+
+                    <Grid.RowDefinitions>
+
+                        <RowDefinition Height="Auto"/>
+
+                        <RowDefinition Height="16"/>
+
+                        <RowDefinition Height="*"/>
+
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0">
+
+                        <Grid.ColumnDefinitions>
+
+                            <ColumnDefinition Width="*"/>
+
+                            <ColumnDefinition Width="Auto"/>
+
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel>
+
+                            <TextBlock Text="Histórico de consumos"
+                                       FontSize="18"
+                                       FontWeight="SemiBold"
+                                       Foreground="#153F57"/>
+
+                            <TextBlock Text="Leituras anteriores do contador selecionado."
+                                       FontSize="12"
+                                       Foreground="#82939D"
+                                       Margin="0,4,0,0"/>
+
+                        </StackPanel>
+
+                        <Border Grid.Column="1"
+                                Background="#EDF7FA"
+                                BorderBrush="#D1E6ED"
+                                BorderThickness="1"
+                                CornerRadius="8"
+                                Padding="12,7"
+                                VerticalAlignment="Center">
+
+                            <TextBlock x:Name="txtTotalConsumos"
+                                       Text="0 registos"
+                                       FontSize="12"
+                                       Foreground="#31566B"/>
+
+                        </Border>
+
+                    </Grid>
+
+
+                    <Border Grid.Row="2"
+                            BorderBrush="#D8E4E9"
+                            BorderThickness="1"
+                            CornerRadius="9"
+                            ClipToBounds="True">
+
+                        <DataGrid x:Name="dgConsumos"
+                                  Style="{StaticResource ModernDataGridStyle}">
+
+                            <DataGrid.Columns>
+
+                                <DataGridTextColumn Header="ID"
+                                                    Binding="{Binding IdConsumo}"
+                                                    Width="70"/>
+
+                                <DataGridTextColumn Header="Contador"
+                                                    Binding="{Binding IdContador}"
+                                                    Width="110"/>
+
+                                <DataGridTextColumn Header="Data"
+                                                    Binding="{Binding Data,
+                                                    StringFormat={}{0:dd/MM/yyyy}}"
+                                                    Width="140"/>
+
+                                <DataGridTextColumn Header="Leitura"
+                                                    Binding="{Binding LeituraAtual,
+                                                    StringFormat={}{0:N3}}"
+                                                    Width="150"/>
+
+                                <DataGridTextColumn Header="Consumo calculado"
+                                                    Binding="{Binding ConsumoCalculado,
+                                                    StringFormat={}{0:N3}}"
+                                                    Width="180"/>
+
+                                <DataGridTextColumn Header="Fatura"
+                                                    Binding="{Binding IdFatura}"
+                                                    Width="110"/>
+
+                            </DataGrid.Columns>
+
+                        </DataGrid>
+
+                    </Border>
 
                 </Grid>
 
