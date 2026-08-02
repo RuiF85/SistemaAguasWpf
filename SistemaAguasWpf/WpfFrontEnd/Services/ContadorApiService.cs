@@ -32,7 +32,7 @@ namespace WpfFrontEnd.Services
             return new List<Contador>();
         }
 
-        public async Task<bool> CriarContador (Contador contador)
+        public async Task<bool> CriarContador(Contador contador)
         {
             string json = JsonConvert.SerializeObject(contador);
 

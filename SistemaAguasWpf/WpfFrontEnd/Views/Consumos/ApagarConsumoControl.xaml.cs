@@ -73,7 +73,7 @@ namespace WpfFrontEnd.Views.Consumos
                 }
                 else
                 {
-                    MessageBox.Show("Não foi possível eliminar o consumo.", "Erro",
+                    MessageBox.Show("Não foi possível eliminar o consumo, Já tem uma fatura associada.", "Erro",
                         MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }

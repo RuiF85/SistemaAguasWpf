@@ -8,20 +8,19 @@ using WpfFrontEnd.Models;
 
 namespace WpfFrontEnd.Services
 {
-    public class ClienteApiService
+
+    public class FaturaApiService
     {
         private readonly HttpClient _httpClient;
-
         private readonly string BaseUrl;
 
-        public ClienteApiService()
+        public FaturaApiService()
         {
             _httpClient = new HttpClient();
-
-            BaseUrl = ConfigurationManager.AppSettings["ApiBaseUrl"] + "clientes";
+            BaseUrl = ConfigurationManager.AppSettings["ApiBaseUrl"] + "faturas";
         }
 
-        public async Task<List<Cliente>> ObterClientes()
+        public async Task<List<Fatura>> ObterFaturas()
         {
             HttpResponseMessage response = await _httpClient.GetAsync(BaseUrl);
 
@@ -29,26 +28,21 @@ namespace WpfFrontEnd.Services
             {
                 string json = await response.Content.ReadAsStringAsync();
 
-                return JsonConvert.DeserializeObject<List<Cliente>>(json);
+                return JsonConvert.DeserializeObject<List<Fatura>>(json);
             }
-            return new List<Cliente>();
-
+            return new List<Fatura>();
         }
 
-        public async Task<bool> CriarCliente(Cliente cliente)
+        public async Task<bool> GerarFatura(int idConsumo)
         {
-            string json = JsonConvert.SerializeObject(cliente);
-
-            StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
-
-            HttpResponseMessage response = await _httpClient.PostAsync(BaseUrl, content);
+            HttpResponseMessage response = await _httpClient.PostAsync($"{BaseUrl}/gerar/{idConsumo}", null);
 
             return response.IsSuccessStatusCode;
         }
 
-        public async Task<bool> AlterarCliente(Cliente cliente)
+        public async Task<bool> AlterarEsatdo(Fatura fatura)
         {
-            string json = JsonConvert.SerializeObject(cliente);
+            string json = JsonConvert.SerializeObject(fatura);
 
             StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
 
@@ -57,8 +51,7 @@ namespace WpfFrontEnd.Services
             return response.IsSuccessStatusCode;
 
         }
-
-        public async Task<bool> EliminarCliente(int id)
+        public async Task<bool> AnularFatura(int id)
         {
             HttpResponseMessage response = await _httpClient.DeleteAsync($"{BaseUrl}/{id}");
 
@@ -66,4 +59,3 @@ namespace WpfFrontEnd.Services
         }
     }
 }
-

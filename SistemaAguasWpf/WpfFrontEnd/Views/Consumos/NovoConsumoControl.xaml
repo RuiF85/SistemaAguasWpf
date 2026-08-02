@@ -872,8 +872,8 @@
                                 Margin="0,0,25,0">
 
                             <TextBlock x:Name="txtInformacaoLeitura"
-                                       Text="Selecione um contador para consultar a última leitura."
-                                       FontSize="12"
+                                       Text=" Selecione um contador para consultar a última leitura."
+                                       FontSize="15"
                                        Foreground="#31566B"
                                        VerticalAlignment="Center"/>
 
@@ -949,8 +949,8 @@
                                        FontWeight="SemiBold"
                                        Foreground="#153F57"/>
 
-                            <TextBlock Text="Leituras anteriores do contador selecionado."
-                                       FontSize="12"
+                            <TextBlock Text=" Leituras anteriores do contador selecionado."
+                                       FontSize="15"
                                        Foreground="#82939D"
                                        Margin="0,4,0,0"/>
 

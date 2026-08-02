@@ -155,6 +155,7 @@
     <Compile Include="Controllers\ClientesController.cs" />
     <Compile Include="Controllers\ConsumosController.cs" />
     <Compile Include="Controllers\ContadoresController.cs" />
+    <Compile Include="Controllers\EstadoFaturasController.cs" />
     <Compile Include="Controllers\FaturasController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="DataClasses.designer.cs">

@@ -22,11 +22,33 @@ namespace WebApiBackEnd.Controllers
         /// </summary>
         /// <returns>list of invoices</returns>
         // GET api/<controller>
-        public List<Fatura> Get()
+        // GET api/<controller>
+        public IHttpActionResult Get()
         {
-            var lista = from Fatura in dc.Faturas orderby Fatura.IdFatura select Fatura;
+            var lista = from f in dc.Faturas
+                        join c in dc.Clientes
+                            on f.IdCliente equals c.IdCLiente
+                        join ct in dc.Contadores
+                            on f.IdContador equals ct.IdContador
+                        join e in dc.EstadoFaturas
+                            on f.IdEstadoFatura equals e.IdEstadoFatura
+                        orderby f.IdFatura
+                        select new
+                        {
+                            f.IdFatura,
+                            f.IdCliente,
+                            f.IdContador,
+                            f.DataFatura,
+                            f.Consumo,
+                            f.ValorTotal,
+                            f.IdEstadoFatura,
 
-            return lista.ToList();
+                            NomeCliente = c.Nome + " " + c.Apelido,
+                            NumeroContador = ct.NumeroContador,
+                            Estado = e.Descricao
+                        };
+
+            return Ok(lista.ToList());
         }
 
 

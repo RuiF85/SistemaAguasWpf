@@ -1,0 +1,989 @@
+﻿<UserControl x:Class="WpfFrontEnd.Views.Faturas.GerirFaturasControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Background="#EEF4F7"
+             HorizontalAlignment="Stretch"
+             VerticalAlignment="Stretch"
+             MinWidth="950">
+
+    <UserControl.Resources>
+
+        <!-- CORES -->
+
+        <SolidColorBrush x:Key="PrimaryBrush"
+                         Color="#147FA3"/>
+
+        <SolidColorBrush x:Key="PrimaryHoverBrush"
+                         Color="#1998C2"/>
+
+        <SolidColorBrush x:Key="PrimaryPressedBrush"
+                         Color="#075C7A"/>
+
+        <SolidColorBrush x:Key="DarkBlueBrush"
+                         Color="#083B5C"/>
+
+        <SolidColorBrush x:Key="DangerBrush"
+                         Color="#C84B4B"/>
+
+        <SolidColorBrush x:Key="DangerHoverBrush"
+                         Color="#D85B5B"/>
+
+        <SolidColorBrush x:Key="DangerPressedBrush"
+                         Color="#A93737"/>
+
+        <SolidColorBrush x:Key="InputBorderBrush"
+                         Color="#C3D4DC"/>
+
+
+        <!-- RÓTULOS -->
+
+        <Style x:Key="FormLabelStyle"
+               TargetType="TextBlock">
+
+            <Setter Property="FontSize"
+                    Value="13"/>
+
+            <Setter Property="FontWeight"
+                    Value="SemiBold"/>
+
+            <Setter Property="Foreground"
+                    Value="#36586A"/>
+
+        </Style>
+
+
+        <!-- COMBOBOX -->
+
+        <Style x:Key="ModernComboBoxStyle"
+               TargetType="ComboBox">
+
+            <Setter Property="Height"
+                    Value="42"/>
+
+            <Setter Property="Padding"
+                    Value="12,0"/>
+
+            <Setter Property="FontSize"
+                    Value="14"/>
+
+            <Setter Property="Foreground"
+                    Value="#243B4A"/>
+
+            <Setter Property="Background"
+                    Value="White"/>
+
+            <Setter Property="BorderBrush"
+                    Value="{StaticResource InputBorderBrush}"/>
+
+            <Setter Property="BorderThickness"
+                    Value="1"/>
+
+            <Setter Property="VerticalContentAlignment"
+                    Value="Center"/>
+
+            <Setter Property="HorizontalContentAlignment"
+                    Value="Left"/>
+
+            <Style.Triggers>
+
+                <Trigger Property="IsMouseOver"
+                         Value="True">
+
+                    <Setter Property="BorderBrush"
+                            Value="#75B5C9"/>
+
+                </Trigger>
+
+                <Trigger Property="IsKeyboardFocusWithin"
+                         Value="True">
+
+                    <Setter Property="BorderBrush"
+                            Value="{StaticResource PrimaryBrush}"/>
+
+                    <Setter Property="BorderThickness"
+                            Value="2"/>
+
+                </Trigger>
+
+                <Trigger Property="IsEnabled"
+                         Value="False">
+
+                    <Setter Property="Background"
+                            Value="#EDF2F4"/>
+
+                    <Setter Property="Opacity"
+                            Value="0.65"/>
+
+                </Trigger>
+
+            </Style.Triggers>
+
+        </Style>
+
+
+        <!-- DATAGRID -->
+
+        <Style x:Key="ModernDataGridStyle"
+               TargetType="DataGrid">
+
+            <Setter Property="Background"
+                    Value="White"/>
+
+            <Setter Property="BorderThickness"
+                    Value="0"/>
+
+            <Setter Property="AutoGenerateColumns"
+                    Value="False"/>
+
+            <Setter Property="CanUserAddRows"
+                    Value="False"/>
+
+            <Setter Property="CanUserDeleteRows"
+                    Value="False"/>
+
+            <Setter Property="CanUserResizeRows"
+                    Value="False"/>
+
+            <Setter Property="IsReadOnly"
+                    Value="True"/>
+
+            <Setter Property="HeadersVisibility"
+                    Value="Column"/>
+
+            <Setter Property="RowHeaderWidth"
+                    Value="0"/>
+
+            <Setter Property="GridLinesVisibility"
+                    Value="Horizontal"/>
+
+            <Setter Property="HorizontalGridLinesBrush"
+                    Value="#E1EAEE"/>
+
+            <Setter Property="VerticalGridLinesBrush"
+                    Value="Transparent"/>
+
+            <Setter Property="RowBackground"
+                    Value="White"/>
+
+            <Setter Property="AlternatingRowBackground"
+                    Value="#F7FAFB"/>
+
+            <Setter Property="RowHeight"
+                    Value="46"/>
+
+            <Setter Property="ColumnHeaderHeight"
+                    Value="46"/>
+
+            <Setter Property="FontSize"
+                    Value="13"/>
+
+            <Setter Property="Foreground"
+                    Value="#294654"/>
+
+            <Setter Property="SelectionMode"
+                    Value="Single"/>
+
+            <Setter Property="SelectionUnit"
+                    Value="FullRow"/>
+
+        </Style>
+
+
+        <Style TargetType="DataGridColumnHeader">
+
+            <Setter Property="Background"
+                    Value="#E9F3F7"/>
+
+            <Setter Property="Foreground"
+                    Value="#16445B"/>
+
+            <Setter Property="FontSize"
+                    Value="13"/>
+
+            <Setter Property="FontWeight"
+                    Value="SemiBold"/>
+
+            <Setter Property="BorderBrush"
+                    Value="#D2E1E7"/>
+
+            <Setter Property="BorderThickness"
+                    Value="0,0,0,1"/>
+
+            <Setter Property="Padding"
+                    Value="12,0"/>
+
+            <Setter Property="VerticalContentAlignment"
+                    Value="Center"/>
+
+        </Style>
+
+
+        <Style TargetType="DataGridRow">
+
+            <Setter Property="BorderThickness"
+                    Value="0"/>
+
+            <Style.Triggers>
+
+                <Trigger Property="IsMouseOver"
+                         Value="True">
+
+                    <Setter Property="Background"
+                            Value="#EAF6FA"/>
+
+                </Trigger>
+
+                <Trigger Property="IsSelected"
+                         Value="True">
+
+                    <Setter Property="Background"
+                            Value="#D8EEF5"/>
+
+                    <Setter Property="Foreground"
+                            Value="#173F52"/>
+
+                </Trigger>
+
+            </Style.Triggers>
+
+        </Style>
+
+
+        <Style TargetType="DataGridCell">
+
+            <Setter Property="BorderThickness"
+                    Value="0"/>
+
+            <Setter Property="Padding"
+                    Value="12,0"/>
+
+            <Setter Property="VerticalContentAlignment"
+                    Value="Center"/>
+
+            <Setter Property="FocusVisualStyle"
+                    Value="{x:Null}"/>
+
+        </Style>
+
+
+        <!-- BOTÃO ATUALIZAR -->
+
+        <Style x:Key="RefreshButtonStyle"
+               TargetType="Button">
+
+            <Setter Property="Width"
+                    Value="125"/>
+
+            <Setter Property="Height"
+                    Value="42"/>
+
+            <Setter Property="FontSize"
+                    Value="14"/>
+
+            <Setter Property="FontWeight"
+                    Value="SemiBold"/>
+
+            <Setter Property="Foreground"
+                    Value="#31566B"/>
+
+            <Setter Property="Background"
+                    Value="#E8F1F5"/>
+
+            <Setter Property="BorderBrush"
+                    Value="#BDD2DC"/>
+
+            <Setter Property="BorderThickness"
+                    Value="1"/>
+
+            <Setter Property="Cursor"
+                    Value="Hand"/>
+
+            <Setter Property="Template">
+
+                <Setter.Value>
+
+                    <ControlTemplate TargetType="Button">
+
+                        <Border x:Name="ButtonBorder"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="9">
+
+                            <StackPanel Orientation="Horizontal"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center">
+
+                                <Path Data="M20,7
+                                           A8,8 0 1 0 21,14
+                                           M20,7 L20,2
+                                           M20,7 L15,7"
+                                      Width="17"
+                                      Height="17"
+                                      Margin="0,0,8,0"
+                                      Stretch="Uniform"
+                                      Stroke="#31566B"
+                                      StrokeThickness="2"
+                                      StrokeStartLineCap="Round"
+                                      StrokeEndLineCap="Round"
+                                      StrokeLineJoin="Round"
+                                      Fill="Transparent"/>
+
+                                <ContentPresenter VerticalAlignment="Center"/>
+
+                            </StackPanel>
+
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+
+                            <Trigger Property="IsMouseOver"
+                                     Value="True">
+
+                                <Setter TargetName="ButtonBorder"
+                                        Property="Background"
+                                        Value="#D5E8EF"/>
+
+                                <Setter TargetName="ButtonBorder"
+                                        Property="BorderBrush"
+                                        Value="#83B8CA"/>
+
+                            </Trigger>
+
+                            <Trigger Property="IsPressed"
+                                     Value="True">
+
+                                <Setter TargetName="ButtonBorder"
+                                        Property="Background"
+                                        Value="#BFDCE6"/>
+
+                            </Trigger>
+
+                            <Trigger Property="IsEnabled"
+                                     Value="False">
+
+                                <Setter TargetName="ButtonBorder"
+                                        Property="Opacity"
+                                        Value="0.55"/>
+
+                            </Trigger>
+
+                        </ControlTemplate.Triggers>
+
+                    </ControlTemplate>
+
+                </Setter.Value>
+
+            </Setter>
+
+        </Style>
+
+
+        <!-- BOTÃO ALTERAR ESTADO -->
+
+        <Style x:Key="PrimaryButtonStyle"
+               TargetType="Button">
+
+            <Setter Property="Width"
+                    Value="150"/>
+
+            <Setter Property="Height"
+                    Value="42"/>
+
+            <Setter Property="FontSize"
+                    Value="14"/>
+
+            <Setter Property="FontWeight"
+                    Value="SemiBold"/>
+
+            <Setter Property="Foreground"
+                    Value="White"/>
+
+            <Setter Property="Background"
+                    Value="{StaticResource PrimaryBrush}"/>
+
+            <Setter Property="BorderBrush"
+                    Value="#5EC4E3"/>
+
+            <Setter Property="BorderThickness"
+                    Value="1"/>
+
+            <Setter Property="Cursor"
+                    Value="Hand"/>
+
+            <Setter Property="Template">
+
+                <Setter.Value>
+
+                    <ControlTemplate TargetType="Button">
+
+                        <Border x:Name="ButtonBorder"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="9">
+
+                            <Border.Effect>
+
+                                <DropShadowEffect Color="#147FA3"
+                                                  BlurRadius="8"
+                                                  ShadowDepth="2"
+                                                  Direction="270"
+                                                  Opacity="0.22"/>
+
+                            </Border.Effect>
+
+                            <StackPanel Orientation="Horizontal"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center">
+
+                                <Path Data="M4,17 L4,21 L8,21 L20,9 L16,5 Z
+                                           M14,7 L18,11"
+                                      Width="17"
+                                      Height="17"
+                                      Margin="0,0,8,0"
+                                      Stretch="Uniform"
+                                      Stroke="White"
+                                      StrokeThickness="1.8"
+                                      StrokeStartLineCap="Round"
+                                      StrokeEndLineCap="Round"
+                                      StrokeLineJoin="Round"
+                                      Fill="Transparent"/>
+
+                                <ContentPresenter VerticalAlignment="Center"/>
+
+                            </StackPanel>
+
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+
+                            <Trigger Property="IsMouseOver"
+                                     Value="True">
+
+                                <Setter TargetName="ButtonBorder"
+                                        Property="Background"
+                                        Value="{StaticResource PrimaryHoverBrush}"/>
+
+                            </Trigger>
+
+                            <Trigger Property="IsPressed"
+                                     Value="True">
+
+                                <Setter TargetName="ButtonBorder"
+                                        Property="Background"
+                                        Value="{StaticResource PrimaryPressedBrush}"/>
+
+                            </Trigger>
+
+                            <Trigger Property="IsEnabled"
+                                     Value="False">
+
+                                <Setter TargetName="ButtonBorder"
+                                        Property="Opacity"
+                                        Value="0.55"/>
+
+                            </Trigger>
+
+                        </ControlTemplate.Triggers>
+
+                    </ControlTemplate>
+
+                </Setter.Value>
+
+            </Setter>
+
+        </Style>
+
+
+        <!-- BOTÃO ANULAR -->
+
+        <Style x:Key="DangerButtonStyle"
+               TargetType="Button">
+
+            <Setter Property="Width"
+                    Value="145"/>
+
+            <Setter Property="Height"
+                    Value="42"/>
+
+            <Setter Property="FontSize"
+                    Value="14"/>
+
+            <Setter Property="FontWeight"
+                    Value="SemiBold"/>
+
+            <Setter Property="Foreground"
+                    Value="White"/>
+
+            <Setter Property="Background"
+                    Value="{StaticResource DangerBrush}"/>
+
+            <Setter Property="BorderBrush"
+                    Value="#E38B8B"/>
+
+            <Setter Property="BorderThickness"
+                    Value="1"/>
+
+            <Setter Property="Cursor"
+                    Value="Hand"/>
+
+            <Setter Property="Template">
+
+                <Setter.Value>
+
+                    <ControlTemplate TargetType="Button">
+
+                        <Border x:Name="ButtonBorder"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="9">
+
+                            <StackPanel Orientation="Horizontal"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center">
+
+                                <Path Data="M6,6 L18,18
+                                           M18,6 L6,18"
+                                      Width="16"
+                                      Height="16"
+                                      Margin="0,0,8,0"
+                                      Stretch="Uniform"
+                                      Stroke="White"
+                                      StrokeThickness="2.2"
+                                      StrokeStartLineCap="Round"
+                                      StrokeEndLineCap="Round"/>
+
+                                <ContentPresenter VerticalAlignment="Center"/>
+
+                            </StackPanel>
+
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+
+                            <Trigger Property="IsMouseOver"
+                                     Value="True">
+
+                                <Setter TargetName="ButtonBorder"
+                                        Property="Background"
+                                        Value="{StaticResource DangerHoverBrush}"/>
+
+                            </Trigger>
+
+                            <Trigger Property="IsPressed"
+                                     Value="True">
+
+                                <Setter TargetName="ButtonBorder"
+                                        Property="Background"
+                                        Value="{StaticResource DangerPressedBrush}"/>
+
+                            </Trigger>
+
+                            <Trigger Property="IsEnabled"
+                                     Value="False">
+
+                                <Setter TargetName="ButtonBorder"
+                                        Property="Opacity"
+                                        Value="0.55"/>
+
+                            </Trigger>
+
+                        </ControlTemplate.Triggers>
+
+                    </ControlTemplate>
+
+                </Setter.Value>
+
+            </Setter>
+
+        </Style>
+
+    </UserControl.Resources>
+
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto"
+                  HorizontalScrollBarVisibility="Disabled">
+
+        <Grid Margin="35">
+
+            <Grid.RowDefinitions>
+
+                <RowDefinition Height="Auto"/>
+
+                <RowDefinition Height="25"/>
+
+                <RowDefinition Height="Auto"/>
+
+            </Grid.RowDefinitions>
+
+
+            <!-- CABEÇALHO -->
+
+            <StackPanel Grid.Row="0"
+                        Orientation="Horizontal">
+
+                <Border Width="48"
+                        Height="48"
+                        Background="#DDF3F9"
+                        CornerRadius="24"
+                        Margin="0,0,14,0">
+
+                    <Path Data="M5,3 L16,3 L21,8 L21,22 L5,22 Z
+                               M16,3 L16,8 L21,8
+                               M9,12 L17,12
+                               M9,16 L17,16
+                               M9,20 L14,20"
+                          Width="25"
+                          Height="25"
+                          Stretch="Uniform"
+                          Stroke="#147FA3"
+                          StrokeThickness="1.8"
+                          StrokeStartLineCap="Round"
+                          StrokeEndLineCap="Round"
+                          StrokeLineJoin="Round"
+                          Fill="Transparent"
+                          HorizontalAlignment="Center"
+                          VerticalAlignment="Center"/>
+
+                </Border>
+
+                <StackPanel VerticalAlignment="Center">
+
+                    <TextBlock Text="Gerir Faturas"
+                               FontSize="28"
+                               FontWeight="Bold"
+                               Foreground="{StaticResource DarkBlueBrush}"/>
+
+                    <TextBlock Text="Consulte as faturas emitidas, altere o respetivo estado ou proceda à sua anulação."
+                               FontSize="14"
+                               Foreground="#6D818D"
+                               Margin="0,4,0,0"/>
+
+                </StackPanel>
+
+            </StackPanel>
+
+
+            <!-- CARTÃO PRINCIPAL -->
+
+            <Border Grid.Row="2"
+                    Background="White"
+                    BorderBrush="#D7E2E8"
+                    BorderThickness="1"
+                    CornerRadius="14"
+                    Padding="30"
+                    Margin="0,0,0,20">
+
+                <Border.Effect>
+
+                    <DropShadowEffect Color="#000000"
+                                      BlurRadius="10"
+                                      ShadowDepth="2"
+                                      Direction="270"
+                                      Opacity="0.10"/>
+
+                </Border.Effect>
+
+                <Grid>
+
+                    <Grid.RowDefinitions>
+
+                        <RowDefinition Height="Auto"/>
+
+                        <RowDefinition Height="22"/>
+
+                        <RowDefinition Height="420"/>
+
+                        <RowDefinition Height="22"/>
+
+                        <RowDefinition Height="Auto"/>
+
+                        <RowDefinition Height="25"/>
+
+                        <RowDefinition Height="Auto"/>
+
+                    </Grid.RowDefinitions>
+
+
+                    <!-- TÍTULO -->
+
+                    <Grid Grid.Row="0">
+
+                        <Grid.ColumnDefinitions>
+
+                            <ColumnDefinition Width="*"/>
+
+                            <ColumnDefinition Width="Auto"/>
+
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel>
+
+                            <TextBlock Text="Faturas registadas"
+                                       FontSize="18"
+                                       FontWeight="SemiBold"
+                                       Foreground="#153F57"/>
+
+                            <TextBlock Text="Selecione uma fatura para efetuar uma operação."
+                                       Margin="0,4,0,0"
+                                       FontSize="12"
+                                       Foreground="#82939D"/>
+
+                        </StackPanel>
+
+                        <Button Grid.Column="1"
+                                Content="Atualizar"
+                                Style="{StaticResource RefreshButtonStyle}"
+                                Click="BtnAtualizar_Click"/>
+
+                    </Grid>
+
+
+                    <!-- DATAGRID -->
+
+                    <Border Grid.Row="2"
+                            BorderBrush="#D8E4E9"
+                            BorderThickness="1"
+                            CornerRadius="9"
+                            ClipToBounds="True">
+
+                        <DataGrid x:Name="dgFaturas"
+                                  Style="{StaticResource ModernDataGridStyle}"
+                                  SelectionChanged="DgFaturas_SelectionChanged">
+
+                            <DataGrid.Columns>
+
+                                <DataGridTextColumn Header="N.º Fatura"
+                                                    Binding="{Binding IdFatura}"
+                                                    Width="100"/>
+
+                                <DataGridTextColumn Header="Cliente"
+                                                    Binding="{Binding NomeCliente}"
+                                                    Width="*"
+                                                    MinWidth="160"/>
+
+                                <DataGridTextColumn Header="Contador"
+                                                    Binding="{Binding NumeroContador}"
+                                                    Width="130"/>
+
+                                <DataGridTextColumn Header="Data"
+                                                    Binding="{Binding DataFatura,
+                                                    StringFormat={}{0:dd/MM/yyyy}}"
+                                                    Width="120"/>
+
+                                <DataGridTextColumn Header="Consumo"
+                                                    Binding="{Binding Consumo,
+                                                    StringFormat={}{0:N2} m³}"
+                                                    Width="120"/>
+
+                                <DataGridTextColumn Header="Valor"
+                                                    Binding="{Binding ValorTotal,
+                                                    StringFormat={}{0:N2} €}"
+                                                    Width="120"/>
+
+                                <DataGridTemplateColumn Header="Estado"
+                                                        Width="130">
+
+                                    <DataGridTemplateColumn.CellTemplate>
+
+                                        <DataTemplate>
+
+                                            <Border Padding="11"
+                                                    HorizontalAlignment="Left"
+                                                    Background="#E6F4F8"
+                                                    BorderBrush="#BFDFE9"
+                                                    BorderThickness="1"
+                                                    CornerRadius="20">
+
+                                                <TextBlock Text="{Binding Estado}"
+                                                           FontSize="12"
+                                                           FontWeight="SemiBold"
+                                                           Foreground="#147FA3"/>
+
+                                            </Border>
+
+                                        </DataTemplate>
+
+                                    </DataGridTemplateColumn.CellTemplate>
+
+                                </DataGridTemplateColumn>
+
+                            </DataGrid.Columns>
+
+                        </DataGrid>
+
+                    </Border>
+
+
+                    <!-- SEM FATURAS -->
+
+                    <TextBlock x:Name="txtSemFaturas"
+                               Grid.Row="2"
+                               Text="Não existem faturas registadas."
+                               FontSize="14"
+                               FontWeight="SemiBold"
+                               Foreground="#82939D"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               Visibility="Collapsed"
+                               IsHitTestVisible="False"/>
+
+
+                    <!-- ALTERAR ESTADO -->
+
+                    <Grid Grid.Row="4">
+
+                        <Grid.ColumnDefinitions>
+
+                            <ColumnDefinition Width="*"/>
+
+                            <ColumnDefinition Width="20"/>
+
+                            <ColumnDefinition Width="280"/>
+
+                        </Grid.ColumnDefinitions>
+
+                        <Border Grid.Column="0"
+                                Background="#F8FBFC"
+                                BorderBrush="#D6E3E9"
+                                BorderThickness="1"
+                                CornerRadius="9"
+                                Padding="16,12">
+
+                            <Grid>
+
+                                <Grid.ColumnDefinitions>
+
+                                    <ColumnDefinition Width="Auto"/>
+
+                                    <ColumnDefinition Width="18"/>
+
+                                    <ColumnDefinition Width="*"/>
+
+                                </Grid.ColumnDefinitions>
+
+                                <Border Width="42"
+                                        Height="42"
+                                        Background="#DDF3F9"
+                                        CornerRadius="21"
+                                        VerticalAlignment="Center">
+
+                                    <Path Data="M5,3 L16,3 L21,8 L21,22 L5,22 Z
+                                               M16,3 L16,8 L21,8"
+                                          Width="20"
+                                          Height="20"
+                                          Stretch="Uniform"
+                                          Stroke="#147FA3"
+                                          StrokeThickness="1.8"
+                                          Fill="Transparent"
+                                          HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"/>
+
+                                </Border>
+
+                                <StackPanel Grid.Column="2"
+                                            VerticalAlignment="Center">
+
+                                    <TextBlock Text="Fatura selecionada"
+                                               FontSize="11"
+                                               Foreground="#82939D"/>
+
+                                    <TextBlock x:Name="txtFaturaSelecionada"
+                                               Text="Nenhuma fatura selecionada"
+                                               Margin="0,4,0,0"
+                                               FontSize="15"
+                                               FontWeight="SemiBold"
+                                               Foreground="#24495D"/>
+
+                                </StackPanel>
+
+                            </Grid>
+
+                        </Border>
+
+
+                        <StackPanel Grid.Column="2">
+
+                            <TextBlock Text="Novo estado"
+                                       Style="{StaticResource FormLabelStyle}"/>
+
+                            <ComboBox x:Name="cmbEstados"
+                                      Margin="0,7,0,0"
+                                      Style="{StaticResource ModernComboBoxStyle}"
+                                      DisplayMemberPath="Descricao"
+                                      SelectedValuePath="IdEstadoFatura"/>
+
+                        </StackPanel>
+
+                    </Grid>
+
+
+                    <!-- BOTÕES -->
+
+                    <Grid Grid.Row="6">
+
+                        <Grid.ColumnDefinitions>
+
+                            <ColumnDefinition Width="*"/>
+
+                            <ColumnDefinition Width="Auto"/>
+
+                        </Grid.ColumnDefinitions>
+
+                        <Border Background="#EDF7FA"
+                                BorderBrush="#D1E6ED"
+                                BorderThickness="1"
+                                CornerRadius="8"
+                                Padding="12,9"
+                                Margin="0,0,25,0">
+
+                            <StackPanel Orientation="Horizontal">
+
+                                <Ellipse Width="8"
+                                         Height="8"
+                                         Fill="#20A9D2"
+                                         Margin="0,0,8,0"
+                                         VerticalAlignment="Center"/>
+
+                                <TextBlock Text="As faturas anuladas não podem voltar a ser alteradas."
+                                           FontSize="12"
+                                           Foreground="#31566B"
+                                           VerticalAlignment="Center"
+                                           TextWrapping="Wrap"/>
+
+                            </StackPanel>
+
+                        </Border>
+
+                        <StackPanel Grid.Column="1"
+                                    Orientation="Horizontal"
+                                    HorizontalAlignment="Right">
+
+                            <Button x:Name="btnAlterarEstado"
+                                    Content="Alterar Estado"
+                                    Style="{StaticResource PrimaryButtonStyle}"
+                                    Margin="0,0,12,0"
+                                    IsEnabled="False"
+                                    Click="BtnAlterarEstado_Click"/>
+
+                            <Button x:Name="btnAnularFatura"
+                                    Content="Anular Fatura"
+                                    Style="{StaticResource DangerButtonStyle}"
+                                    IsEnabled="False"
+                                    Click="BtnAnularFatura_Click"/>
+
+                        </StackPanel>
+
+                    </Grid>
+
+                </Grid>
+
+            </Border>
+
+        </Grid>
+
+    </ScrollViewer>
+
+</UserControl>

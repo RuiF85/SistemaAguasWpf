@@ -3,6 +3,7 @@ using WpfFrontEnd.Views.Clientes;
 using WpfFrontEnd.Views.Consumos;
 using WpfFrontEnd.Views.Contadores;
 using WpfFrontEnd.Views.Dashboard;
+using WpfFrontEnd.Views.Faturas;
 
 namespace WpfFrontEnd
 {
@@ -106,13 +107,27 @@ namespace WpfFrontEnd
         }
         #endregion
 
+        #region Fatura UserControl
         private void BtnFaturas_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Faturas");
-
+            if (SubMenuFaturas.Visibility == Visibility.Collapsed)
+            {
+                SubMenuFaturas.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                SubMenuFaturas.Visibility = Visibility.Collapsed;
+            }
         }
-
-
+        private void BtnGerarFaturas(object sender, RoutedEventArgs e)
+        {
+            conteudoPrincipal.Content = new GerarFaturaControl();
+        }
+        private void BtnGerirFaturas(object sender, RoutedEventArgs e)
+        {
+            conteudoPrincipal.Content = new GerirFaturasControl();
+        }
+        #endregion
 
         private void BtnSobre_Click(object sender, RoutedEventArgs e)
         {

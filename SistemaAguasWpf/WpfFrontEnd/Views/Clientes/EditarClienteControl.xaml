@@ -713,7 +713,7 @@
                     Background="White"
                     BorderBrush="#D7E2E8"
                     BorderThickness="1"
-                    CornerRadius="14"
+                    CornerRadius="18"
                     Padding="22">
 
                 <Border.Effect>
@@ -732,7 +732,7 @@
 
                         <RowDefinition Height="Auto"/>
 
-                        <RowDefinition Height="16"/>
+                        <RowDefinition Height="15"/>
 
                         <RowDefinition Height="*"/>
 

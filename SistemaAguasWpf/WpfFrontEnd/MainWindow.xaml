@@ -889,72 +889,86 @@
 
                     <!-- FATURAS -->
 
-                    <Button x:Name="BtnFaturas"
-                            Style="{StaticResource MenuButtonStyle}"
-                            Click="BtnFaturas_Click">
+                    <StackPanel>
 
-                        <StackPanel Orientation="Horizontal">
+                        <Button x:Name="BtnFaturas"
+                                Style="{StaticResource MenuButtonStyle}"
+                                Click="BtnFaturas_Click">
 
-                            <Border x:Name="IconBackgroundFaturas"
-                                    Style="{StaticResource IconCircleStyle}">
+                            <StackPanel Orientation="Horizontal">
 
-                                <Border.Effect>
+                                <Border x:Name="IconBackgroundFaturas"
+                    Style="{StaticResource IconCircleStyle}">
 
-                                    <DropShadowEffect Color="#A8E9FA"
-                                                      BlurRadius="0"
-                                                      ShadowDepth="0"
-                                                      Opacity="0"/>
+                                    <Border.Effect>
+                                        <DropShadowEffect Color="#A8E9FA"
+                                      BlurRadius="0"
+                                      ShadowDepth="0"
+                                      Opacity="0"/>
+                                    </Border.Effect>
 
-                                </Border.Effect>
+                                    <Path Data="{StaticResource IconeFaturas}"
+                      Style="{StaticResource MenuIconStyle}"/>
 
-                                <Path Data="{StaticResource IconeFaturas}"
-                                      Style="{StaticResource MenuIconStyle}"/>
+                                </Border>
 
-                            </Border>
+                                <TextBlock Text="Faturas"
+                                     VerticalAlignment="Center"/>
 
-                            <TextBlock Text="Faturas"
-                                       VerticalAlignment="Center"/>
+                            </StackPanel>
+
+                        </Button>
+
+                        <StackPanel x:Name="SubMenuFaturas"
+                                    Visibility="Collapsed"
+                                    Margin="25,-5,0,10">
+
+                            <Button Style="{StaticResource SubMenuButtonStyle}"
+                                    Content="Gerar Fatura"
+                                    Click="BtnGerarFaturas"/>
+
+                            <Button Style="{StaticResource SubMenuButtonStyle}"
+                                    Content="Gerir Faturas"
+                                    Click="BtnGerirFaturas"/>
 
                         </StackPanel>
 
-                    </Button>
-
-                </StackPanel>
+                    </StackPanel>
 
 
-                <!-- SOBRE -->
+                    <!-- SOBRE -->
 
-                <Button x:Name="BtnSobre"
+                    <Button x:Name="BtnSobre"
                         Grid.Row="2"
                         Style="{StaticResource AboutButtonStyle}"
                         Click="BtnSobre_Click">
 
-                    <StackPanel Orientation="Horizontal">
+                        <StackPanel Orientation="Horizontal">
 
-                        <Border x:Name="IconBackgroundSobre"
+                            <Border x:Name="IconBackgroundSobre"
                                 Style="{StaticResource IconCircleStyle}">
 
-                            <Border.Effect>
+                                <Border.Effect>
 
-                                <DropShadowEffect Color="#A8E9FA"
+                                    <DropShadowEffect Color="#A8E9FA"
                                                   BlurRadius="0"
                                                   ShadowDepth="0"
                                                   Opacity="0"/>
 
-                            </Border.Effect>
+                                </Border.Effect>
 
-                            <Path Data="{StaticResource IconeSobre}"
+                                <Path Data="{StaticResource IconeSobre}"
                                   Style="{StaticResource MenuIconStyle}"/>
 
-                        </Border>
+                            </Border>
 
-                        <TextBlock Text="Sobre"
+                            <TextBlock Text="Sobre"
                                    VerticalAlignment="Center"/>
 
-                    </StackPanel>
+                        </StackPanel>
 
-                </Button>
-
+                    </Button>
+                </StackPanel>
             </Grid>
 
         </Border>
