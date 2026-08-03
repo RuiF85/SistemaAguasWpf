@@ -20,9 +20,9 @@ namespace WebApiBackEnd
 	using System.Linq.Expressions;
 	using System.ComponentModel;
 	using System;
-	
-	
-	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="SistemaAguas")]
+    using Newtonsoft.Json;
+
+    [global::System.Data.Linq.Mapping.DatabaseAttribute(Name="SistemaAguas")]
 	public partial class DataClassesDataContext : System.Data.Linq.DataContext
 	{
 		
@@ -371,8 +371,8 @@ namespace WebApiBackEnd
 				}
 			}
 		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Cliente_Contadore", Storage="_Contadores", ThisKey="IdCLiente", OtherKey="IdCliente")]
+		[JsonIgnore]
 		public EntitySet<Contadore> Contadores
 		{
 			get
@@ -594,7 +594,8 @@ namespace WebApiBackEnd
 		}
 		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Contadore_Consumo", Storage="_Contadore", ThisKey="IdContador", OtherKey="IdContador", IsForeignKey=true)]
-		public Contadore Contadore
+        [JsonIgnore]
+        public Contadore Contadore
 		{
 			get
 			{
@@ -628,7 +629,8 @@ namespace WebApiBackEnd
 		}
 		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Fatura_Consumo", Storage="_Fatura", ThisKey="IdFatura", OtherKey="IdFatura", IsForeignKey=true)]
-		public Fatura Fatura
+        [JsonIgnore]
+        public Fatura Fatura
 		{
 			get
 			{
@@ -830,6 +832,7 @@ namespace WebApiBackEnd
 		}
 		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Contadore_Consumo", Storage="_Consumos", ThisKey="IdContador", OtherKey="IdContador")]
+		[JsonIgnore]
 		public EntitySet<Consumo> Consumos
 		{
 			get
@@ -977,8 +980,10 @@ namespace WebApiBackEnd
 			}
 		}
 		
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="EstadoFatura_Fatura", Storage="_Faturas", ThisKey="IdEstadoFatura", OtherKey="IdEstadoFatura")]
-		public EntitySet<Fatura> Faturas
+        [JsonIgnore]
+        public EntitySet<Fatura> Faturas
 		{
 			get
 			{
@@ -1219,6 +1224,7 @@ namespace WebApiBackEnd
 		}
 		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Fatura_Consumo", Storage="_Consumos", ThisKey="IdFatura", OtherKey="IdFatura")]
+		[JsonIgnore]
 		public EntitySet<Consumo> Consumos
 		{
 			get
@@ -1232,6 +1238,7 @@ namespace WebApiBackEnd
 		}
 		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="EstadoFatura_Fatura", Storage="_EstadoFatura", ThisKey="IdEstadoFatura", OtherKey="IdEstadoFatura", IsForeignKey=true)]
+		[JsonIgnore]
 		public EstadoFatura EstadoFatura
 		{
 			get

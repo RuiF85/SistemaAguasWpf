@@ -583,6 +583,12 @@
             <param name="id"></param>
             <returns>The delete result.</returns>
         </member>
+        <member name="M:WebApiBackEnd.Controllers.EstadoFaturasController.Get">
+            <summary>
+            Gets all EstadoFaturas.
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:WebApiBackEnd.Controllers.FaturasController.Get">
             <summary>
             Gets all invoices.
