@@ -972,9 +972,9 @@
                                                     Binding="{Binding IdContador}"
                                                     Width="70"/>
 
-                                <DataGridTextColumn Header="ID Cliente"
-                                                    Binding="{Binding IdCliente}"
-                                                    Width="105"/>
+                                <DataGridTextColumn Header="Cliente"
+                                                    Binding="{Binding NomeCliente}"
+                                                    Width="180"/>
 
                                 <DataGridTextColumn Header="Número"
                                                     Binding="{Binding NumeroContador}"
@@ -987,7 +987,8 @@
 
                                 <DataGridCheckBoxColumn Header="Ativo"
                                                         Binding="{Binding Ativo}"
-                                                        Width="80"/>
+                                                        Width="80"
+                                                        IsReadOnly="True"/>
 
                             </DataGrid.Columns>
 

@@ -63,6 +63,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Models\AtividadeDashboard.cs" />
     <Compile Include="Models\Consumo.cs" />
     <Compile Include="Models\Contador.cs" />
     <Compile Include="Models\EscalaoFaturaView.cs" />
@@ -102,6 +103,9 @@
     </Compile>
     <Compile Include="Views\Dashboard\DashboardControl.xaml.cs">
       <DependentUpon>DashboardControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dashboard\SobreControl.xaml.cs">
+      <DependentUpon>SobreControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Faturas\GerarFaturaControl.xaml.cs">
       <DependentUpon>GerarFaturaControl.xaml</DependentUpon>
@@ -161,6 +165,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Dashboard\SobreControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Faturas\GerarFaturaControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -216,9 +224,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\ContaInserir.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\ApagarFatura.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\pen-to-square.png" />

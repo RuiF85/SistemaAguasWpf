@@ -738,7 +738,7 @@
                         <StackPanel Grid.Row="2"
                                     Grid.Column="2">
 
-                            <TextBlock Text="Contacto"
+                            <TextBlock Text="Contacto*"
                                        Style="{StaticResource FormLabelStyle}"/>
 
                             <TextBox x:Name="txtContacto"
@@ -754,7 +754,7 @@
                         <StackPanel Grid.Row="4"
                                     Grid.Column="0">
 
-                            <TextBlock Text="Email"
+                            <TextBlock Text="Email*"
                                        Style="{StaticResource FormLabelStyle}"/>
 
                             <TextBox x:Name="txtEmail"
@@ -786,7 +786,7 @@
                         <StackPanel Grid.Row="6"
                                     Grid.Column="0">
 
-                            <TextBlock Text="Código Postal *"
+                            <TextBlock Text="Código Postal * 0000-000"
                                        Style="{StaticResource FormLabelStyle}"/>
 
                             <TextBox x:Name="txtCodigoPostal"

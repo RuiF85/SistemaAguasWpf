@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using WpfFrontEnd.Models;
@@ -8,7 +7,7 @@ using WpfFrontEnd.Services;
 namespace WpfFrontEnd.Views.Consumos
 {
     /// <summary>
-    /// Interaction logic for ApagarConsumoControl.xaml
+    /// UserControl for deleting consumptions.
     /// </summary>
     public partial class ApagarConsumoControl : UserControl
     {
@@ -26,6 +25,9 @@ namespace WpfFrontEnd.Views.Consumos
 
         }
 
+        /// <summary>
+        /// Loads the consumptions from the API and populates the DataGrid.
+        /// </summary>
         private async void CarregarConsumos()
         {
             try
@@ -41,6 +43,11 @@ namespace WpfFrontEnd.Views.Consumos
             }
         }
 
+        /// <summary>
+        /// Deletes the selected consumption after user confirmation.
+        /// </summary>
+        /// <param name="sender">The event source.</param>
+        /// <param name="e">The event arguments.</param>
         private async void BtnEliminar_Click(object sender, RoutedEventArgs e)
         {
             if (dgConsumos.SelectedItem == null)
@@ -52,9 +59,8 @@ namespace WpfFrontEnd.Views.Consumos
 
             Consumo consumo = (Consumo)dgConsumos.SelectedItem;
 
-            MessageBoxResult resultado = MessageBox.Show(
-                "Tem a certeza que pretende eliminar este consumo?", "Confirmar eliminação",
-                MessageBoxButton.YesNo, MessageBoxImage.Question);
+            MessageBoxResult resultado = MessageBox.Show("Tem a certeza que pretende eliminar este consumo?", "Confirmar eliminação",
+                                                             MessageBoxButton.YesNo, MessageBoxImage.Question);
 
             if (resultado != MessageBoxResult.Yes)
             {
@@ -83,12 +89,19 @@ namespace WpfFrontEnd.Views.Consumos
                     MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-
+        /// <summary>
+        /// Clears the current selection.
+        /// </summary>
+        /// <param name="sender">The event source.</param>
+        /// <param name="e">The event arguments.</param>
         private void BtnLimpar_Click(object sender, RoutedEventArgs e)
         {
             LimparSelecao();
         }
 
+        /// <summary>
+        /// Clears the current selection.
+        /// </summary>
         private void LimparSelecao()
         {
             dgConsumos.SelectedItem = null;

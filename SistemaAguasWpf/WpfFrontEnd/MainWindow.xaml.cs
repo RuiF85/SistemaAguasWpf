@@ -8,7 +8,7 @@ using WpfFrontEnd.Views.Faturas;
 namespace WpfFrontEnd
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Main window of the application.
     /// </summary>
     public partial class MainWindow : Window
     {
@@ -20,7 +20,12 @@ namespace WpfFrontEnd
             conteudoPrincipal.Content = new DashboardControl();
         }
 
-        #region Clientes USerControl.
+        /// <summary>
+        /// Shows or hides the Clients submenu.
+        /// </summary>
+        /// <param name="sender">The event source.</param>
+        /// <param name="e">The event arguments.</param>
+        #region Clientes USerControl
         private void BtnClientes_Click(object sender, RoutedEventArgs e)
         {
             if (SubMenuClientes.Visibility == Visibility.Collapsed)
@@ -49,7 +54,12 @@ namespace WpfFrontEnd
         }
         #endregion
 
-        #region Contadores UserControl.
+        /// <summary>
+        /// Shows or hides the Clients submenu.
+        /// </summary>
+        /// <param name="sender">The event source.</param>
+        /// <param name="e">The event arguments.</param>
+        #region Contadores UserControl
         private void BtnContadores_Click(object sender, RoutedEventArgs e)
         {
             if (SubMenuContadores.Visibility == Visibility.Collapsed)
@@ -78,7 +88,12 @@ namespace WpfFrontEnd
         }
         #endregion
 
-        #region Consumos UserControl.
+        /// <summary>
+        /// Opens the Edit Client view.
+        /// </summary>
+        /// <param name="sender">The event source.</param>
+        /// <param name="e">The event arguments.</param>
+        #region Consumos UserControl
         private void BtnConsumos_Click(object sender, RoutedEventArgs e)
         {
             if (SubMenuConsumos.Visibility == Visibility.Collapsed)
@@ -107,6 +122,11 @@ namespace WpfFrontEnd
         }
         #endregion
 
+        /// <summary>
+        /// Opens the Delete Client view.
+        /// </summary>
+        /// <param name="sender">The event source.</param>
+        /// <param name="e">The event arguments.</param>
         #region Fatura UserControl
         private void BtnFaturas_Click(object sender, RoutedEventArgs e)
         {
@@ -129,15 +149,34 @@ namespace WpfFrontEnd
         }
         #endregion
 
+        /// <summary>
+        /// Opens the About view.   
+        /// </summary>
+        /// <param name="sender">The event source.</param>
+        /// <param name="e">The event arguments.</param>
         private void BtnSobre_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Sobre");
+            conteudoPrincipal.Content = new SobreControl();
         }
 
+        /// <summary>
+        /// Opens the Dashboard view.
+        /// </summary>
+        /// <param name="sender">The event source.</param>
+        /// <param name="e">The event arguments.</param>
+        private void BtnDashboard_Click(object sender, RoutedEventArgs e)
+        {
+            conteudoPrincipal.Content = new DashboardControl();
+        }
 
+        /// <summary>
+        /// Closes the application after user confirmation.
+        /// </summary>
+        /// <param name="sender">The event source.</param>
+        /// <param name="e">The event arguments.</param>
         private void BtnSair_Click(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult resposta = MessageBox.Show("deseja sair da aplicação?", "Sair",
+            MessageBoxResult resposta = MessageBox.Show("Deseja sair da aplicação?", "Sair",
                 MessageBoxButton.YesNo, MessageBoxImage.Question);
 
             if (resposta == MessageBoxResult.Yes)

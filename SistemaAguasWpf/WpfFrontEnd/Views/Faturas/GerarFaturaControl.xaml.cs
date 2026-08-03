@@ -10,7 +10,7 @@ using WpfFrontEnd.Services;
 namespace WpfFrontEnd.Views.Faturas
 {
     /// <summary>
-    /// Interaction logic for GerarFaturaControl.xaml
+    /// UserControl for generating invoices from consumption records.
     /// </summary>
     public partial class GerarFaturaControl : UserControl
     {
@@ -41,11 +41,20 @@ namespace WpfFrontEnd.Views.Faturas
             Loaded += GerarFaturaControl_Loaded;
         }
 
+        /// <summary>
+        /// Loads the required data when the control is displayed.
+        /// </summary>
+        /// <param name="sender">The event source.</param>
+        /// <param name="e">The event arguments.</param>
         private async void GerarFaturaControl_Loaded(object sender, RoutedEventArgs e)
         {
             await CarregarDados();
         }
 
+        /// <summary>
+        /// Loads the required data.    
+        /// </summary>
+        /// <returns>A task that represents the asynchronous operation.</returns>
         private async Task CarregarDados()
         {
             try
@@ -93,7 +102,11 @@ namespace WpfFrontEnd.Views.Faturas
             }
         }
 
-
+        /// <summary>
+        /// Updates the invoice preview when a consumption is selected.
+        /// </summary>
+        /// <param name="sender">The event source.</param>
+        /// <param name="e">The event arguments.</param>
         private void CmbConsumos_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Consumo consumoSelecionado = cmbConsumos.SelectedItem as Consumo;
@@ -110,6 +123,10 @@ namespace WpfFrontEnd.Views.Faturas
             btnGerarFatura.IsEnabled = true;
         }
 
+        /// <summary>
+        /// Fills the invoice preview with the selected consumption data.
+        /// </summary>
+        /// <param name="consumo">The selected consumption.</param>
         private void PreencherDados(Consumo consumo)
         {
             Contador contador = _contadores.SingleOrDefault(c => c.IdContador == consumo.IdContador);
@@ -157,6 +174,10 @@ namespace WpfFrontEnd.Views.Faturas
             CalcularEscaloes(consumo.ConsumoCalculado);
         }
 
+        /// <summary>
+        /// Calculates the billing tiers and invoice totals.
+        /// </summary>
+        /// <param name="consumoCalculado">The calculated water consumption.</param>
         private void CalcularEscaloes(decimal consumoCalculado)
         {
             decimal consumoRestante = Math.Max(consumoCalculado, 0);
@@ -219,11 +240,21 @@ namespace WpfFrontEnd.Views.Faturas
             txtTotalFinal.Text = subtotal.ToString("N2") + " €";
         }
 
+        /// <summary>
+        /// Clears the current selection and resets the invoice preview.
+        /// </summary>
+        /// <param name="sender">The event source.</param>
+        /// <param name="e">The event arguments.</param>
         private void BtnLimpar_Click(object sender, RoutedEventArgs e)
         {
             LimparSelecao();
         }
 
+        /// <summary>
+        /// Generates an invoice for the selected consumption.
+        /// </summary>
+        /// <param name="sender">The event source.</param>
+        /// <param name="e">The event arguments.</param>
         private async void BtnGerarFatura_Click(object sender, RoutedEventArgs e)
         {
             Consumo consumoSelecionado = cmbConsumos.SelectedItem as Consumo;
@@ -237,8 +268,7 @@ namespace WpfFrontEnd.Views.Faturas
             }
 
             MessageBoxResult confirmacao = MessageBox.Show("Pretende gerar uma fatura para o consumo selecionado?\n\n" +
-                "Consumo: " +
-                consumoSelecionado.ConsumoCalculado.ToString("N2") +
+                "Consumo: " + consumoSelecionado.ConsumoCalculado.ToString("N2") +
                 " m³\n" +
                 "Data: " +
                 consumoSelecionado.Data.ToString("dd/MM/yyyy"),
@@ -289,6 +319,9 @@ namespace WpfFrontEnd.Views.Faturas
             }
         }
 
+        /// <summary>
+        /// Clears the selected consumption and resets the form.
+        /// </summary>
         private void LimparSelecao()
         {
             cmbConsumos.SelectedItem = null;
@@ -298,6 +331,9 @@ namespace WpfFrontEnd.Views.Faturas
             btnGerarFatura.IsEnabled = false;
         }
 
+        /// <summary>
+        /// Clears all invoice information displayed on the screen.
+        /// </summary>
         private void LimparResumo()
         {
             txtNumeroFatura.Text = "—";

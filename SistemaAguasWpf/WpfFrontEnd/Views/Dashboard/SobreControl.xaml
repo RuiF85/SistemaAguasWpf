@@ -1,0 +1,301 @@
+﻿<UserControl x:Class="WpfFrontEnd.Views.Dashboard.SobreControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:WpfFrontEnd.Views.Dashboard"
+             mc:Ignorable="d"
+             d:DesignHeight="600" d:DesignWidth="900">
+
+    <UserControl.Resources>
+
+        <!-- ===================================================== -->
+        <!-- CORES                                                 -->
+        <!-- ===================================================== -->
+
+        <SolidColorBrush x:Key="CorTitulo"
+                         Color="#0A2E4E"/>
+
+        <SolidColorBrush x:Key="CorAccent"
+                         Color="#147FA3"/>
+
+        <SolidColorBrush x:Key="CorAzulClaro"
+                         Color="#5EC4E3"/>
+
+        <SolidColorBrush x:Key="CorCabecalhoFundo"
+                         Color="#EAF6FB"/>
+
+
+        <!-- ===================================================== -->
+        <!-- ÍCONE: GOTA DECORATIVA (marca de água)                -->
+        <!-- ===================================================== -->
+
+        <PathGeometry x:Key="IconeGotaGrande">
+
+            <PathFigure StartPoint="12,2"
+                        IsClosed="True">
+
+                <BezierSegment Point1="12,2"
+                               Point2="2,13"
+                               Point3="2,19"/>
+
+                <BezierSegment Point1="2,24.5"
+                               Point2="6.5,29"
+                               Point3="12,29"/>
+
+                <BezierSegment Point1="17.5,29"
+                               Point2="22,24.5"
+                               Point3="22,19"/>
+
+                <BezierSegment Point1="22,13"
+                               Point2="12,2"
+                               Point3="12,2"/>
+
+            </PathFigure>
+
+        </PathGeometry>
+
+
+        <!-- ===================================================== -->
+        <!-- ÍCONE: SETA VOLTAR                                    -->
+        <!-- ===================================================== -->
+
+        <PathGeometry x:Key="IconeVoltar">
+
+            <PathFigure StartPoint="15,4"
+                        IsClosed="False">
+
+                <LineSegment Point="7,12"/>
+
+                <LineSegment Point="15,20"/>
+
+            </PathFigure>
+
+        </PathGeometry>
+
+
+        <!-- ===================================================== -->
+        <!-- ÍCONE: INFO                                           -->
+        <!-- ===================================================== -->
+
+        <GeometryGroup x:Key="IconeInfo">
+
+            <EllipseGeometry Center="12,12"
+                             RadiusX="9"
+                             RadiusY="9"/>
+
+            <EllipseGeometry Center="12,7.5"
+                             RadiusX="0.7"
+                             RadiusY="0.7"/>
+
+            <LineGeometry StartPoint="12,11"
+                          EndPoint="12,17"/>
+
+        </GeometryGroup>
+
+
+        <!-- ===================================================== -->
+        <!-- ESTILOS DE TEXTO                                      -->
+        <!-- ===================================================== -->
+
+        <Style x:Key="RotuloStyle"
+               TargetType="TextBlock">
+
+            <Setter Property="FontWeight"
+                    Value="SemiBold"/>
+
+            <Setter Property="FontSize"
+                    Value="20"/>
+
+            <Setter Property="Foreground"
+                    Value="{StaticResource CorAccent}"/>
+
+        </Style>
+
+        <Style x:Key="ValorStyle"
+               TargetType="TextBlock">
+
+            <Setter Property="FontSize"
+                    Value="20"/>
+
+            <Setter Property="FontStyle"
+                    Value="Italic"/>
+
+            <Setter Property="Foreground"
+                    Value="#222222"/>
+
+            <Setter Property="Margin"
+                    Value="6,0,24,0"/>
+
+        </Style>
+
+    </UserControl.Resources>
+
+
+    <!-- ========================================================= -->
+    <!-- ESTRUTURA PRINCIPAL                                       -->
+    <!-- ========================================================= -->
+
+    <Grid>
+
+        <Grid.RowDefinitions>
+
+            <RowDefinition Height="56"/>
+
+            <RowDefinition Height="*"/>
+
+        </Grid.RowDefinitions>
+
+
+
+
+        <!-- ===================================================== -->
+        <!-- CORPO                                                 -->
+        <!-- ===================================================== -->
+
+        <Grid Grid.Row="1">
+
+            <Image Source="Images/Agua clin.png"
+                   Width="450"
+                   Height="450"
+                   Stretch="Uniform"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   Opacity="0.08"/>
+            <!-- MARCA DE ÁGUA DECORATIVA -->
+
+            <Path Data="{StaticResource IconeGotaGrande}"
+                  Width="320"
+                  Height="320"
+                  Stretch="Uniform"
+                  Fill="{StaticResource CorAzulClaro}"
+                  Opacity="0.10"
+                  HorizontalAlignment="Right"
+                  VerticalAlignment="Bottom"
+                  Margin="0,0,-60,-60"/>
+
+            <StackPanel Margin="50,25,50,25"
+            HorizontalAlignment="Center">
+
+                <!-- LOGÓTIPO E VERSÃO -->
+
+                <Image Source="Images/Logo.png"
+                       Width="200"
+                       Height="130"
+                       Stretch="Uniform"
+                       HorizontalAlignment="Center"/>
+
+                <TextBlock Text="Versão 2.0.0"
+                           FontStyle="Italic"
+                           FontWeight="SemiBold"
+                           FontSize="30"
+                           Foreground="{StaticResource CorAccent}"
+                           HorizontalAlignment="Center"
+                           Margin="0,4,0,30"/>
+
+                <!-- DESENVOLVIDO POR -->
+
+                <StackPanel  Orientation="Horizontal"
+            HorizontalAlignment="Center"
+            Margin="0,0,0,14">
+
+                    <TextBlock Text="Desenvolvido por:"
+                               Style="{StaticResource RotuloStyle}"/>
+
+                    <TextBlock Text="Rui Miguel da Silva Fernandes"
+                               Style="{StaticResource ValorStyle}"/>
+
+                </StackPanel>
+
+                <!-- LOCAL E DATA -->
+
+                <StackPanel  Orientation="Horizontal"
+            HorizontalAlignment="Center"
+            Margin="0,0,0,14">
+
+                    <TextBlock Text="Local:"
+                               Style="{StaticResource RotuloStyle}"/>
+
+                    <TextBlock Text="CINEL - Lisboa"
+                               Style="{StaticResource ValorStyle}"/>
+
+                    <TextBlock Text="Data:"
+                               Style="{StaticResource RotuloStyle}"/>
+
+                    <TextBlock x:Name="TxtData"
+                               Style="{StaticResource ValorStyle}"/>
+
+                </StackPanel>
+
+                <!-- FORMADOR -->
+
+                <StackPanel Orientation="Horizontal"
+            HorizontalAlignment="Center"
+            Margin="0,0,0,14">
+
+                    <TextBlock Text="Formador:"
+                               Style="{StaticResource RotuloStyle}"/>
+
+                    <TextBlock Text="Rafael Santos"
+                               Style="{StaticResource ValorStyle}"/>
+
+                </StackPanel>
+
+                <!-- TECNOLOGIA -->
+
+                <StackPanel Orientation="Horizontal"
+                            HorizontalAlignment="Center"
+                            Margin="0,0,0,14">
+                    <TextBlock Text="Tecnologia:"
+                               Style="{StaticResource RotuloStyle}"/>
+
+                    <TextBlock Text="C# com arquitetura cliente-servidor"
+                               Style="{StaticResource ValorStyle}"/>
+
+                </StackPanel>
+
+                <!-- TURMA -->
+
+                <StackPanel Orientation="Horizontal"
+            HorizontalAlignment="Center"
+            Margin="0,0,0,14">
+
+                    <TextBlock Text="Turma:"
+                               Style="{StaticResource RotuloStyle}"/>
+
+                    <TextBlock Text="CET 108"
+                               Style="{StaticResource ValorStyle}"/>
+
+                </StackPanel>
+
+                <!-- SOBRE O SISTEMA -->
+
+                <TextBlock Text="Sobre o Sistema:"
+                           Style="{StaticResource RotuloStyle}"
+                           Margin="0,0,0,6"/>
+
+                <TextBlock TextWrapping="Wrap"
+                           FontStyle="Italic"
+                           FontSize="20"
+                           Foreground="#222222"
+                           MaxWidth="620"
+                           HorizontalAlignment="Left"
+                           Text="Esta aplicação permite a gestão de clientes, contadores, consumos e faturação de uma empresa de abastecimento de águas, através de uma WebApi consumida por uma aplicação WPF."/>
+
+            </StackPanel>
+
+
+            <!-- RODAPÉ -->
+
+            <TextBlock x:Name="TxtCopyright"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Bottom"
+                       Margin="0,0,0,16"
+                       FontSize="20"
+                       Foreground="{StaticResource CorAccent}"/>
+
+        </Grid>
+
+    </Grid>
+
+</UserControl>

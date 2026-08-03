@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -8,7 +8,7 @@ using WpfFrontEnd.Services;
 namespace WpfFrontEnd.Views.Contadores
 {
     /// <summary>
-    /// Interaction logic for EditarClienteControl.xaml
+    /// UserControl for editing meters.
     /// </summary>
     public partial class EditarContadorControl : UserControl
     {
@@ -20,26 +20,48 @@ namespace WpfFrontEnd.Views.Contadores
         public EditarContadorControl()
         {
             InitializeComponent();
-
             CarregarDados();
         }
 
+        /// <summary>
+        /// Loads the clients and meters into the form.
+        /// </summary>
         private async void CarregarDados()
         {
             await CarregarClientes();
             await CarregarContadores();
         }
 
-
+        /// <summary>
+        /// Loads the clients into the ComboBox.
+        /// </summary>
+        /// <returns>A task that represents the asynchronous operation.</returns>
         private async Task CarregarClientes()
         {
             cmbClientes.ItemsSource = await clienteService.ObterClientes();
         }
+
+        /// <summary>
+        /// Loads the meters from the API and populates the DataGrid.
+        /// </summary>
+        /// <returns>A task that represents the asynchronous operation.</returns>
         private async Task CarregarContadores()
         {
-            dgContadores.ItemsSource = await contadorService.ObterContadores();
+            var contadores = await contadorService.ObterContadores();
+            var clientes = await clienteService.ObterClientes();
+
+            foreach (var c in contadores)
+            {
+                c.NomeCliente = clientes.FirstOrDefault(cl => cl.IdCliente == c.IdCliente)?.NomeCompleto;
+            }
+            dgContadores.ItemsSource = contadores;
         }
 
+        /// <summary>
+        /// Displays the selected meter information in the form.
+        /// </summary>
+        /// <param name="sender">The event source.</param>
+        /// <param name="e">The event arguments.</param>
         private void DgContadores_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             contadorSelecionado = dgContadores.SelectedItem as Contador;
@@ -55,6 +77,11 @@ namespace WpfFrontEnd.Views.Contadores
             chkAtivo.IsChecked = contadorSelecionado.Ativo;
         }
 
+        /// <summary>
+        /// Validates the entered data and updates the selected meter.
+        /// </summary>
+        /// <param name="sender">The event source.</param>
+        /// <param name="e">The event arguments.</param>
         private async void BtnGuardarAlteracoes_Click(object sender, RoutedEventArgs e)
         {
             if (contadorSelecionado == null)
@@ -112,25 +139,30 @@ namespace WpfFrontEnd.Views.Contadores
                 MessageBox.Show("Não foi possivel alterar o contador.", "Erro",
                     MessageBoxButton.OK, MessageBoxImage.Error);
             }
-
         }
 
-
+        /// <summary>
+        /// Clears the form fields and resets the selection.
+        /// </summary>
+        /// <param name="sender">The event source.</param>
+        /// <param name="e">The event arguments.</param>
         private void BtnCancelar_Click(object sender, RoutedEventArgs e)
         {
             LimparCampos();
         }
 
+        /// <summary>
+        /// Clears the form fields and resets the selection.
+        /// </summary>
         private void LimparCampos()
         {
-           contadorSelecionado = null;
+            contadorSelecionado = null;
 
             dgContadores.SelectedItem = null;
             cmbClientes.SelectedIndex = -1;
             txtNumeroContador.Clear();
             dpDataInstalacao.SelectedDate = null;
             chkAtivo.IsChecked = false;
-
         }
     }
 }

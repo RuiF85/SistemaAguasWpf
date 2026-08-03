@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using WpfFrontEnd.Models;
@@ -9,7 +8,7 @@ using WpfFrontEnd.Services;
 namespace WpfFrontEnd.Views.Faturas
 {
     /// <summary>
-    /// Interaction logic for GerirFaturasControl.xaml
+    /// UserControl for managing invoices.
     /// </summary>
     public partial class GerirFaturasControl : UserControl
     {
@@ -30,17 +29,23 @@ namespace WpfFrontEnd.Views.Faturas
             CarregarEstado();
         }
 
+        /// <summary>
+        /// Loads the list of states into the combo box.
+        /// </summary>
         private async void CarregarEstado()
         {
             cmbEstados.ItemsSource = await estadoService.ObterEstados();
         }
 
+        /// <summary>
+        /// Loads the invoices from the API and populates the DataGrid.
+        /// </summary>
         private async void CarregarFaturas()
         {
             try
             {
                 faturas = await faturaService.ObterFaturas();
-               
+
                 dgFaturas.ItemsSource = faturas;
 
                 LimparSelecao();
@@ -53,11 +58,22 @@ namespace WpfFrontEnd.Views.Faturas
             }
 
         }
+
+        /// <summary>
+        /// Refreshes the list of invoices.
+        /// </summary>
+        /// <param name="sender">The event source.</param>
+        /// <param name="e">The event arguments.</param>
         private void BtnAtualizar_Click(object sender, RoutedEventArgs e)
         {
-            CarregarFaturas(); 
+            CarregarFaturas();
         }
 
+        /// <summary>
+        /// Displays the selected invoice information.
+        /// </summary>
+        /// <param name="sender">The event source.</param>
+        /// <param name="e">The event arguments.</param>
         private void DgFaturas_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (dgFaturas.SelectedItem == null)
@@ -75,6 +91,11 @@ namespace WpfFrontEnd.Views.Faturas
             btnAnularFatura.IsEnabled = true;
         }
 
+        /// <summary>
+        /// Updates the status of the selected invoice.
+        /// </summary>
+        /// <param name="sender">The event source.</param>
+        /// <param name="e">The event arguments.</param>
         private async void BtnAlterarEstado_Click(object sender, RoutedEventArgs e)
         {
             if (dgFaturas.SelectedItem == null)
@@ -89,29 +110,32 @@ namespace WpfFrontEnd.Views.Faturas
 
             try
             {
-                bool sucesso = await faturaService.AlterarEsatdo(fatura);
+                bool sucesso = await faturaService.AlterarEstado(fatura);
                 if (sucesso)
                 {
-                    MessageBox.Show("Esatdo da fatura atualizado com sucesso.", "Sucesso",
+                    MessageBox.Show("Estado da fatura atualizado com sucesso.", "Sucesso",
                         MessageBoxButton.OK, MessageBoxImage.Information);
 
                     CarregarFaturas();
                 }
                 else
                 {
-                    MessageBox.Show("Não foi possível alterar fatura.", "Erro",
+                    MessageBox.Show("Não foi possível alterar o estado da fatura.", "Erro",
                         MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
             catch
             {
-
-                MessageBox.Show("Não foi possível alterar fatura.", "Erro",
+                MessageBox.Show("Não foi possível alterar o estado da fatura.", "Erro",
                     MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
-
+        /// <summary>
+        /// Cancels the selected invoice after user confirmation.
+        /// </summary>
+        /// <param name="sender">The event source.</param>
+        /// <param name="e">The event arguments.</param>
         private async void BtnAnularFatura_Click(object sender, RoutedEventArgs e)
         {
             if (dgFaturas.SelectedItem == null)
@@ -119,7 +143,6 @@ namespace WpfFrontEnd.Views.Faturas
                 MessageBox.Show("Selecione uma fatura.", "Aviso",
                     MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
-
             }
 
             Fatura fatura = (Fatura)dgFaturas.SelectedItem;
@@ -130,7 +153,6 @@ namespace WpfFrontEnd.Views.Faturas
             if (resultado != MessageBoxResult.Yes)
             {
                 return;
-
             }
             try
             {
@@ -154,26 +176,30 @@ namespace WpfFrontEnd.Views.Faturas
                 MessageBox.Show("Não foi possível anular a fatura.", "Erro",
                     MessageBoxButton.OK, MessageBoxImage.Error);
             }
-
         }
 
-
-
+        /// <summary>
+        /// Clears the selected invoice and resets the controls.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnLimpar_Click(object sender, RoutedEventArgs e)
         {
             LimparSelecao();
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
         private void LimparSelecao()
         {
             dgFaturas.SelectedItem = null;
-            txtFaturaSelecionada.Text = $"Nenhuma fatura selecionada";
+            txtFaturaSelecionada.Text = "Nenhuma fatura selecionada";
 
             cmbEstados.SelectedItem = null;
             cmbEstados.IsEnabled = false;
             btnAnularFatura.IsEnabled = false;
-           btnAlterarEstado.IsEnabled = false;
+            btnAlterarEstado.IsEnabled = false;
         }
     }
 }

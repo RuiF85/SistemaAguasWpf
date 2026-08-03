@@ -20,6 +20,10 @@ namespace WpfFrontEnd.Services
             BaseUrl = ConfigurationManager.AppSettings["ApiBaseUrl"] + "faturas";
         }
 
+        /// <summary>
+        /// Retrieves all invoices from the API.
+        /// </summary>
+        /// <returns>A list of invoices. Returns an empty list if the request fails.</returns>
         public async Task<List<Fatura>> ObterFaturas()
         {
             HttpResponseMessage response = await _httpClient.GetAsync(BaseUrl);
@@ -33,6 +37,11 @@ namespace WpfFrontEnd.Services
             return new List<Fatura>();
         }
 
+        /// <summary>
+        /// Generates a new invoice based on the specified consumption ID.
+        /// </summary>
+        /// <param name="idConsumo">The ID of the consumption for which to generate an invoice.</param>
+        /// <returns>True if the invoice is generated successfully; otherwise, false.</returns>
         public async Task<bool> GerarFatura(int idConsumo)
         {
             HttpResponseMessage response = await _httpClient.PostAsync($"{BaseUrl}/gerar/{idConsumo}", null);
@@ -40,7 +49,12 @@ namespace WpfFrontEnd.Services
             return response.IsSuccessStatusCode;
         }
 
-        public async Task<bool> AlterarEsatdo(Fatura fatura)
+        /// <summary>
+        /// Updates the status of an existing invoice.
+        /// </summary>
+        /// <param name="fatura">The invoice with the updated status.</param>
+        /// <returns>True if the invoice status is updated successfully; otherwise, false.</returns>
+        public async Task<bool> AlterarEstado(Fatura fatura)
         {
             string json = JsonConvert.SerializeObject(fatura);
 
@@ -51,6 +65,12 @@ namespace WpfFrontEnd.Services
             return response.IsSuccessStatusCode;
 
         }
+
+        /// <summary>
+        /// Annulls an existing invoice.
+        /// </summary>
+        /// <param name="id">The ID of the invoice to be annulled.</param>
+        /// <returns>True if the invoice is annulled successfully; otherwise, false.</returns>
         public async Task<bool> AnularFatura(int id)
         {
             HttpResponseMessage response = await _httpClient.DeleteAsync($"{BaseUrl}/{id}");

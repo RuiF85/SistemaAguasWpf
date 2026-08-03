@@ -19,6 +19,11 @@ namespace WpfFrontEnd.Views.Clientes
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Validates the entered data and saves a new client.
+        /// </summary>
+        /// <param name="sender">The event source.</param>
+        /// <param name="e">The event arguments.</param>
         public async void BtnGuardar_Click(object sender, RoutedEventArgs e)
         {
                 string nome = txtNome.Text.Trim();
@@ -75,7 +80,8 @@ namespace WpfFrontEnd.Views.Clientes
             }
 
             if (txtCodigoPostal.Text.Length != 8 || txtCodigoPostal.Text[4] != '-' ||
-                !codigoPostal.Substring(0, 4).All(char.IsDigit) || !codigoPostal.Substring(5, 3).All(char.IsDigit)) 
+                !codigoPostal.Substring(0, 4).All(char.IsDigit) ||
+                !codigoPostal.Substring(5, 3).All(char.IsDigit)) 
             {
                 MessageBox.Show("O código postal deve ter o formato 1234-567.", "Código postal inválido",
                     MessageBoxButton.OK,MessageBoxImage.Warning);
@@ -113,11 +119,19 @@ namespace WpfFrontEnd.Views.Clientes
             }
         }
 
+        /// <summary>
+        /// Clears all form fields.
+        /// </summary>
+        /// <param name="sender">The event source.</param>
+        /// <param name="e">The event arguments.</param>
         private void BtnLimpar_Click( object sender, RoutedEventArgs e)
         {
             LimparCampos();
         }
 
+        /// <summary>
+        /// Clears the form fields and sets the focus to the name textbox.
+        /// </summary>
         private void LimparCampos()
         {
             txtNome.Clear();

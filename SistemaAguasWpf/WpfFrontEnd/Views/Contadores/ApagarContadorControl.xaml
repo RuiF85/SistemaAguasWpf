@@ -629,8 +629,8 @@
                                                     Binding="{Binding IdContador}"
                                                     Width="70"/>
 
-                                <DataGridTextColumn Header="ID Cliente"
-                                                    Binding="{Binding IdCliente}"
+                                <DataGridTextColumn Header="Cliente"
+                                                    Binding="{Binding NomeCliente}"
                                                     Width="105"/>
 
                                 <DataGridTextColumn Header="Número"

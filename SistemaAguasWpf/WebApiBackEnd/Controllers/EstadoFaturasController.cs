@@ -9,7 +9,10 @@ namespace WebApiBackEnd.Controllers
     {
         DataClassesDataContext dc = new DataClassesDataContext(
             ConfigurationManager.ConnectionStrings["SistemaAguasConnectionString"].ConnectionString);
-
+        /// <summary>
+        /// Gets all EstadoFaturas.
+        /// </summary>
+        /// <returns></returns>
         public List<EstadoFatura> Get()
         {
             return dc.EstadoFaturas.ToList();

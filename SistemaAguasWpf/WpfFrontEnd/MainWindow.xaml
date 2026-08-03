@@ -5,6 +5,7 @@
         Width="1400"
         Height="800"
         WindowStartupLocation="CenterScreen"
+       
         WindowState="Maximized">
 
     <Window.Resources>
@@ -249,6 +250,29 @@
                 </PathFigure>
 
             </PathGeometry>
+
+        </GeometryGroup>
+
+
+        <!-- DASHBOARD: grelha 2x2 -->
+
+        <GeometryGroup x:Key="IconeDashboard">
+
+            <RectangleGeometry Rect="3,3,8,8"
+                               RadiusX="1.5"
+                               RadiusY="1.5"/>
+
+            <RectangleGeometry Rect="13,3,8,8"
+                               RadiusX="1.5"
+                               RadiusY="1.5"/>
+
+            <RectangleGeometry Rect="3,13,8,8"
+                               RadiusX="1.5"
+                               RadiusY="1.5"/>
+
+            <RectangleGeometry Rect="13,13,8,8"
+                               RadiusX="1.5"
+                               RadiusY="1.5"/>
 
         </GeometryGroup>
 
@@ -729,17 +753,7 @@
 
                             <StackPanel Orientation="Horizontal">
 
-                                <Border x:Name="IconBackgroundClientes"
-                                        Style="{StaticResource IconCircleStyle}">
-
-                                    <Border.Effect>
-
-                                        <DropShadowEffect Color="#A8E9FA"
-                                                          BlurRadius="0"
-                                                          ShadowDepth="0"
-                                                          Opacity="0"/>
-
-                                    </Border.Effect>
+                                <Border Style="{StaticResource IconCircleStyle}">
 
                                     <Path Data="{StaticResource IconeClientes}"
                                           Style="{StaticResource MenuIconStyle}"/>
@@ -785,17 +799,7 @@
 
                             <StackPanel Orientation="Horizontal">
 
-                                <Border x:Name="IconBackgroundContadores"
-                                        Style="{StaticResource IconCircleStyle}">
-
-                                    <Border.Effect>
-
-                                        <DropShadowEffect Color="#A8E9FA"
-                                                          BlurRadius="0"
-                                                          ShadowDepth="0"
-                                                          Opacity="0"/>
-
-                                    </Border.Effect>
+                                <Border Style="{StaticResource IconCircleStyle}">
 
                                     <Path Data="{StaticResource IconeContadores}"
                                           Style="{StaticResource MenuIconStyle}"/>
@@ -841,17 +845,7 @@
 
                             <StackPanel Orientation="Horizontal">
 
-                                <Border x:Name="IconBackgroundConsumos"
-                                        Style="{StaticResource IconCircleStyle}">
-
-                                    <Border.Effect>
-
-                                        <DropShadowEffect Color="#A8E9FA"
-                                                          BlurRadius="0"
-                                                          ShadowDepth="0"
-                                                          Opacity="0"/>
-
-                                    </Border.Effect>
+                                <Border Style="{StaticResource IconCircleStyle}">
 
                                     <Path Data="{StaticResource IconeConsumos}"
                                           Style="{StaticResource MenuIconStyle}"/>
@@ -897,18 +891,10 @@
 
                             <StackPanel Orientation="Horizontal">
 
-                                <Border x:Name="IconBackgroundFaturas"
-                    Style="{StaticResource IconCircleStyle}">
-
-                                    <Border.Effect>
-                                        <DropShadowEffect Color="#A8E9FA"
-                                      BlurRadius="0"
-                                      ShadowDepth="0"
-                                      Opacity="0"/>
-                                    </Border.Effect>
+                                <Border Style="{StaticResource IconCircleStyle}">
 
                                     <Path Data="{StaticResource IconeFaturas}"
-                      Style="{StaticResource MenuIconStyle}"/>
+                                          Style="{StaticResource MenuIconStyle}"/>
 
                                 </Border>
 
@@ -935,40 +921,33 @@
 
                     </StackPanel>
 
+                </StackPanel>
 
-                    <!-- SOBRE -->
 
-                    <Button x:Name="BtnSobre"
+                <!-- SOBRE (fundo da coluna) -->
+
+                <Button x:Name="BtnSobre"
                         Grid.Row="2"
                         Style="{StaticResource AboutButtonStyle}"
+                        VerticalAlignment="Center"
                         Click="BtnSobre_Click">
 
-                        <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Horizontal">
 
-                            <Border x:Name="IconBackgroundSobre"
-                                Style="{StaticResource IconCircleStyle}">
+                        <Border Style="{StaticResource IconCircleStyle}">
 
-                                <Border.Effect>
-
-                                    <DropShadowEffect Color="#A8E9FA"
-                                                  BlurRadius="0"
-                                                  ShadowDepth="0"
-                                                  Opacity="0"/>
-
-                                </Border.Effect>
-
-                                <Path Data="{StaticResource IconeSobre}"
+                            <Path Data="{StaticResource IconeSobre}"
                                   Style="{StaticResource MenuIconStyle}"/>
 
-                            </Border>
+                        </Border>
 
-                            <TextBlock Text="Sobre"
+                        <TextBlock Text="Sobre"
                                    VerticalAlignment="Center"/>
 
-                        </StackPanel>
+                    </StackPanel>
 
-                    </Button>
-                </StackPanel>
+                </Button>
+
             </Grid>
 
         </Border>
@@ -1009,27 +988,53 @@
                 </StackPanel>
 
 
-                <!-- BOTÃO SAIR COM ÍCONE VETORIAL -->
+                <!-- BOTÕES DASHBOARD E SAIR -->
 
-                <Button Grid.Column="1"
-                        Style="{StaticResource ExitButtonStyle}"
-                        Margin="10,0,0,0"
-                        VerticalAlignment="Center"
-                        ToolTip="Sair"
-                        Click="BtnSair_Click">
+                <StackPanel Grid.Column="1"
+                            Orientation="Horizontal"
+                            VerticalAlignment="Center">
 
-                    <Path Data="{StaticResource IconeSair}"
-                          Width="27"
-                          Height="27"
-                          Stretch="Uniform"
-                          Stroke="#0A5C7A"
-                          StrokeThickness="2"
-                          StrokeStartLineCap="Round"
-                          StrokeEndLineCap="Round"
-                          StrokeLineJoin="Round"
-                          Fill="Transparent"/>
+                    <!-- BOTÃO DASHBOARD -->
 
-                </Button>
+                    <Button Style="{StaticResource ExitButtonStyle}"
+                            Margin="10,0,0,0"
+                            ToolTip="Dashboard"
+                            Click="BtnDashboard_Click">
+
+                        <Path Data="{StaticResource IconeDashboard}"
+                              Width="27"
+                              Height="27"
+                              Stretch="Uniform"
+                              Stroke="#0A5C7A"
+                              StrokeThickness="1.8"
+                              StrokeStartLineCap="Round"
+                              StrokeEndLineCap="Round"
+                              StrokeLineJoin="Round"
+                              Fill="Transparent"/>
+
+                    </Button>
+
+                    <!-- BOTÃO SAIR COM ÍCONE VETORIAL -->
+
+                    <Button Style="{StaticResource ExitButtonStyle}"
+                            Margin="10,0,0,0"
+                            ToolTip="Sair"
+                            Click="BtnSair_Click">
+
+                        <Path Data="{StaticResource IconeSair}"
+                              Width="27"
+                              Height="27"
+                              Stretch="Uniform"
+                              Stroke="#0A5C7A"
+                              StrokeThickness="2"
+                              StrokeStartLineCap="Round"
+                              StrokeEndLineCap="Round"
+                              StrokeLineJoin="Round"
+                              Fill="Transparent"/>
+
+                    </Button>
+
+                </StackPanel>
 
             </Grid>
 

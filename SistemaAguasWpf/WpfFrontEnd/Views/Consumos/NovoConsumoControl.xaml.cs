@@ -30,6 +30,9 @@ namespace WpfFrontEnd.Views.Consumos
             CarregarConsumos();
         }
 
+        /// <summary>
+        /// Loads the available meters into the ComboBox.
+        /// </summary>
         private async void CarregarContadores()
         {
             try
@@ -43,6 +46,9 @@ namespace WpfFrontEnd.Views.Consumos
             }
         }
 
+        /// <summary>
+        /// Loads the consumption history for the selected meter into the DataGrid.
+        /// </summary>
         private async void CarregarConsumos()
         {
             try
@@ -63,11 +69,19 @@ namespace WpfFrontEnd.Views.Consumos
             }
         }
 
+        /// <summary>
+        /// Updates the consumption history when a different meter is selected in the ComboBox.
+        /// </summary>
+        /// <param name="sender">The event source.</param>
+        /// <param name="e">The event arguments.</param>
         private void CmbContadores_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             AtualizarHistorico();
         }
 
+        /// <summary>
+        /// Updates the DataGrid and information labels based on the selected meter and its consumption history.
+        /// </summary>
         private void AtualizarHistorico()
         {
             if (cmbContadores.SelectedValue == null)
@@ -114,6 +128,11 @@ namespace WpfFrontEnd.Views.Consumos
             }
         }
 
+        /// <summary>
+        /// Handles the click event of the "Guardar" button to save a new consumption record.
+        /// </summary>
+        /// <param name="sender">The event source.</param>
+        /// <param name="e">The event arguments.</param>
         private async void BtnGuardar_Click(object sender, RoutedEventArgs e)
         {
             if (cmbContadores.SelectedValue == null)
@@ -230,11 +249,19 @@ namespace WpfFrontEnd.Views.Consumos
             }
         }
 
+        /// <summary>
+        /// Handles the click event of the "Limpar" button to clear all input fields and reset the form.
+        /// </summary>
+        /// <param name="sender">The event source.</param>
+        /// <param name="e">The event arguments.</param>
         private void BtnLimpar_Click(object sender, RoutedEventArgs e)
         {
             LimparCampos();
         }
 
+        /// <summary>
+        /// Clears all input fields and resets the form to its initial state.
+        /// </summary>
         private void LimparCampos()
         {
             cmbContadores.SelectedIndex = -1;

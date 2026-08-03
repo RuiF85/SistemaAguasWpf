@@ -19,6 +19,10 @@ namespace WpfFrontEnd.Services
             BaseUrl = ConfigurationManager.AppSettings["ApiBaseUrl"] + "contadores";
         }
 
+        /// <summary>
+        /// Retrieves all counters from the API.
+        /// </summary>
+        /// <returns>A list of counters. Returns an empty list if the request fails.</returns>
         public async Task<List<Contador>> ObterContadores()
         {
             HttpResponseMessage response = await _httpClient.GetAsync(BaseUrl);
@@ -32,6 +36,11 @@ namespace WpfFrontEnd.Services
             return new List<Contador>();
         }
 
+        /// <summary>
+        /// Creates a new counter by sending a POST request to the API.
+        /// </summary>
+        /// <param name="contador">The counter to be created.</param>
+        /// <returns>True if the counter is created successfully; otherwise, false.</returns>
         public async Task<bool> CriarContador(Contador contador)
         {
             string json = JsonConvert.SerializeObject(contador);
@@ -43,6 +52,11 @@ namespace WpfFrontEnd.Services
             return response.IsSuccessStatusCode;
         }
 
+        /// <summary>
+        /// Updates an existing counter by sending a PUT request to the API.
+        /// </summary>
+        /// <param name="contador">The counter to be updated.</param>
+        /// <returns>True if the counter is updated successfully; otherwise, false.</returns>
         public async Task<bool> AlterarContador(Contador contador)
         {
             string json = JsonConvert.SerializeObject(contador);
@@ -54,6 +68,12 @@ namespace WpfFrontEnd.Services
             return response.IsSuccessStatusCode;
 
         }
+
+        /// <summary>
+        /// Deletes an existing counter from the API.
+        /// </summary>
+        /// <param name="id">The identifier of the counter to be deleted.</param>
+        /// <returns>True if the counter is deleted successfully; otherwise, false.</returns>
         public async Task<bool> EliminarContador(int id)
         {
             HttpResponseMessage response = await _httpClient.DeleteAsync($"{BaseUrl}/{id}");

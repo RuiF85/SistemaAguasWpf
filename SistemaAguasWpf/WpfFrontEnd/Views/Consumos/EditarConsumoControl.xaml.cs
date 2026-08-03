@@ -1,17 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using WpfFrontEnd.Models;
 using WpfFrontEnd.Services;
 
@@ -37,9 +27,13 @@ namespace WpfFrontEnd.Views.Consumos
             CarregarContadores();
             CarregarConsumos();
         }
+
+        /// <summary>
+        /// Loads the available meters into the ComboBox.
+        /// </summary>
         private async void CarregarContadores()
         {
-            try 
+            try
             {
                 cmbContadores.ItemsSource = await contadorService.ObterContadores();
             }
@@ -50,6 +44,9 @@ namespace WpfFrontEnd.Views.Consumos
             }
         }
 
+        /// <summary>
+        /// Loads the consumptions from the API and populates the DataGrid.
+        /// </summary>
         private async void CarregarConsumos()
         {
             try
@@ -64,9 +61,14 @@ namespace WpfFrontEnd.Views.Consumos
             }
         }
 
+        /// <summary>
+        /// Updates the form with the selected consumption data.
+        /// </summary>
+        /// <param name="sender">The event source.</param>
+        /// <param name="e">The event arguments.</param>
         private void DgConsumos_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if(dgConsumos.SelectedItem == null)
+            if (dgConsumos.SelectedItem == null)
             {
                 return;
             }
@@ -81,25 +83,30 @@ namespace WpfFrontEnd.Views.Consumos
             txtIdFatura.Text = consumo.IdFatura.HasValue ? consumo.IdFatura.Value.ToString() : "";
         }
 
+        /// <summary>
+        /// Validates the entered data and updates the selected consumption.
+        /// </summary>
+        /// <param name="sender">The event source.</param>
+        /// <param name="e">The event arguments.</param>
         private async void BtnGuardar_Click(object sender, RoutedEventArgs e)
         {
             if (dgConsumos.SelectedItem == null)
             {
-                MessageBox.Show( "Selecione um consumo.", "Aviso",
+                MessageBox.Show("Selecione um consumo.", "Aviso",
                     MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
             if (dpData.SelectedDate == null)
             {
-                MessageBox.Show( "Selecione a data.", "Data obrigatória",
+                MessageBox.Show("Selecione a data.", "Data obrigatória",
                     MessageBoxButton.OK, MessageBoxImage.Warning);
-                 return;
+                return;
             }
 
             if (dpData.SelectedDate.Value.Date > DateTime.Today)
             {
-                MessageBox.Show( "A data não pode ser futura.", "Data inválida",
+                MessageBox.Show("A data não pode ser futura.", "Data inválida",
                     MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
@@ -108,14 +115,14 @@ namespace WpfFrontEnd.Views.Consumos
 
             if (!decimal.TryParse(txtLeituraAtual.Text.Trim(), out leitura))
             {
-                MessageBox.Show( "Introduza uma leitura válida.", "Erro",
-                    MessageBoxButton.OK,MessageBoxImage.Warning);
+                MessageBox.Show("Introduza uma leitura válida.", "Erro",
+                    MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
             if (leitura < 0)
             {
-                MessageBox.Show( "A leitura não pode ser negativa.",  "Erro",
+                MessageBox.Show("A leitura não pode ser negativa.", "Erro",
                     MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
@@ -129,7 +136,7 @@ namespace WpfFrontEnd.Views.Consumos
 
             if (sucesso)
             {
-                MessageBox.Show( "Consumo alterado com sucesso.", "Sucesso",
+                MessageBox.Show("Consumo alterado com sucesso.", "Sucesso",
                     MessageBoxButton.OK, MessageBoxImage.Information);
 
                 CarregarConsumos();
@@ -142,11 +149,19 @@ namespace WpfFrontEnd.Views.Consumos
             }
         }
 
+        /// <summary>
+        /// Clears all form fields.
+        /// </summary>
+        /// <param name="sender">The event source.</param>
+        /// <param name="e">The event arguments.</param>
         private void BtnLimpar_Click(object sender, RoutedEventArgs e)
         {
             LimparCampos();
         }
 
+        /// <summary>
+        /// Clears the form fields and resets the selection.
+        /// </summary>
         private void LimparCampos()
         {
             dgConsumos.SelectedItem = null;

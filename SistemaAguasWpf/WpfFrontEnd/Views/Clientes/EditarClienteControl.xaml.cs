@@ -22,11 +22,19 @@ namespace WpfFrontEnd.Views.Clientes
             CarregarClientes();
         }
 
+        /// <summary>
+        /// Loads the list of clients into the data grid.
+        /// </summary>
         private async Task CarregarClientes()
         {
             dgClientes.ItemsSource = await clienteApiService.ObterClientes();
         }
 
+        /// <summary>
+        /// Handles the DataGrid selection change event.
+        /// </summary>
+        /// <param name="sender">The event source.</param>
+        /// <param name="e">The event arguments.</param>
         private void DgClientes_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             clienteSelecionado = dgClientes.SelectedItem as Cliente;
@@ -47,12 +55,23 @@ namespace WpfFrontEnd.Views.Clientes
             chkAtivo.IsChecked = clienteSelecionado.Ativo;
         }
 
+        /// <summary>
+        /// Clears the current selection.
+        /// </summary>
+        /// <param name="sender">The event source.</param>
+        /// <param name="e">The event arguments.</param>
         private void BtnCancelar_Click(object sender, RoutedEventArgs e)
         {
             clienteSelecionado = null;
             LimparCampos();
         }
 
+        /// <summary>
+        /// Deletes the selected client.
+        /// </summary>
+        /// <param name="sender">The event source.</param>
+        /// <param name="e">The event arguments.</param>
+        /// <param name="e"></param>
         private async void BtnGuardarAlteracoes_Click(object sender, RoutedEventArgs e)
         {
             if (clienteSelecionado == null)
@@ -81,7 +100,7 @@ namespace WpfFrontEnd.Views.Clientes
                     MessageBoxButton.OK, MessageBoxImage.Information);
 
                 await CarregarClientes();
-                LimparCampos();
+                      LimparCampos();
                 clienteSelecionado = null;
 
             }
@@ -90,9 +109,11 @@ namespace WpfFrontEnd.Views.Clientes
                 MessageBox.Show("Não foi possível atualizar o cliente.", "Erro",
                     MessageBoxButton.OK, MessageBoxImage.Error);
             }
-
         }
 
+        /// <summary>
+        /// Clears the input fields.
+        /// </summary>
         private void LimparCampos()
         {
             txtNome.Clear();

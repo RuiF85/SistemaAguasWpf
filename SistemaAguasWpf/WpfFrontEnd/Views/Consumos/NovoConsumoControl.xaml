@@ -873,7 +873,7 @@
 
                             <TextBlock x:Name="txtInformacaoLeitura"
                                        Text=" Selecione um contador para consultar a última leitura."
-                                       FontSize="15"
+                                       FontSize="17"
                                        Foreground="#31566B"
                                        VerticalAlignment="Center"/>
 

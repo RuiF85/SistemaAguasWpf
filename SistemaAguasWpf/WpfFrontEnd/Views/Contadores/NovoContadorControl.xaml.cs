@@ -8,7 +8,7 @@ using WpfFrontEnd.Services;
 namespace WpfFrontEnd.Views.Contadores
 {
     /// <summary>
-    /// Interaction logic for NovoContadorControl.xaml
+    /// UserControl for creating new meters.
     /// </summary>
     public partial class NovoContadorControl : UserControl
     {
@@ -24,6 +24,10 @@ namespace WpfFrontEnd.Views.Contadores
             dpDataInstalacao.SelectedDate = DateTime.Today;
         }
 
+        /// <summary>
+        /// Loads the clients into the ComboBox.
+        /// </summary>
+        /// <returns>A task that represents the asynchronous operation.</returns>
         private async Task CarregarClientes()
         {
             try
@@ -37,6 +41,11 @@ namespace WpfFrontEnd.Views.Contadores
             }
         }
 
+        /// <summary>
+        /// Validates the entered data and creates a new meter.
+        /// </summary>
+        /// <param name="sender">The event source.</param>
+        /// <param name="e">The event arguments.</param>
         private async void BtnGuardar_Click(object sender, RoutedEventArgs e)
         {
             string numeroContador = txtNumeroContador.Text.Trim();
@@ -70,9 +79,9 @@ namespace WpfFrontEnd.Views.Contadores
 
             if (dpDataInstalacao.SelectedDate.Value.Date > DateTime.Today)
             {
-                MessageBox.Show( "A data de instalação não pode ser uma data futura.",
+                MessageBox.Show("A data de instalação não pode ser uma data futura.",
                     "Data inválida",
-                    MessageBoxButton.OK,MessageBoxImage.Warning);
+                    MessageBoxButton.OK, MessageBoxImage.Warning);
 
                 dpDataInstalacao.Focus();
                 return;
@@ -86,14 +95,13 @@ namespace WpfFrontEnd.Views.Contadores
                 Ativo = chkAtivo.IsChecked == true
             };
 
-
             try
             {
                 bool sucesso = await contadorService.CriarContador(contador);
 
                 if (sucesso)
                 {
-                    MessageBox.Show("Contador criado com sucess.", "Sucesso",
+                    MessageBox.Show("Contador criado com sucesso.", "Sucesso",
                         MessageBoxButton.OK, MessageBoxImage.Information);
 
                     LimparCampos();
@@ -111,13 +119,19 @@ namespace WpfFrontEnd.Views.Contadores
             }
         }
 
-        private void BtnLimpar_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Clears all form fields.
+        /// </summary>
+        /// <param name="sender">The event source.</param>
+        /// <param name="e">The event arguments.</param>
+        private void BtnLimpar_Click(object sender, RoutedEventArgs e)
         {
             LimparCampos();
         }
 
-
-
+        /// <summary>
+        /// Clears all form fields and resets the default values.
+        /// </summary>
         private void LimparCampos()
         {
             cmbClientes.SelectedIndex = -1;

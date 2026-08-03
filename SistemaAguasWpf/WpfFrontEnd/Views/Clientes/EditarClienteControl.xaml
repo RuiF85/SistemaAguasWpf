@@ -809,7 +809,7 @@
 
                                 <DataGridTextColumn Header="ID"
                                                     Binding="{Binding IdCliente}"
-                                                    Width="65"/>
+                                                    Width="85"/>
 
                                 <DataGridTextColumn Header="Nome"
                                                     Binding="{Binding Nome}"
@@ -821,11 +821,11 @@
 
                                 <DataGridTextColumn Header="NIF"
                                                     Binding="{Binding Nif}"
-                                                    Width="105"/>
+                                                    Width="200"/>
 
                                 <DataGridTextColumn Header="Contacto"
                                                     Binding="{Binding Contacto}"
-                                                    Width="125"/>
+                                                    Width="200"/>
 
                                 <DataGridTextColumn Header="Email"
                                                     Binding="{Binding Email}"

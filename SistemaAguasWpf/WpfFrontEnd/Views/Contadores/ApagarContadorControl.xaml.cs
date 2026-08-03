@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using WpfFrontEnd.Models;
@@ -12,6 +13,7 @@ namespace WpfFrontEnd.Views.Contadores
     public partial class ApagarContadorControl : UserControl
     {
         private readonly ContadorApiService contadorService = new ContadorApiService();
+        private readonly ClienteApiService clienteService = new ClienteApiService();
         private Contador contadorSelecionado;
 
         public ApagarContadorControl()
@@ -21,11 +23,27 @@ namespace WpfFrontEnd.Views.Contadores
             CarregarContadores();
         }
 
+        /// <summary>
+        /// Loads the meters from the API and populates the DataGrid.
+        /// </summary>
+        /// <returns>A task that represents the asynchronous operation.</returns>
         private async Task CarregarContadores()
         {
-            dgContadores.ItemsSource = await contadorService.ObterContadores();
+            var contadores = await contadorService.ObterContadores();
+            var clientes = await clienteService.ObterClientes();
+
+            foreach (var c in contadores)
+            {
+                c.NomeCliente = clientes.FirstOrDefault(cl => cl.IdCliente == c.IdCliente)?.NomeCompleto;
+            }
+            dgContadores.ItemsSource = contadores;
         }
 
+        /// <summary>
+        /// Updates the selected meter details.
+        /// </summary>
+        /// <param name="sender">The event source.</param>
+        /// <param name="e">The event arguments.</param>
         private void DgContadores_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             contadorSelecionado = dgContadores.SelectedItem as Contador;
@@ -42,6 +60,11 @@ namespace WpfFrontEnd.Views.Contadores
             txtEstado.Text = contadorSelecionado.Ativo ? "Ativo" : "Inativo";
         }
 
+        /// <summary>
+        /// Deletes the selected meter after user confirmation.
+        /// </summary>
+        /// <param name="sender">The event source.</param>
+        /// <param name="e">The event arguments.</param>
         private async void BtnApagar_Click(object sender, RoutedEventArgs e)
         {
             if (contadorSelecionado == null)
@@ -51,8 +74,7 @@ namespace WpfFrontEnd.Views.Contadores
                 return;
             }
 
-            MessageBoxResult resposta = MessageBox.Show(
-             $"Tem a certeza de que pretende apagar o contador {contadorSelecionado.NumeroContador}?",
+            MessageBoxResult resposta = MessageBox.Show( $"Tem a certeza de que pretende apagar o contador {contadorSelecionado.NumeroContador}?",
              "Confirmar eliminação",
              MessageBoxButton.YesNo, MessageBoxImage.Question);
 
@@ -68,7 +90,7 @@ namespace WpfFrontEnd.Views.Contadores
                     MessageBoxButton.OK, MessageBoxImage.Information);
 
                 await AtualizarLista();
-                LimparSelecao();
+                         LimparSelecao();
             }
             else
             {
@@ -77,11 +99,19 @@ namespace WpfFrontEnd.Views.Contadores
             }
         }
 
+        /// <summary>
+        /// Clears the current selection.
+        /// </summary>
+        /// <param name="sender">The event source.</param>
+        /// <param name="e">The event arguments.</param>
         private void BtnCancelar_Click(object sender, RoutedEventArgs e)
         {
             LimparSelecao();
         }
 
+        /// <summary>
+        /// Clears the current selection.
+        /// </summary>
         private void LimparSelecao()
         {
             contadorSelecionado = null;
@@ -89,11 +119,18 @@ namespace WpfFrontEnd.Views.Contadores
             LimparDetalhes();
         }
 
+        /// <summary>
+        /// Refreshes the list of meters.
+        /// </summary>
+        /// <returns>A task representing the asynchronous operation.</returns>
         private async Task AtualizarLista()
         {
-            dgContadores.ItemsSource = await contadorService.ObterContadores();
+            await CarregarContadores();
         }
 
+        /// <summary>
+        /// Clears the details of the selected meter.
+        /// </summary>
         private void LimparDetalhes()
         {
             txtCliente.Text = string.Empty;

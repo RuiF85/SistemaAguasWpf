@@ -21,6 +21,10 @@ namespace WpfFrontEnd.Services
             BaseUrl = ConfigurationManager.AppSettings["ApiBaseUrl"] + "clientes";
         }
 
+        /// <summary>
+        /// Retrieves all clients from the API.
+        /// </summary>
+        /// <returns>A list of clients. Returns an empty list if the request fails.</returns>
         public async Task<List<Cliente>> ObterClientes()
         {
             HttpResponseMessage response = await _httpClient.GetAsync(BaseUrl);
@@ -35,6 +39,11 @@ namespace WpfFrontEnd.Services
 
         }
 
+        /// <summary>
+        /// Creates a new client in the API.
+        /// </summary>
+        /// <param name="cliente">The client object to be created.</param>
+        /// <returns>True if the client is created successfully; otherwise, false.</returns>
         public async Task<bool> CriarCliente(Cliente cliente)
         {
             string json = JsonConvert.SerializeObject(cliente);
@@ -46,6 +55,11 @@ namespace WpfFrontEnd.Services
             return response.IsSuccessStatusCode;
         }
 
+        /// <summary>
+        ///  Updates an existing client in the API.
+        /// </summary>
+        /// <param name="cliente">The client object to be updated.</param>
+        /// <returns>True if the client is updated successfully; otherwise, false.</returns>
         public async Task<bool> AlterarCliente(Cliente cliente)
         {
             string json = JsonConvert.SerializeObject(cliente);
@@ -58,6 +72,11 @@ namespace WpfFrontEnd.Services
 
         }
 
+        /// <summary>
+        /// Excluir um cliente existente na API
+        /// </summary>
+        /// <param name="id">The client identifier.</param>
+        /// <returns>True if the client is deleted successfully; otherwise, false.</returns>
         public async Task<bool> EliminarCliente(int id)
         {
             HttpResponseMessage response = await _httpClient.DeleteAsync($"{BaseUrl}/{id}");

@@ -14,5 +14,7 @@ namespace WpfFrontEnd.Models
 
         public bool Ativo { get; set; }
 
+        public string NomeCliente { get; set; }
+
     }
 }

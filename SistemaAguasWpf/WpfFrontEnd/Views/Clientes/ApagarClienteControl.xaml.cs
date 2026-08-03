@@ -23,11 +23,19 @@ namespace WpfFrontEnd.Views.Clientes
             CarregarClientes();
         }
 
+        /// <summary>
+        ///  Loads the list of clients into the data grid.
+        /// </summary>
         private async Task CarregarClientes()
         {
             dgClientes.ItemsSource = await clienteApiService.ObterClientes();
         }
 
+        /// <summary>
+        /// Handles the DataGrid selection change event.
+        /// </summary>
+        /// <param name="sender">The event source.</param>
+        /// <param name="e">The event arguments.</param>
         private void DgClientes_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             clienteSelecionado = dgClientes.SelectedItem as Cliente;
@@ -35,18 +43,19 @@ namespace WpfFrontEnd.Views.Clientes
             if (clienteSelecionado == null)
             {
                 return;
-
             }
 
             lblNome.Text = clienteSelecionado.Nome + " " + clienteSelecionado.Apelido;
-
             lblNif.Text = clienteSelecionado.Nif;
-
             lblContacto.Text = clienteSelecionado.Contacto;
-
             lblEmail.Text = clienteSelecionado.Email;
         }
 
+        /// <summary>
+        /// Clears the current selection.
+        /// </summary>
+        /// <param name="sender">The event source.</param>
+        /// <param name="e">The event arguments.</param>
         private void BtnCancelar_Click( object sender,  RoutedEventArgs e)
         {
             dgClientes.SelectedItem = null;
@@ -59,19 +68,23 @@ namespace WpfFrontEnd.Views.Clientes
             clienteSelecionado = null;
         }
 
+        /// <summary>
+        /// Deletes the selected client.
+        /// </summary>
+        /// <param name="sender">The event source.</param>
+        /// <param name="e">The event arguments.</param>
         private async void BtnApagarCliente_Click( object sender, RoutedEventArgs e)
         {
             if (clienteSelecionado == null)
             {
-                MessageBox.Show( "Selecione um cliente.","Aviso",
+                MessageBox.Show("Selecione um cliente.","Aviso",
                     MessageBoxButton.OK,  MessageBoxImage.Warning);
 
                 return;
             }
 
             MessageBoxResult resposta =
-                MessageBox.Show(
-                    $"Tem a certeza que pretende apagar o cliente {clienteSelecionado.Nome} {clienteSelecionado.Apelido}?",
+                MessageBox.Show($"Tem a certeza que pretende apagar o cliente {clienteSelecionado.Nome} {clienteSelecionado.Apelido}?",
                     "Confirmar eliminação",
                     MessageBoxButton.YesNo, MessageBoxImage.Question);
 
@@ -84,8 +97,7 @@ namespace WpfFrontEnd.Views.Clientes
 
             if (sucesso)
             {
-                MessageBox.Show(
-                    "Cliente eliminado com sucesso.","Sucesso",
+                MessageBox.Show("Cliente eliminado com sucesso.","Sucesso",
                     MessageBoxButton.OK, MessageBoxImage.Information);
 
                 await CarregarClientes();
